@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bastion IMO | Cotiza tu Seguro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#ffffff",
+              "on-surface": "#131b2e",
+              "surface-dim": "#d2d9f4",
+              "on-primary-fixed": "#00174a",
+              "primary": "#00113a",
+              "on-background": "#131b2e",
+              "surface-container-lowest": "#ffffff",
+              "secondary": "#515f74",
+              "surface-tint": "#435b9f",
+              "surface-container-highest": "#dae2fd",
+              "on-tertiary-fixed-variant": "#005236",
+              "secondary-fixed-dim": "#b9c7df",
+              "tertiary-container": "#002f1e",
+              "inverse-on-surface": "#eef0ff",
+              "inverse-surface": "#283044",
+              "inverse-primary": "#b3c5ff",
+              "surface-container-low": "#f2f3ff",
+              "surface-container": "#eaedff",
+              "on-secondary-fixed-variant": "#3a485b",
+              "on-primary-fixed-variant": "#2a4386",
+              "tertiary-fixed-dim": "#4edea3",
+              "on-tertiary": "#ffffff",
+              "primary-container": "#002366",
+              "on-surface-variant": "#444650",
+              "on-error-container": "#93000a",
+              "on-primary-container": "#758dd5",
+              "surface-variant": "#dae2fd",
+              "on-tertiary-fixed": "#002113",
+              "outline-variant": "#c5c6d2",
+              "secondary-container": "#d5e3fc",
+              "on-secondary-container": "#57657a",
+              "surface-bright": "#faf8ff",
+              "error": "#ba1a1a",
+              "background": "#faf8ff",
+              "surface-container-high": "#e2e7ff",
+              "tertiary-fixed": "#6ffbbe",
+              "outline": "#757682",
+              "surface": "#faf8ff",
+              "on-tertiary-container": "#00a371",
+              "on-secondary-fixed": "#0d1c2e",
+              "primary-fixed-dim": "#b3c5ff",
+              "tertiary": "#00180d",
+              "error-container": "#ffdad6",
+              "primary-fixed": "#dbe1ff",
+              "secondary-fixed": "#d5e3fc",
+              "on-secondary": "#ffffff",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md shadow-xl shadow-blue-900/5 h-16 flex justify-between items-center px-8">
+<div class="text-xl font-black text-blue-900 font-headline">Bastion IMO</div>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="text-blue-950 border-b-2 border-blue-900 font-bold pb-1 text-sm tracking-tight" href="#">Dashboard</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors text-sm font-medium" href="#">Policies</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors text-sm font-medium" href="#">Leads</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors text-sm font-medium" href="#">Performance</a>
+</div>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-blue-50 p-2 rounded-full transition-all">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-blue-50 p-2 rounded-full transition-all">settings</span>
+<img alt="Agent Profile Avatar" class="w-10 h-10 rounded-full object-cover ring-2 ring-surface-container-high" data-alt="Professional portrait of a middle-aged hispanic business executive in a sharp navy suit against a clean architectural background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-PuLu21ohLfA5Ru-gpYzyoJxZbh2sCEUMzM-qa7W-ziTI7srbxt1qjX5TkWiQ95PTYpxiOLR5BxO2acN43-lCH8UOrtaINdf8oQeWwNkPZ8EnGQuZKhsV5ZcbZFaRiH60ll_cfSGFazBXZvujDkBquEq44NeyxsmGHpajOCfIPtlsP8oXRZ1p_s_t3uS1omb6IYNSddjx1vsSwNIuQeQhY9dJoezTp0jjjT5mw5ersUPC29L5gGgfy-eFjXiDISsUD_d-dkl-o7L-"/>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative pt-32 pb-24 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-br from-primary to-primary-container opacity-5"></div>
+<img alt="Modern architectural background" class="w-full h-full object-cover opacity-10 grayscale" data-alt="Stunning modern glass office architecture at dusk with blue and cool grey tones reflecting structural integrity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCNxjpEpAGVhjzGHzrftZ1ks0ITjzUN5Z2gUsNpaXDSxoHM_WyMtqS7H0x_EANvnN_Ln8zCDV_ifcc3qdnL5oTPFl-zZ6tN3IStzIUIIjV2JeTKdVtKe3BemAClegJS1J7caPOoz61CY7FUAIO1Sx9WQCBYveyKHbBAsso7WDsPU0WXvXOY7YTlERh-P8kqHI20eYyNPNP3KNYbIC7XzrGf40-5DuzDnxZVjOaBSHQREq_592X9-_wU2NaIuJwSTyQetcNB7H6wNP7"/>
+</div>
+<div class="relative z-10 max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="space-y-8">
+<div class="inline-flex items-center px-4 py-1.5 rounded-full bg-tertiary-container text-on-tertiary-container text-xs font-bold tracking-widest uppercase">
+                    Protección de Nivel Institucional
+                </div>
+<h1 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tight text-primary leading-[1.1]">
+                    Cotiza tu seguro <span class="text-primary-container">con confianza</span> hoy mismo.
+                </h1>
+<p class="text-lg text-on-surface-variant max-w-lg leading-relaxed">
+                    Resiliencia financiera diseñada para el mercado de EE.UU. y LatAm. Tecnología Azure Shield para la máxima seguridad en cada póliza.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="px-8 py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-lg hover:shadow-primary/20 transition-all active:scale-95">
+                        Empezar Cotización
+                    </button>
+<button class="px-8 py-4 bg-surface-container-high text-on-secondary-container font-semibold rounded-xl hover:bg-surface-container-highest transition-all">
+                        Ver Planes
+                    </button>
+</div>
+</div>
+<!-- Integrated Lead Form -->
+<div class="glass-card p-8 rounded-xl shadow-2xl border border-white/20">
+<h3 class="font-headline text-2xl font-bold text-primary mb-6">Obtén tu estimado rápido</h3>
+<form class="space-y-4">
+<div class="space-y-1">
+<label class="text-[0.75rem] font-medium text-on-surface-variant tracking-tight uppercase px-1">Nombre Completo</label>
+<input class="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/20 focus:ring-2 focus:ring-primary rounded-xl py-3 px-4 transition-all" placeholder="Ej: Juan Pérez" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="text-[0.75rem] font-medium text-on-surface-variant tracking-tight uppercase px-1">Correo Electrónico</label>
+<input class="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/20 focus:ring-2 focus:ring-primary rounded-xl py-3 px-4 transition-all" placeholder="juan@empresa.com" type="email"/>
+</div>
+<div class="space-y-1">
+<label class="text-[0.75rem] font-medium text-on-surface-variant tracking-tight uppercase px-1">Teléfono</label>
+<input class="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/20 focus:ring-2 focus:ring-primary rounded-xl py-3 px-4 transition-all" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-[0.75rem] font-medium text-on-surface-variant tracking-tight uppercase px-1">Tipo de Seguro</label>
+<select class="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/20 focus:ring-2 focus:ring-primary rounded-xl py-3 px-4 transition-all">
+<option>Seguro de Vida</option>
+<option>Gastos Médicos Mayores</option>
+<option>Protección Patrimonial</option>
+</select>
+</div>
+<button class="w-full mt-4 py-4 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-colors shadow-lg">
+                        Solicitar Información
+                    </button>
+<p class="text-[10px] text-center text-on-surface-variant mt-4">
+                        Al enviar, aceptas nuestros términos y el procesamiento seguro de datos HIPAA.
+                    </p>
+</form>
+</div>
+</div>
+</section>
+<!-- Bento Grid Features -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-8">
+<div class="mb-16">
+<h2 class="font-headline text-4xl font-extrabold text-primary mb-4">¿Por qué elegir Bastion?</h2>
+<div class="h-1 w-20 bg-on-tertiary-container rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Feature 1 -->
+<div class="md:col-span-2 bg-surface-container-lowest p-10 rounded-xl flex flex-col justify-between group hover:shadow-xl transition-all border border-transparent hover:border-outline-variant/20">
+<div class="max-w-md">
+<span class="material-symbols-outlined text-4xl text-on-tertiary-container mb-6 block" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<h3 class="text-2xl font-bold text-primary mb-4">Seguridad Institucional</h3>
+<p class="text-on-surface-variant leading-relaxed">Implementamos protocolos de seguridad Azure Shield, garantizando que su información financiera y personal permanezca blindada bajo los estándares HIPAA y GDPR más estrictos.</p>
+</div>
+<div class="mt-8 flex items-center text-primary font-bold gap-2 group-hover:gap-4 transition-all cursor-pointer">
+                        Saber más <span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="bg-primary p-10 rounded-xl text-on-primary flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl text-tertiary-fixed mb-6 block">bolt</span>
+<h3 class="text-2xl font-bold mb-4">Rapidez Extrema</h3>
+<p class="text-on-primary-container leading-relaxed">Cotizaciones en tiempo real impulsadas por IA. Sin papeleo innecesario, solo resultados inmediatos.</p>
+</div>
+<div class="mt-8 text-on-primary-container text-sm font-medium tracking-wide">98% Eficiencia Operativa</div>
+</div>
+<!-- Feature 3 -->
+<div class="bg-surface-container-highest p-10 rounded-xl flex flex-col justify-between md:col-span-1">
+<div>
+<span class="material-symbols-outlined text-4xl text-primary mb-6 block">diversity_3</span>
+<h3 class="text-2xl font-bold text-primary mb-4">Resiliencia</h3>
+<p class="text-on-surface-variant leading-relaxed">Modelos de cobertura adaptables que crecen con usted, asegurando su patrimonio ante cualquier imprevisto global.</p>
+</div>
+</div>
+<!-- Feature 4 (Visual) -->
+<div class="md:col-span-2 relative h-64 md:h-auto rounded-xl overflow-hidden shadow-lg">
+<img alt="Data and growth" class="w-full h-full object-cover" data-alt="Professional hands working on a sleek high-tech financial tablet with dynamic charts and green growth indicators in a bright office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzWp75p54F3d2vrUiA2rXZ7deJf3xOQSSzgTBsEacDpbK8EOABiVWd0KmuDboKjc04l1c3FWysYn1pDhei_o5QgNLSTH3s96DEtBrcTC7t9FyNN73-FWOiUMlja745Tcq1BBFmhO0mMyHQeN_NekU_QSZ7vWDY228hNZFa6B2_wxnkUcAW_IRCHCMWodtklbq3NmLPjrbpNSSeEOiyUztVdFNU0jN6IvhtmcPvahSujr0poGZiV9ZjAXgREDYSdhKXF34I7fiZpE_4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex items-end p-8">
+<p class="text-on-primary font-bold text-xl">Potenciado por análisis de datos avanzado.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section class="py-24 bg-surface">
+<div class="max-w-7xl mx-auto px-8">
+<h2 class="font-headline text-center text-3xl font-bold text-primary mb-16">Lo que dicen nuestros asegurados</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Testimonial 1 -->
+<div class="bg-surface-container-low p-8 rounded-xl border-l-4 border-on-tertiary-container">
+<div class="flex text-on-tertiary-container mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-on-surface italic mb-6 leading-relaxed">"La rapidez del proceso me sorprendió. En menos de 10 minutos ya tenía mi póliza de vida configurada y lista para firmar."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-slate-300 overflow-hidden">
+<img alt="User testimonial" class="w-full h-full object-cover" data-alt="Close up portrait of a smiling mature man with professional appearance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsvhEFdAi8FJLmhuJk68lYPM675Xm6qmG1HowcBJn9vtfW9kKluhk3PeVuA1MSssHraQZJrqqp-YtVyiQZqUFxlevSHdGxpE8R9hzEHh2hbTacrIdJkCcKhFJM0OF2PhVnEg33LYNoApWgLyT4812lTWO0EDt2nV8MDrxNYHdrgR4TgfFcByAojpWRQEXJdn_XImp_U1f4aKEnvth3wMeFj59MIBVOGMKgRPXqld1Ug6mVoygYs6DGXj7XLk4VnvHntpLE7qfF-0c2"/>
+</div>
+<div>
+<p class="font-bold text-primary">Carlos Méndez</p>
+<p class="text-xs text-on-surface-variant">Dueño de Empresa, Miami</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-surface-container-low p-8 rounded-xl border-l-4 border-primary">
+<div class="flex text-on-tertiary-container mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-on-surface italic mb-6 leading-relaxed">"Busqué protección que funcionara tanto en México como en EE.UU. Bastion IMO fue el único que entendió mis necesidades binacionales."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-slate-300 overflow-hidden">
+<img alt="User testimonial" class="w-full h-full object-cover" data-alt="Portrait of a professional young woman with glasses and a confident smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhNSMW-vcz2HdhZnJjicdzcA7dLZg20nfta8ApytbteMCSI9PpgN5Nf9LHwOfHKG--8ExyrOIkSAgMDXDWjNhv2yyUt3fdHS4goXe-zypOZASvZjcuGoyl_QhjNJ69i3N2BtNgUzYSLk20eBk-9bNK1AoVloU_rfAOpE7Gf7bIhvA9qWiTjOwkr2cVmMaBBzj_--y52TydfpBXtkRGSjLviX_jwEtoFi9vvmlzaZHby9NV8r0oS3YPXjf6tSHIBazkMgvs1BpwancD"/>
+</div>
+<div>
+<p class="font-bold text-primary">Elena Rodriguez</p>
+<p class="text-xs text-on-surface-variant">Consultora Senior, CDMX</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="bg-surface-container-low p-8 rounded-xl border-l-4 border-on-tertiary-container">
+<div class="flex text-on-tertiary-container mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-on-surface italic mb-6 leading-relaxed">"La transparencia en los costos y la claridad de la póliza me dieron la tranquilidad que buscaba para mi familia."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-slate-300 overflow-hidden">
+<img alt="User testimonial" class="w-full h-full object-cover" data-alt="Portrait of a middle aged man in a business casual outfit with an approachable expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqOEI4n5Gze6cvubKfnkly2iFfvxa60wACvK5uDCMIu-I2kDIFZG3qTC9J7pYuKve3uUTMnfbi4azDa79aATNnUASaiQbzooSlBpSpJ4WHJ_QQgTCxR3x0dyowafVF3w1BlAF6DVMKXlf38zwFkruABVpkbeK7csEANYr3ADBRHckQEm8vWXwFcy2yYThGXj4ruRiXTo3LKlcLbRTnI9aqJ4bsQwfr5w6kLS43oP8N9mrm4HuWAlVwRAxIGfVLTa58Sh5BrmBshBpi"/>
+</div>
+<div>
+<p class="font-bold text-primary">Roberto G.</p>
+<p class="text-xs text-on-surface-variant">Arquitecto, Texas</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Chat Integration -->
+<div class="fixed bottom-8 right-8 z-50">
+<div class="glass-card shadow-2xl rounded-2xl w-80 overflow-hidden border border-white/30 hidden md:block">
+<div class="bg-primary p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed-dim flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<p class="text-on-primary text-sm font-bold">Asistente Virtual</p>
+<p class="text-on-primary-container text-[10px] uppercase font-bold">En Línea</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-primary-container cursor-pointer">close</span>
+</div>
+<div class="p-4 space-y-4 h-64 bg-surface-container-lowest overflow-y-auto text-sm">
+<div class="bg-surface-container p-3 rounded-xl rounded-tl-none mr-8">
+                    Hola! 👋 ¿Estás buscando proteger tu patrimonio? Te puedo ayudar a pre-calificar en 2 minutos.
+                </div>
+<div class="bg-primary text-on-primary p-3 rounded-xl rounded-tr-none ml-8">
+                    Sí, busco seguro de vida.
+                </div>
+<div class="bg-surface-container p-3 rounded-xl rounded-tl-none mr-8">
+                    Excelente elección. ¿Para qué país necesitas la cobertura principalmente?
+                </div>
+</div>
+<div class="p-3 border-t border-surface-container-high flex gap-2">
+<input class="flex-1 bg-surface-container-low border-none rounded-lg text-xs focus:ring-1 focus:ring-primary" placeholder="Escribe tu mensaje..." type="text"/>
+<button class="bg-primary p-2 rounded-lg text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</div>
+<!-- Mobile FAB -->
+<div class="md:hidden w-14 h-14 bg-primary rounded-full shadow-lg flex items-center justify-center text-on-primary cursor-pointer hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined text-3xl">chat</span>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-slate-50 border-t border-slate-200">
+<div class="max-w-7xl mx-auto py-12 px-8 flex flex-col md:flex-row justify-between items-start gap-12">
+<div class="space-y-6 max-w-sm">
+<div class="font-bold text-slate-900 text-2xl font-headline">Bastion IMO</div>
+<p class="text-slate-500 text-sm leading-relaxed">
+                    Líderes en tecnología insurtech para el mercado hispano. Proporcionamos infraestructura resiliente para el manejo de riesgos financieros globales.
+                </p>
+<div class="flex gap-4">
+<div class="px-2 py-1 bg-white border border-slate-200 rounded text-[10px] font-bold text-slate-400">HIPAA COMPLIANT</div>
+<div class="px-2 py-1 bg-white border border-slate-200 rounded text-[10px] font-bold text-slate-400">GDPR READY</div>
+<div class="px-2 py-1 bg-white border border-slate-200 rounded text-[10px] font-bold text-slate-400">SSL SECURE</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-x-12 gap-y-8">
+<div class="space-y-4">
+<p class="font-bold text-slate-900 text-sm uppercase tracking-wider">Enlaces</p>
+<ul class="space-y-2">
+<li><a class="text-slate-500 hover:text-blue-700 transition-all text-sm" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 transition-all text-sm" href="#">Terms of Service</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 transition-all text-sm" href="#">Compliance</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<p class="font-bold text-slate-900 text-sm uppercase tracking-wider">Soporte</p>
+<ul class="space-y-2">
+<li><a class="text-slate-500 hover:text-blue-700 transition-all text-sm" href="#">Contact Support</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 transition-all text-sm" href="#">Ayuda 24/7</a></li>
+<li><a class="text-slate-500 hover:text-blue-700 transition-all text-sm" href="#">FAQ</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 py-6 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center text-slate-400 text-[11px] font-medium">
+<p>© 2024 Digital Bastion. All rights reserved. HIPAA Compliant. SSL Secured.</p>
+<p>Operado por Bastion Risk Management LLC. San Antonio, TX.</p>
+</div>
+</footer>
+</body></html>

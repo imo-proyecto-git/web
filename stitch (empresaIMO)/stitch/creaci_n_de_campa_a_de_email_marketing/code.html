@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crear Nueva Campaña de Email - Campaign Manager</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Manrope & Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#eaedff",
+                    "on-primary-fixed-variant": "#2a4386",
+                    "on-secondary-container": "#57657a",
+                    "outline-variant": "#c5c6d2",
+                    "tertiary-container": "#002f1e",
+                    "primary": "#00113a",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e2e7ff",
+                    "on-secondary-fixed": "#0d1c2e",
+                    "inverse-surface": "#283044",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#131b2e",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "surface-dim": "#d2d9f4",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#dae2fd",
+                    "secondary-fixed": "#d5e3fc",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#6ffbbe",
+                    "inverse-primary": "#b3c5ff",
+                    "primary-container": "#002366",
+                    "surface-tint": "#435b9f",
+                    "on-surface-variant": "#444650",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "secondary": "#515f74",
+                    "surface-container-low": "#f2f3ff",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#faf8ff",
+                    "primary-fixed": "#dbe1ff",
+                    "tertiary": "#00180d",
+                    "surface": "#faf8ff",
+                    "on-tertiary-container": "#00a371",
+                    "secondary-fixed-dim": "#b9c7df",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-secondary-fixed-variant": "#3a485b",
+                    "surface-container-highest": "#dae2fd",
+                    "on-primary-container": "#758dd5",
+                    "secondary-container": "#d5e3fc",
+                    "on-tertiary-fixed": "#002113",
+                    "inverse-on-surface": "#eef0ff",
+                    "error": "#ba1a1a",
+                    "outline": "#757682",
+                    "on-primary-fixed": "#00174a",
+                    "on-background": "#131b2e",
+                    "background": "#faf8ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar (Execution from JSON) -->
+<aside class="flex flex-col fixed left-0 top-0 h-full p-4 z-40 bg-[#faf8ff]/70 dark:bg-slate-950/70 backdrop-blur-md h-screen w-64 border-r-0 font-['Manrope'] font-semibold text-sm">
+<div class="mb-10 px-2">
+<h2 class="text-lg font-black text-[#00113a] dark:text-white tracking-tight">Azure Shield</h2>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Marketing Module</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active: Campaigns -->
+<a class="flex items-center gap-3 px-3 py-2.5 transition-all bg-[#dae2fd] dark:bg-blue-900/40 text-[#00113a] dark:text-blue-100 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+<span>Campaigns</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 transition-all text-slate-600 dark:text-slate-400 hover:text-[#002366] hover:bg-[#f2f3ff] dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 transition-all text-slate-600 dark:text-slate-400 hover:text-[#002366] hover:bg-[#f2f3ff] dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Audience</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 transition-all text-slate-600 dark:text-slate-400 hover:text-[#002366] hover:bg-[#f2f3ff] dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard_customize">dashboard_customize</span>
+<span>Templates</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 pt-4 border-t border-outline-variant/10">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<div class="flex items-center gap-3 px-3 py-3 mt-2 bg-surface-container-low rounded-xl">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-white text-xs font-bold">IA</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-primary">IMO Administrator</span>
+<span class="text-[10px] text-slate-500">Account Settings</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar (Execution from JSON) -->
+<header class="flex justify-between items-center w-full px-6 py-3 fixed top-0 left-0 pl-72 bg-[#faf8ff] dark:bg-slate-950 z-30">
+<div class="flex items-center gap-4">
+<span class="text-xl font-extrabold text-[#00113a] dark:text-white tracking-tighter">Campaign Manager</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<input class="bg-[#f2f3ff] border-none rounded-full py-1.5 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary-container" placeholder="Search campaigns..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1.5 text-slate-400 text-lg">search</span>
+</div>
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-20 pb-12 px-8 min-h-screen">
+<div class="max-w-5xl mx-auto">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 text-xs text-on-surface-variant mb-6 font-medium">
+<span>Campaigns</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Nueva Campaña</span>
+</nav>
+<!-- Header Section -->
+<div class="mb-10">
+<h1 class="text-4xl font-extrabold text-primary tracking-tight mb-2">Crear Nueva Campaña de Email</h1>
+<p class="text-on-secondary-container text-lg max-w-2xl">Configura los parámetros, carga tus recursos y programa el envío de tu próxima campaña de marketing masivo.</p>
+</div>
+<!-- Bento Grid Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Form Details -->
+<div class="lg:col-span-7 space-y-8">
+<!-- Basic Info Section -->
+<section class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/5">
+<h3 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">info</span>
+                            Información Básica
+                        </h3>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant mb-2" for="campaign_name">Campaign Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-1 focus:ring-primary text-sm transition-all placeholder:text-slate-400" id="campaign_name" placeholder="Ej: Lanzamiento Verano 2024" type="text"/>
+</div>
+</div>
+</section>
+<!-- Design Assets Section -->
+<section class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/5">
+<h3 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">description</span>
+                            Activos de la Campaña
+                        </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Design Upload -->
+<div class="group">
+<label class="block text-xs font-semibold text-on-surface-variant mb-2">HTML del Diseño</label>
+<div class="border-2 border-dashed border-outline-variant/30 rounded-xl p-6 text-center hover:bg-surface-container-low transition-all cursor-pointer group-hover:border-primary/30">
+<div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center mx-auto mb-3">
+<span class="material-symbols-outlined text-primary" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<p class="text-[13px] font-bold text-primary mb-1">Click para subir</p>
+<p class="text-[11px] text-on-surface-variant">Soporta .html, .zip</p>
+</div>
+</div>
+<!-- Recipients Upload -->
+<div class="group">
+<label class="block text-xs font-semibold text-on-surface-variant mb-2">Lista de Destinatarios</label>
+<div class="border-2 border-dashed border-outline-variant/30 rounded-xl p-6 text-center hover:bg-surface-container-low transition-all cursor-pointer group-hover:border-primary/30">
+<div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center mx-auto mb-3">
+<span class="material-symbols-outlined text-primary" data-icon="group_add">group_add</span>
+</div>
+<p class="text-[13px] font-bold text-primary mb-1">Click para subir</p>
+<p class="text-[11px] text-on-surface-variant">Soporta .csv, .json</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Scheduling & Actions -->
+<div class="lg:col-span-5 space-y-8">
+<!-- Scheduling Card -->
+<section class="bg-surface-container-highest/30 backdrop-blur-sm p-8 rounded-xl border border-primary/5">
+<h3 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">event</span>
+                            Programación
+                        </h3>
+<div class="space-y-6">
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary transition-all" type="checkbox"/>
+</div>
+<span class="text-sm font-semibold text-primary">Programar envío</span>
+</label>
+<div class="space-y-4 opacity-50 grayscale pointer-events-none">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-[11px] font-bold text-on-surface-variant mb-2 uppercase">Fecha</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-none rounded-lg py-2.5 px-3 text-sm focus:ring-1 focus:ring-primary" type="date"/>
+</div>
+</div>
+<div>
+<label class="block text-[11px] font-bold text-on-surface-variant mb-2 uppercase">Hora</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-none rounded-lg py-2.5 px-3 text-sm focus:ring-1 focus:ring-primary" type="time"/>
+</div>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant leading-relaxed italic">Selecciona el huso horario correspondiente a tu audiencia principal para optimizar la tasa de apertura.</p>
+</div>
+</div>
+</section>
+<!-- Summary / CTA Card -->
+<section class="bg-primary p-8 rounded-xl shadow-2xl relative overflow-hidden">
+<!-- Abstract Background Decoration -->
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-primary-container rounded-full blur-3xl opacity-50"></div>
+<div class="relative z-10">
+<h3 class="text-white font-bold text-lg mb-4">Resumen de Campaña</h3>
+<div class="space-y-3 mb-8">
+<div class="flex justify-between text-xs text-on-primary-container">
+<span>Estado actual</span>
+<span class="text-on-primary font-bold">Borrador</span>
+</div>
+<div class="flex justify-between text-xs text-on-primary-container">
+<span>Créditos estimados</span>
+<span class="text-on-primary font-bold">0</span>
+</div>
+</div>
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-white py-4 px-6 rounded-lg font-bold text-sm tracking-tight flex items-center justify-center gap-3 transition-transform active:scale-95 border border-white/10 hover:shadow-lg hover:shadow-primary/20">
+                                Generar y Vista Previa
+                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="w-full mt-3 bg-transparent text-white/70 py-3 rounded-lg font-semibold text-xs transition-colors hover:text-white">
+                                Guardar como borrador
+                            </button>
+</div>
+</section>
+<!-- Help / Context -->
+<div class="flex items-start gap-4 p-5 bg-tertiary-container/10 rounded-xl">
+<span class="material-symbols-outlined text-on-tertiary-container mt-1">lightbulb</span>
+<div>
+<p class="text-xs font-bold text-on-tertiary-container mb-1">Pro-Tip de Optimización</p>
+<p class="text-[11px] text-on-tertiary-container/80 leading-tight">Las campañas enviadas los Martes a las 10:00 AM tienen un 22% más de tasa de apertura promedio en el sector seguros.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Meta -->
+<footer class="mt-12 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] text-on-surface-variant font-medium">
+<div class="flex items-center gap-6">
+<a class="hover:text-primary" href="#">Términos de Envío</a>
+<a class="hover:text-primary" href="#">Privacidad</a>
+<a class="hover:text-primary" href="#">Cumplimiento GDPR</a>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
+                    Servidores operacionales: Conexión segura (TLS 1.3)
+                </div>
+</footer>
+</div>
+</main>
+<!-- FAB: Help Center (Suppressed on details pages usually, but kept for context as an "Assistant") -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center transition-transform hover:scale-105 active:scale-95 z-50">
+<span class="material-symbols-outlined" data-icon="support_agent" data-weight="fill">support_agent</span>
+</button>
+</body></html>

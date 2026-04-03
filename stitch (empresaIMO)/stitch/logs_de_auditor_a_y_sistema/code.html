@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AdminBastion - Auditoría de Sistema</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container": "#eaedff",
+              "inverse-on-surface": "#eef0ff",
+              "surface-bright": "#faf8ff",
+              "tertiary-container": "#002f1e",
+              "surface-container-low": "#f2f3ff",
+              "surface-tint": "#435b9f",
+              "primary-container": "#002366",
+              "on-error-container": "#93000a",
+              "on-secondary-container": "#57657a",
+              "on-secondary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-high": "#e2e7ff",
+              "tertiary-fixed": "#6ffbbe",
+              "on-error": "#ffffff",
+              "error-container": "#ffdad6",
+              "primary": "#00113a",
+              "secondary-fixed": "#d5e3fc",
+              "on-primary-fixed-variant": "#2a4386",
+              "on-tertiary-fixed": "#002113",
+              "surface-container-highest": "#dae2fd",
+              "surface": "#faf8ff",
+              "error": "#ba1a1a",
+              "surface-dim": "#d2d9f4",
+              "secondary-container": "#d5e3fc",
+              "on-primary-fixed": "#00174a",
+              "outline-variant": "#c5c6d2",
+              "inverse-primary": "#b3c5ff",
+              "tertiary-fixed-dim": "#4edea3",
+              "outline": "#757682",
+              "secondary": "#515f74",
+              "on-surface": "#131b2e",
+              "tertiary": "#00180d",
+              "on-tertiary-fixed-variant": "#005236",
+              "secondary-fixed-dim": "#b9c7df",
+              "primary-fixed-dim": "#b3c5ff",
+              "primary-fixed": "#dbe1ff",
+              "surface-variant": "#dae2fd",
+              "on-background": "#131b2e",
+              "on-surface-variant": "#444650",
+              "on-secondary-fixed-variant": "#3a485b",
+              "on-primary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#283044",
+              "on-tertiary-container": "#00a371",
+              "on-secondary-fixed": "#0d1c2e",
+              "background": "#faf8ff",
+              "on-primary-container": "#758dd5"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"],
+              "mono": ["JetBrains Mono"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-nav {
+        background: rgba(250, 248, 255, 0.7);
+        backdrop-filter: blur(20px);
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar Execution -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-slate-900/70 backdrop-blur-md shadow-sm dark:shadow-none h-16 flex justify-between items-center px-8">
+<div class="text-2xl font-black text-blue-950 dark:text-white font-headline tracking-tight">AdminBastion</div>
+<nav class="hidden md:flex gap-8 items-center h-full">
+<a class="text-slate-500 dark:text-slate-400 font-medium font-manrope tracking-tight hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 ease-in-out" href="#">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium font-manrope tracking-tight hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 ease-in-out" href="#">User Management</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium font-manrope tracking-tight hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 ease-in-out" href="#">Roles &amp; Permissions</a>
+<a class="text-blue-900 dark:text-blue-100 border-b-2 border-blue-900 dark:border-blue-100 pb-1 font-manrope tracking-tight font-bold transition-colors duration-200 ease-in-out" href="#">System Logs</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium font-manrope tracking-tight hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 ease-in-out" href="#">Settings</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-full">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<div class="flex pt-16 min-h-screen">
+<!-- SideNavBar Execution -->
+<aside class="hidden md:flex flex-col py-6 px-4 gap-4 h-screen w-64 border-r border-slate-200/20 dark:border-slate-800/20 bg-slate-50 dark:bg-slate-950 sticky top-16">
+<div class="px-2 mb-4">
+<h3 class="text-blue-900 dark:text-blue-200 font-inter text-sm font-semibold uppercase tracking-wider">Admin Panel</h3>
+<p class="text-xs text-on-surface-variant">System Oversight</p>
+</div>
+<nav class="flex flex-col gap-1 flex-grow">
+<a class="flex items-center gap-3 px-3 py-2.5 bg-blue-100 dark:bg-blue-900/40 text-blue-900 dark:text-blue-50 rounded-lg font-inter text-sm font-semibold hover:scale-[1.02] transition-transform duration-200 cubic-bezier(0.4, 0, 0.2, 1)" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+                    Audit Trail
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-lg font-inter text-sm font-semibold hover:scale-[1.02] transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+                    Security Center
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-lg font-inter text-sm font-semibold hover:scale-[1.02] transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="cloud_download">cloud_download</span>
+                    Data Export
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-lg font-inter text-sm font-semibold hover:scale-[1.02] transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="vpn_key">vpn_key</span>
+                    API Keys
+                </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-lg font-inter text-sm font-semibold hover:scale-[1.02] transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+                    Support
+                </a>
+</nav>
+<div class="mt-auto border-t border-slate-200/20 pt-4">
+<button class="flex items-center gap-3 px-3 py-2.5 w-full text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-lg font-inter text-sm font-semibold hover:scale-[1.02] transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                    Sign Out
+                </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 bg-surface p-8 max-w-7xl mx-auto w-full">
+<header class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-2">
+<span class="text-on-tertiary-container bg-tertiary-container/10 px-3 py-1 rounded-full text-xs font-bold font-label uppercase tracking-widest">Cumplimiento HIPAA / GDPR</span>
+<h1 class="text-4xl font-black font-headline text-primary tracking-tighter">Registros de Auditoría del Sistema</h1>
+<p class="text-on-surface-variant font-body max-w-2xl">Visualización técnica y exhaustiva de todas las acciones del sistema para auditorías de seguridad y cumplimiento normativo.</p>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-high text-on-secondary-container px-6 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                            Exportar CSV
+                        </button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">refresh</span>
+                            Actualizar
+                        </button>
+</div>
+</div>
+</header>
+<!-- Filters Section -->
+<section class="mb-8 grid grid-cols-1 md:grid-cols-4 gap-4 items-end bg-surface-container-low p-6 rounded-xl">
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Búsqueda</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/20 focus:ring-primary rounded-lg pl-10 pr-4 py-2 text-sm" placeholder="ID Usuario, IP, Acción..." type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Rango de Fechas</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/20 focus:ring-primary rounded-lg px-4 py-2 text-sm appearance-none" type="date"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Categoría</label>
+<select class="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/20 focus:ring-primary rounded-lg px-4 py-2 text-sm">
+<option>Todas las categorías</option>
+<option>Autenticación</option>
+<option>Edición de Datos</option>
+<option>Seguridad</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Nivel de Riesgo</label>
+<select class="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/20 focus:ring-primary rounded-lg px-4 py-2 text-sm">
+<option>Todos</option>
+<option>Crítico</option>
+<option>Advertencia</option>
+<option>Información</option>
+</select>
+</div>
+</section>
+<!-- Audit Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden ring-1 ring-outline-variant/10">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high/50 border-b border-outline-variant/10">
+<th class="px-6 py-4 text-xs font-extrabold text-primary uppercase tracking-widest">Marca de Tiempo</th>
+<th class="px-6 py-4 text-xs font-extrabold text-primary uppercase tracking-widest">Usuario</th>
+<th class="px-6 py-4 text-xs font-extrabold text-primary uppercase tracking-widest">Categoría</th>
+<th class="px-6 py-4 text-xs font-extrabold text-primary uppercase tracking-widest">Descripción</th>
+<th class="px-6 py-4 text-xs font-extrabold text-primary uppercase tracking-widest">Dirección IP</th>
+</tr>
+</thead>
+<tbody class="font-mono text-sm">
+<!-- Row 1: Critical -->
+<tr class="hover:bg-surface-container-low/50 transition-colors border-b border-outline-variant/10 group">
+<td class="px-6 py-5 text-on-surface-variant whitespace-nowrap">2024-05-20 14:22:01.442</td>
+<td class="px-6 py-5 font-semibold text-primary">admin_root_01</td>
+<td class="px-6 py-5">
+<span class="flex items-center gap-1.5 text-error font-bold">
+<span class="material-symbols-outlined text-[18px]">security</span>
+                                        SEGURIDAD
+                                    </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="flex-none w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span class="text-on-surface line-clamp-1 font-medium">Fallo crítico de autenticación: Múltiples intentos fallidos detectados.</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">192.168.1.105</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors border-b border-outline-variant/10">
+<td class="px-6 py-5 text-on-surface-variant whitespace-nowrap">2024-05-20 14:15:22.109</td>
+<td class="px-6 py-5 font-semibold text-primary">m.rodriguez</td>
+<td class="px-6 py-5">
+<span class="flex items-center gap-1.5 text-on-primary-fixed-variant font-bold">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+                                        EDICIÓN
+                                    </span>
+</td>
+<td class="px-6 py-5 text-on-surface">Modificación de perfil de paciente ID: PX-99021 (Expediente médico).</td>
+<td class="px-6 py-5 text-on-surface-variant">45.230.12.9</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors border-b border-outline-variant/10">
+<td class="px-6 py-5 text-on-surface-variant whitespace-nowrap">2024-05-20 13:58:45.002</td>
+<td class="px-6 py-5 font-semibold text-primary">system_daemon</td>
+<td class="px-6 py-5">
+<span class="flex items-center gap-1.5 text-on-tertiary-container font-bold">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+                                        AUTH
+                                    </span>
+</td>
+<td class="px-6 py-5 text-on-surface">Renovación automática de token de API para servicio externo: AWS-Connect.</td>
+<td class="px-6 py-5 text-on-surface-variant">internal::gateway</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors border-b border-outline-variant/10">
+<td class="px-6 py-5 text-on-surface-variant whitespace-nowrap">2024-05-20 13:42:12.771</td>
+<td class="px-6 py-5 font-semibold text-primary">j.garcia_admin</td>
+<td class="px-6 py-5">
+<span class="flex items-center gap-1.5 text-on-primary-fixed-variant font-bold">
+<span class="material-symbols-outlined text-[18px]">vpn_key</span>
+                                        SEGURIDAD
+                                    </span>
+</td>
+<td class="px-6 py-5 text-on-surface">Cambio de política de rotación de contraseñas para el grupo: Analistas.</td>
+<td class="px-6 py-5 text-on-surface-variant">10.0.0.52</td>
+</tr>
+<!-- Row 5: Critical -->
+<tr class="hover:bg-surface-container-low/50 transition-colors border-b border-outline-variant/10">
+<td class="px-6 py-5 text-on-surface-variant whitespace-nowrap">2024-05-20 13:30:00.000</td>
+<td class="px-6 py-5 font-semibold text-primary">desconocido</td>
+<td class="px-6 py-5">
+<span class="flex items-center gap-1.5 text-error font-bold">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+                                        AUTENTICACIÓN
+                                    </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<span class="flex-none w-2 h-2 rounded-full bg-error"></span>
+<span class="text-on-surface font-medium">Intento de acceso denegado desde región no autorizada: CN.</span>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface-variant">211.95.82.17</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-8 py-4 bg-surface-container-low flex justify-between items-center text-xs font-bold text-on-surface-variant uppercase tracking-widest">
+<span>Mostrando 1-5 de 2,492 registros</span>
+<div class="flex gap-4">
+<button class="hover:text-primary transition-colors disabled:opacity-30" disabled="">Anterior</button>
+<button class="hover:text-primary transition-colors">Siguiente</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer Execution -->
+<footer class="w-full border-t border-slate-200/20 dark:border-slate-800/20 bg-slate-50 dark:bg-slate-950 flex justify-between items-center px-8 py-4">
+<div class="font-inter text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">© 2024 AdminBastion IMO. All Rights Reserved.</div>
+<div class="flex gap-6">
+<a class="font-inter text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 opacity-80 hover:opacity-100 hover:underline" href="#">Compliance</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 opacity-80 hover:opacity-100 hover:underline" href="#">Security Policy</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 opacity-80 hover:opacity-100 hover:underline" href="#">Terms of Service</a>
+</div>
+</footer>
+</body></html>

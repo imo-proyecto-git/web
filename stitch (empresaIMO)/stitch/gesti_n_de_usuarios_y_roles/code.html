@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AdminBastion - Gestión de Usuarios y Roles</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container": "#eaedff",
+                        "inverse-on-surface": "#eef0ff",
+                        "surface-bright": "#faf8ff",
+                        "tertiary-container": "#002f1e",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-tint": "#435b9f",
+                        "primary-container": "#002366",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#57657a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e2e7ff",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "primary": "#00113a",
+                        "secondary-fixed": "#d5e3fc",
+                        "on-primary-fixed-variant": "#2a4386",
+                        "on-tertiary-fixed": "#002113",
+                        "surface-container-highest": "#dae2fd",
+                        "surface": "#faf8ff",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d2d9f4",
+                        "secondary-container": "#d5e3fc",
+                        "on-primary-fixed": "#00174a",
+                        "outline-variant": "#c5c6d2",
+                        "inverse-primary": "#b3c5ff",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "outline": "#757682",
+                        "secondary": "#515f74",
+                        "on-surface": "#131b2e",
+                        "tertiary": "#00180d",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-variant": "#dae2fd",
+                        "on-background": "#131b2e",
+                        "on-surface-variant": "#444650",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#283044",
+                        "on-tertiary-container": "#00a371",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "background": "#faf8ff",
+                        "on-primary-container": "#758dd5"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- Top Navigation Bar (Shared Component Execution) -->
+<header class="bg-surface/70 backdrop-blur-md fixed top-0 w-full z-50 shadow-sm flex justify-between items-center px-8 h-16 w-full">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black text-blue-950">AdminBastion</span>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="text-slate-500 font-medium hover:text-blue-700 transition-colors duration-200 ease-in-out font-manrope tracking-tight" href="#">Dashboard</a>
+<a class="text-blue-900 border-b-2 border-blue-900 pb-1 font-bold font-manrope tracking-tight" href="#">User Management</a>
+<a class="text-slate-500 font-medium hover:text-blue-700 transition-colors duration-200 ease-in-out font-manrope tracking-tight" href="#">Roles &amp; Permissions</a>
+<a class="text-slate-500 font-medium hover:text-blue-700 transition-colors duration-200 ease-in-out font-manrope tracking-tight" href="#">System Logs</a>
+<a class="text-slate-500 font-medium hover:text-blue-700 transition-colors duration-200 ease-in-out font-manrope tracking-tight" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<div class="flex pt-16 min-h-screen">
+<!-- Side Navigation Bar (Shared Component Execution) -->
+<aside class="hidden md:flex flex-col py-6 px-4 gap-4 h-screen w-64 border-r border-slate-200/20 bg-slate-50 sticky top-16">
+<div class="px-2 mb-4">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+</div>
+<div>
+<p class="font-inter text-sm font-semibold text-blue-900 leading-none">Admin Panel</p>
+<p class="text-xs text-on-surface-variant mt-1">System Oversight</p>
+</div>
+</div>
+<button class="w-full py-2.5 px-4 bg-primary text-on-primary rounded-lg text-sm font-semibold flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform duration-200">
+<span class="material-symbols-outlined text-sm" data-icon="add_circle">add_circle</span>
+                    New System Alert
+                </button>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg font-inter text-sm font-semibold transition-transform duration-200 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="history_edu">history_edu</span>
+                    Audit Trail
+                </a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg font-inter text-sm font-semibold transition-transform duration-200 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="security">security</span>
+                    Security Center
+                </a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg font-inter text-sm font-semibold transition-transform duration-200 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="cloud_download">cloud_download</span>
+                    Data Export
+                </a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg font-inter text-sm font-semibold transition-transform duration-200 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="vpn_key">vpn_key</span>
+                    API Keys
+                </a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg font-inter text-sm font-semibold transition-transform duration-200 hover:scale-[1.02]" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="contact_support">contact_support</span>
+                    Support
+                </a>
+</nav>
+<div class="mt-auto border-t border-slate-200/20 pt-4">
+<a class="flex items-center gap-3 px-4 py-2.5 text-error hover:bg-error-container/20 rounded-lg font-inter text-sm font-semibold" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="logout">logout</span>
+                    Sign Out
+                </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-8 lg:p-12 max-w-7xl mx-auto w-full">
+<!-- Header Section with Asymmetrical Spacing -->
+<header class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h1 class="text-4xl font-extrabold text-primary tracking-tight mb-2">Gestión de Usuarios</h1>
+<p class="text-on-surface-variant max-w-2xl font-body">Controle el acceso al sistema, asigne roles y supervise la actividad de los usuarios en tiempo real desde la fortaleza digital de AdminBastion.</p>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-high text-primary font-bold px-6 py-2.5 rounded-lg flex items-center gap-2 hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+                            Filtrar
+                        </button>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold px-6 py-2.5 rounded-lg flex items-center gap-2 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+                            Añadir Usuario
+                        </button>
+</div>
+</div>
+</header>
+<!-- Stats Overview - Bento Style -->
+<section class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+<div class="bg-surface-container-low p-6 rounded-xl">
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">Total Usuarios</p>
+<p class="text-3xl font-black text-primary">1,284</p>
+<div class="mt-4 flex items-center gap-1 text-on-tertiary-container font-bold text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+<span>+12% este mes</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl">
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">Sesiones Activas</p>
+<p class="text-3xl font-black text-primary">84</p>
+<div class="mt-4 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
+<span class="text-on-surface-variant font-medium text-sm">En tiempo real</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl md:col-span-1 lg:col-span-2 flex items-center justify-between border border-primary/5">
+<div>
+<p class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1">Estado de Seguridad</p>
+<p class="text-3xl font-black text-on-tertiary-container">Protegido</p>
+</div>
+<div class="hidden sm:block">
+<img class="w-20 opacity-20 contrast-125" data-alt="abstract shield graphic representing digital security and structural protection in blue and green tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoEkk0fYK5UTaspdEezYK53ACauF4U9OuIX7pMkpJugqD30FkwA3WpqS-fc59iJIifGpC2zwUsiVSLs0Zj3WIvvGgAQn5umblrVhNnwqrM0n1vCebWZr3e9UZ1HEXdKA-WMpLOVF5lsMaQAq2NmWyVV3AkuSaE51hlNqruMkeFYEcT1OfLefzfzmHs1VUsfto0PmfUT5sUXxpJUgJnvuJxiJVLG8jEEDG-rSMrs968pOM15U9O-JpyN_CZAiuzcuwI-E5hqf1T4ByP"/>
+</div>
+</div>
+</section>
+<!-- User Management Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden mb-16 border border-slate-200/10">
+<div class="p-6 border-b border-surface-container">
+<h3 class="text-xl font-bold text-primary">Directorio de Usuarios</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low/50">
+<tr>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Nombre</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Email</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Rol</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Estado</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Último Acceso</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-900 font-bold text-xs">AM</div>
+<span class="font-semibold text-primary">Alejandro Martínez</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">a.martinez@adminbastion.com</td>
+<td class="px-6 py-4">
+<span class="text-xs font-bold bg-primary-fixed text-on-primary-fixed px-2 py-1 rounded">Supervisor</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container text-[10px] font-bold uppercase tracking-tighter">
+<span class="w-1 h-1 rounded-full bg-on-tertiary-container"></span>
+                                        Activo
+                                    </span>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Hoy, 10:45 AM</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-surface-container-high rounded-md text-primary transition-colors" title="Editar"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded-md text-primary transition-colors" title="Cambiar Rol"><span class="material-symbols-outlined text-lg" data-icon="manage_accounts">manage_accounts</span></button>
+<button class="p-1.5 hover:bg-error-container/20 rounded-md text-error transition-colors" title="Desactivar"><span class="material-symbols-outlined text-lg" data-icon="block">block</span></button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-900 font-bold text-xs">ER</div>
+<span class="font-semibold text-primary">Elena Rodriguez</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">elena.rod@bastion.io</td>
+<td class="px-6 py-4">
+<span class="text-xs font-bold bg-secondary-container text-on-secondary-container px-2 py-1 rounded">Agente</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container text-[10px] font-bold uppercase tracking-tighter">
+<span class="w-1 h-1 rounded-full bg-on-tertiary-container"></span>
+                                        Activo
+                                    </span>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Ayer, 04:20 PM</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-surface-container-high rounded-md text-primary transition-colors"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded-md text-primary transition-colors"><span class="material-symbols-outlined text-lg" data-icon="manage_accounts">manage_accounts</span></button>
+<button class="p-1.5 hover:bg-error-container/20 rounded-md text-error transition-colors"><span class="material-symbols-outlined text-lg" data-icon="block">block</span></button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-xs">CV</div>
+<span class="font-semibold text-primary">Carlos Valdés</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">carlos.v@adminbastion.com</td>
+<td class="px-6 py-4">
+<span class="text-xs font-bold bg-secondary-container text-on-secondary-container px-2 py-1 rounded">Agente</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-slate-200 text-slate-600 text-[10px] font-bold uppercase tracking-tighter">
+<span class="w-1 h-1 rounded-full bg-slate-500"></span>
+                                        Inactivo
+                                    </span>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">12 Oct 2023</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-surface-container-high rounded-md text-primary transition-colors"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded-md text-primary transition-colors"><span class="material-symbols-outlined text-lg" data-icon="manage_accounts">manage_accounts</span></button>
+<button class="p-1.5 hover:bg-on-tertiary-container/20 rounded-md text-on-tertiary-container transition-colors" title="Activar"><span class="material-symbols-outlined text-lg" data-icon="check_circle">check_circle</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-container-low/30 flex items-center justify-between">
+<p class="text-xs text-on-surface-variant font-medium uppercase tracking-widest">Mostrando 1-3 de 1,284 usuarios</p>
+<div class="flex gap-2">
+<button class="p-1 rounded bg-surface-container-lowest border border-slate-200/50 text-primary disabled:opacity-50"><span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span></button>
+<button class="p-1 rounded bg-surface-container-lowest border border-slate-200/50 text-primary"><span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Roles and Permissions Section -->
+<section class="mt-20">
+<div class="flex items-center gap-4 mb-8">
+<div class="h-px flex-1 bg-surface-container"></div>
+<h2 class="text-2xl font-extrabold text-primary px-4">Gestión de Roles y Permisos</h2>
+<div class="h-px flex-1 bg-surface-container"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Role Card: Admin -->
+<div class="bg-primary text-on-primary p-8 rounded-xl relative overflow-hidden shadow-2xl">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-4xl opacity-80" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="bg-white/10 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-widest">Full Access</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">Administrador</h3>
+<p class="text-primary-fixed-dim text-sm mb-6 leading-relaxed">Control total sobre el sistema, gestión de seguridad y configuraciones globales.</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-xs font-medium">
+<span class="material-symbols-outlined text-sm text-tertiary-fixed" data-icon="check_circle">check_circle</span>
+                                    Gestionar todos los usuarios
+                                </li>
+<li class="flex items-center gap-2 text-xs font-medium">
+<span class="material-symbols-outlined text-sm text-tertiary-fixed" data-icon="check_circle">check_circle</span>
+                                    Acceso a Logs de Auditoría
+                                </li>
+<li class="flex items-center gap-2 text-xs font-medium">
+<span class="material-symbols-outlined text-sm text-tertiary-fixed" data-icon="check_circle">check_circle</span>
+                                    Configuración de API y Webhooks
+                                </li>
+</ul>
+<button class="w-full py-2 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-bold transition-colors">Configurar Permisos</button>
+</div>
+<div class="absolute -right-8 -bottom-8 opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+<!-- Role Card: Supervisor -->
+<div class="bg-surface-container-low border border-primary/5 p-8 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="visibility">visibility</span>
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-1 rounded uppercase tracking-widest">Regional Access</span>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-2">Supervisor</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Puede ver todos los leads de una región específica y gestionar sus agentes asignados.</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-xs font-medium text-on-surface">
+<span class="material-symbols-outlined text-sm text-on-tertiary-container" data-icon="check_circle">check_circle</span>
+                                Ver todos los leads de región
+                            </li>
+<li class="flex items-center gap-2 text-xs font-medium text-on-surface">
+<span class="material-symbols-outlined text-sm text-on-tertiary-container" data-icon="check_circle">check_circle</span>
+                                Reasignar leads entre agentes
+                            </li>
+<li class="flex items-center gap-2 text-xs font-medium text-on-surface">
+<span class="material-symbols-outlined text-sm text-on-tertiary-container" data-icon="check_circle">check_circle</span>
+                                Reportes de rendimiento regional
+                            </li>
+</ul>
+<button class="w-full py-2 border border-primary/20 hover:bg-primary/5 rounded-lg text-xs font-bold text-primary transition-colors">Configurar Permisos</button>
+</div>
+<!-- Role Card: Agent -->
+<div class="bg-surface-container-low border border-primary/5 p-8 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="person_search">person_search</span>
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-1 rounded uppercase tracking-widest">Scoped Access</span>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-2">Agente</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Acceso limitado a los leads asignados personalmente y herramientas de gestión diarias.</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-xs font-medium text-on-surface">
+<span class="material-symbols-outlined text-sm text-on-tertiary-container" data-icon="check_circle">check_circle</span>
+                                Ver leads asignados
+                                <span class="ml-auto text-[10px] text-on-surface-variant italic">(Solo propios)</span>
+</li>
+<li class="flex items-center gap-2 text-xs font-medium text-on-surface">
+<span class="material-symbols-outlined text-sm text-on-tertiary-container" data-icon="check_circle">check_circle</span>
+                                Actualizar estado de pólizas
+                            </li>
+<li class="flex items-center gap-2 text-xs font-medium text-on-surface">
+<span class="material-symbols-outlined text-sm text-on-tertiary-container" data-icon="check_circle">check_circle</span>
+                                Calendario de actividades
+                            </li>
+</ul>
+<button class="w-full py-2 border border-primary/20 hover:bg-primary/5 rounded-lg text-xs font-bold text-primary transition-colors">Configurar Permisos</button>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer (Shared Component Execution) -->
+<footer class="bg-slate-50 border-t border-slate-200/20 w-full flex flex-col md:flex-row justify-between items-center px-8 py-6 w-full mt-20">
+<p class="text-slate-500 font-inter text-xs uppercase tracking-widest mb-4 md:mb-0">© 2024 AdminBastion IMO. All Rights Reserved.</p>
+<div class="flex gap-8">
+<a class="text-slate-500 font-inter text-xs uppercase tracking-widest hover:underline transition-opacity opacity-80 hover:opacity-100" href="#">Compliance</a>
+<a class="text-slate-500 font-inter text-xs uppercase tracking-widest hover:underline transition-opacity opacity-80 hover:opacity-100" href="#">Security Policy</a>
+<a class="text-slate-500 font-inter text-xs uppercase tracking-widest hover:underline transition-opacity opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+</div>
+</footer>
+</body></html>

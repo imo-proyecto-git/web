@@ -1,0 +1,14 @@
+Options -MultiViews -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /empresaIMO/public/
+
+    # Pasar archivos físicos (.php, assets) directamente
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Todo lo demás → Front Controller
+    RewriteRule ^ index.php [L]
+</IfModule>

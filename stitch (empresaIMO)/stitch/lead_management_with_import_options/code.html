@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lead Management | Bastion IMO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#ffffff",
+              "on-surface": "#131b2e",
+              "surface-dim": "#d2d9f4",
+              "on-primary-fixed": "#00174a",
+              "primary": "#00113a",
+              "on-background": "#131b2e",
+              "surface-container-lowest": "#ffffff",
+              "secondary": "#515f74",
+              "surface-tint": "#435b9f",
+              "surface-container-highest": "#dae2fd",
+              "on-tertiary-fixed-variant": "#005236",
+              "secondary-fixed-dim": "#b9c7df",
+              "tertiary-container": "#002f1e",
+              "inverse-on-surface": "#eef0ff",
+              "inverse-surface": "#283044",
+              "inverse-primary": "#b3c5ff",
+              "surface-container-low": "#f2f3ff",
+              "surface-container": "#eaedff",
+              "on-secondary-fixed-variant": "#3a485b",
+              "on-primary-fixed-variant": "#2a4386",
+              "tertiary-fixed-dim": "#4edea3",
+              "on-tertiary": "#ffffff",
+              "primary-container": "#002366",
+              "on-surface-variant": "#444650",
+              "on-error-container": "#93000a",
+              "on-primary-container": "#758dd5",
+              "surface-variant": "#dae2fd",
+              "on-tertiary-fixed": "#002113",
+              "outline-variant": "#c5c6d2",
+              "secondary-container": "#d5e3fc",
+              "on-secondary-container": "#57657a",
+              "surface-bright": "#faf8ff",
+              "error": "#ba1a1a",
+              "background": "#faf8ff",
+              "surface-container-high": "#e2e7ff",
+              "tertiary-fixed": "#6ffbbe",
+              "outline": "#757682",
+              "surface": "#faf8ff",
+              "on-tertiary-container": "#00a371",
+              "on-secondary-fixed": "#0d1c2e",
+              "primary-fixed-dim": "#b3c5ff",
+              "tertiary": "#00180d",
+              "error-container": "#ffdad6",
+              "primary-fixed": "#dbe1ff",
+              "secondary-fixed": "#d5e3fc",
+              "on-secondary": "#ffffff",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        /* Toggle for the dropdown */
+        #import-dropdown:not(.hidden) {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md shadow-xl shadow-blue-900/5 px-8 h-16 flex justify-between items-center">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black text-blue-900 tracking-tighter">Bastion IMO</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-slate-500 hover:text-blue-700 transition-colors font-medium" href="#">Dashboard</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors font-medium" href="#">Policies</a>
+<a class="text-blue-950 border-b-2 border-blue-900 font-bold pb-1" href="#">Leads</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors font-medium" href="#">Performance</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<input class="bg-surface-container-low border-none rounded-full px-4 py-1.5 text-sm w-64 focus:ring-2 focus:ring-primary/20" placeholder="Search leads..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1.5 text-slate-400 text-sm">search</span>
+</div>
+<button class="p-2 hover:bg-blue-50 transition-all rounded-full text-blue-900">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-blue-50 transition-all rounded-full text-blue-900">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-blue-100 overflow-hidden ml-2">
+<img alt="Agent Profile Avatar" class="w-full h-full object-cover" data-alt="Professional portrait of a middle-aged male insurance executive in a sharp navy suit, clean studio background, professional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIes03nL4rmr3tceOj8_j9rPwiUdQjdW8VehBkNKCSK9w0XOrnACt0rVqudgldSvoQ-2lIdJaTS872zmRacUasrHB2U2CKr3nBDegXtO0zogfAPCBEE70HbDb61fmvYZIQkurySYuc69ezNTNijdyovuo-mTt4D5PBgEqrQfrh8rvmFyYJy4fJy9PrASAqZTUv-2D2ACyc9iqOJL1IvQ8b-YE1a4U-nRnkciESKVH746B4JAWzNFZqcfciMAjHcLqgIWv9ukQf3cW9"/>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-20 px-8 max-w-7xl mx-auto min-h-screen">
+<!-- Header Section -->
+<header class="mb-10">
+<h1 class="text-4xl font-extrabold text-primary tracking-tight mb-2">Lead Management</h1>
+<p class="text-on-secondary-container font-medium">Identify high-intent opportunities and manage your pipeline with AI-driven scoring.</p>
+</header>
+<!-- Filters & Actions Bar -->
+<section class="bg-surface-container-low rounded-xl p-6 mb-8 flex flex-col lg:flex-row gap-4 items-end lg:items-center justify-between">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full lg:w-auto">
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-bold uppercase tracking-wider text-slate-500 px-1">Status</label>
+<select class="bg-white border-none rounded-lg text-sm font-medium py-2.5 px-4 shadow-sm focus:ring-2 focus:ring-primary/20 w-full sm:w-48">
+<option>All Statuses</option>
+<option>New</option>
+<option>Contacted</option>
+<option>Negotiation</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-bold uppercase tracking-wider text-slate-500 px-1">Source</label>
+<select class="bg-white border-none rounded-lg text-sm font-medium py-2.5 px-4 shadow-sm focus:ring-2 focus:ring-primary/20 w-full sm:w-48">
+<option>All Sources</option>
+<option>Web Referral</option>
+<option>Social Ads</option>
+<option>Direct Call</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-bold uppercase tracking-wider text-slate-500 px-1">Timeframe</label>
+<div class="relative">
+<input class="bg-white border-none rounded-lg text-sm font-medium py-2.5 px-4 shadow-sm focus:ring-2 focus:ring-primary/20 w-full sm:w-48" type="date"/>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<button class="bg-white hover:bg-slate-50 text-primary border border-primary/20 px-6 py-2.5 rounded-lg font-bold flex items-center gap-2 shadow-sm transition-all" onclick="document.getElementById('import-dropdown').classList.toggle('hidden')">
+<span class="material-symbols-outlined text-lg">upload</span>
+                    Import Leads
+                </button>
+<div class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-100 z-10 py-2 overflow-hidden" id="import-dropdown">
+<button class="w-full text-left px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">description</span>
+                        Import .CSV
+                    </button>
+<button class="w-full text-left px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">code</span>
+                        Import .JSON
+                    </button>
+</div>
+</div>
+<button class="bg-primary hover:bg-primary-container text-white px-6 py-2.5 rounded-lg font-bold flex items-center gap-2 shadow-lg transition-all whitespace-nowrap">
+<span class="material-symbols-outlined text-sm">add</span>
+                Create Lead
+            </button>
+</div>
+</section>
+<!-- Data Table Section -->
+<div class="bg-surface-container-lowest rounded-xl shadow-xl shadow-blue-900/5 overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant/10">
+<th class="px-6 py-5 text-sm font-bold text-primary uppercase tracking-tight">Nombre del Lead</th>
+<th class="px-6 py-5 text-sm font-bold text-primary uppercase tracking-tight">Puntaje de IA (Scoring)</th>
+<th class="px-6 py-5 text-sm font-bold text-primary uppercase tracking-tight">Estado</th>
+<th class="px-6 py-5 text-sm font-bold text-primary uppercase tracking-tight">Última Interacción</th>
+<th class="px-6 py-5 text-sm font-bold text-primary uppercase tracking-tight text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-primary font-bold">SM</div>
+<div>
+<p class="font-bold text-primary">Sofia Martinez</p>
+<p class="text-xs text-slate-400">sofia.m@example.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="bg-tertiary-container text-on-tertiary-container text-[10px] font-black px-2.5 py-1 rounded-full border border-on-tertiary-container/20">
+                            HIGH (98)
+                        </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-sm font-semibold text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                            New Lead
+                        </span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-500 font-medium">2 hours ago</td>
+<td class="px-6 py-5">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="Call">
+<span class="material-symbols-outlined text-lg">call</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="Email">
+<span class="material-symbols-outlined text-lg">mail</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="View">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold">JR</div>
+<div>
+<p class="font-bold text-primary">Jorge Rodriguez</p>
+<p class="text-xs text-slate-400">j.rodriguez@company.io</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="bg-orange-50 text-orange-700 text-[10px] font-black px-2.5 py-1 rounded-full border border-orange-200">
+                            MEDIUM (64)
+                        </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-sm font-semibold text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                            Follow-up
+                        </span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-500 font-medium">Yesterday</td>
+<td class="px-6 py-5">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="Call">
+<span class="material-symbols-outlined text-lg">call</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="Email">
+<span class="material-symbols-outlined text-lg">mail</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="View">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold">AL</div>
+<div>
+<p class="font-bold text-primary">Ana Lopez</p>
+<p class="text-xs text-slate-400">alopez@provider.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="bg-slate-100 text-slate-600 text-[10px] font-black px-2.5 py-1 rounded-full border border-slate-200">
+                            LOW (21)
+                        </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-sm font-semibold text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                            Nurturing
+                        </span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-500 font-medium">3 days ago</td>
+<td class="px-6 py-5">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="Call">
+<span class="material-symbols-outlined text-lg">call</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="Email">
+<span class="material-symbols-outlined text-lg">mail</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="View">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-primary font-bold">CV</div>
+<div>
+<p class="font-bold text-primary">Carlos Vargas</p>
+<p class="text-xs text-slate-400">carlos.v@finance.net</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="bg-tertiary-container text-on-tertiary-container text-[10px] font-black px-2.5 py-1 rounded-full border border-on-tertiary-container/20">
+                            HIGH (92)
+                        </span>
+</td>
+<td class="px-6 py-5">
+<span class="text-sm font-semibold text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                            Negotiation
+                        </span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-500 font-medium">5 hours ago</td>
+<td class="px-6 py-5">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="Call">
+<span class="material-symbols-outlined text-lg">call</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="Email">
+<span class="material-symbols-outlined text-lg">mail</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-blue-50 rounded-full transition-all" title="View">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="px-6 py-4 bg-slate-50 flex items-center justify-between border-t border-slate-100">
+<span class="text-sm text-slate-500">Showing 1-4 of 124 leads</span>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="p-2 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-slate-50">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- AI Insights Sidebar / Bento Element -->
+<aside class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-gradient-to-br from-primary to-primary-container p-8 rounded-xl text-white shadow-xl">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary-fixed">insights</span>
+<h3 class="text-xl font-bold">AI Recommendation</h3>
+</div>
+<p class="text-blue-200 mb-6 leading-relaxed">Based on current scoring, <span class="font-bold text-white">Sofia Martinez</span> and <span class="font-bold text-white">Carlos Vargas</span> are 85% more likely to close this week. We suggest initiating a direct call within the next 2 hours.</p>
+<button class="bg-white/10 hover:bg-white/20 transition-all border border-white/20 px-4 py-2 rounded-lg text-sm font-bold">View AI Analysis</button>
+</div>
+<div class="bg-surface-container-high p-8 rounded-xl flex flex-col justify-center">
+<p class="text-slate-500 font-bold uppercase text-[10px] tracking-[0.2em] mb-2">Conversion Rate</p>
+<p class="text-5xl font-black text-primary tracking-tighter">12.4%</p>
+<div class="mt-4 flex items-center gap-2 text-on-tertiary-container font-bold text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                +2.1% from last month
+            </div>
+</div>
+</aside>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-slate-200 bg-slate-50">
+<div class="max-w-7xl mx-auto py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex flex-col gap-2">
+<span class="font-bold text-slate-900">Digital Bastion</span>
+<p class="text-slate-500 text-sm">© 2024 Digital Bastion. All rights reserved. HIPAA Compliant. SSL Secured.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-slate-500 hover:text-blue-700 transition-colors text-sm font-medium" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors text-sm font-medium" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors text-sm font-medium" href="#">Compliance</a>
+<a class="text-slate-500 hover:text-blue-700 transition-colors text-sm font-medium" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<script>
+    // Close dropdown when clicking outside
+    window.onclick = function(event) {
+        if (!event.target.closest('.relative')) {
+            var dropdowns = document.getElementsByClassName("hidden");
+            var i;
+            // This is a simple implementation, ideally would target specific ID
+            document.getElementById('import-dropdown').classList.add('hidden');
+        }
+    }
+</script>
+</body></html>

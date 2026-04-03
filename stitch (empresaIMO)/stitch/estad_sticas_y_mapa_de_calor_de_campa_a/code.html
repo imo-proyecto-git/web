@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#eaedff",
+                        "on-primary-fixed-variant": "#2a4386",
+                        "on-secondary-container": "#57657a",
+                        "outline-variant": "#c5c6d2",
+                        "tertiary-container": "#002f1e",
+                        "primary": "#00113a",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#dae2fd",
+                        "primary-container": "#002366",
+                        "on-primary-container": "#758dd5",
+                        "secondary": "#515f74",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e2e7ff",
+                        "surface-container-highest": "#dae2fd",
+                        "on-surface": "#131b2e",
+                        "on-surface-variant": "#444650",
+                        "tertiary": "#00180d",
+                        "on-tertiary-container": "#00a371",
+                        "surface": "#faf8ff",
+                        "background": "#faf8ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .heatmap-glow {
+            filter: blur(12px);
+            opacity: 0.6;
+        }
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 z-30 bg-[#faf8ff] dark:bg-slate-950 flex justify-between items-center w-full-minus-64 px-6 py-3 border-none">
+<div class="flex items-center gap-4">
+<span class="font-headline text-xl font-extrabold text-[#00113a] dark:text-white tracking-tighter">Campaign Manager</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-xl text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Buscar campañas..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-slate-100 transition-colors text-slate-500">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-100 transition-colors text-slate-500">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="flex flex-col fixed left-0 top-0 h-full p-4 z-40 bg-[#faf8ff]/70 dark:bg-slate-950/70 backdrop-blur-md h-screen w-64 border-r-0">
+<div class="mb-10 px-2">
+<h1 class="text-lg font-black text-[#00113a] dark:text-white font-headline">Azure Shield</h1>
+<p class="text-xs text-slate-500 font-semibold uppercase tracking-widest mt-1">Marketing Module</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-[#002366] hover:bg-[#f2f3ff] transition-all rounded-lg font-['Manrope'] font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">send</span>
+                Campaigns
+            </a>
+<!-- Active State: Analytics -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#dae2fd] dark:bg-blue-900/40 text-[#00113a] dark:text-blue-100 rounded-lg font-['Manrope'] font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-[#002366] hover:bg-[#f2f3ff] transition-all rounded-lg font-['Manrope'] font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">group</span>
+                Audience
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-[#002366] hover:bg-[#f2f3ff] transition-all rounded-lg font-['Manrope'] font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">dashboard_customize</span>
+                Templates
+            </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/20 space-y-2">
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-bold text-sm mb-6 flex items-center justify-center gap-2 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Campaign
+            </button>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-[#f2f3ff] rounded-lg text-sm" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+<div class="flex items-center gap-3 px-4 py-3 mt-2">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-white text-xs font-bold">IA</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-[#00113a]">IMO Admin</span>
+<span class="text-[10px] text-slate-400 uppercase">Account Settings</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 p-8 min-h-screen">
+<!-- Title & Context -->
+<div class="mb-10 flex justify-between items-end">
+<div>
+<nav class="text-xs font-bold text-on-primary-container mb-2 flex items-center gap-2">
+<span>ANALYTICS</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-400 uppercase">Quarterly Review</span>
+</nav>
+<h2 class="text-4xl font-headline font-extrabold text-primary tracking-tight">Análisis de Campaña: Campaña Vida Termino Q4</h2>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-high text-primary font-bold px-6 py-2 rounded-xl text-sm transition-all hover:bg-surface-variant">Exportar Reporte</button>
+<button class="bg-primary text-white font-bold px-6 py-2 rounded-xl text-sm shadow-md">Re-enviar a No Abiertos</button>
+</div>
+</div>
+<!-- Top Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<!-- Stat Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-on-surface-variant text-sm font-semibold mb-1">Tasa de Apertura</p>
+<h3 class="text-3xl font-headline font-extrabold text-primary">42%</h3>
+<div class="mt-4 flex items-center text-on-tertiary-container text-xs font-bold">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span>
+                        +5.2% vs Media
+                    </div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl">mail</span>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-on-surface-variant text-sm font-semibold mb-1">CTR</p>
+<h3 class="text-3xl font-headline font-extrabold text-primary">8.5%</h3>
+<div class="mt-4 flex items-center text-on-tertiary-container text-xs font-bold">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span>
+                        +1.4% vs Media
+                    </div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl">ads_click</span>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-on-surface-variant text-sm font-semibold mb-1">Conversiones</p>
+<h3 class="text-3xl font-headline font-extrabold text-primary">3.2%</h3>
+<div class="mt-4 flex items-center text-on-tertiary-container text-xs font-bold">
+<span class="material-symbols-outlined text-sm mr-1">stars</span>
+                        Meta Alcanzada
+                    </div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl">shopping_cart</span>
+</div>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group border-l-4 border-error/20">
+<div class="relative z-10">
+<p class="text-on-surface-variant text-sm font-semibold mb-1">Bounces</p>
+<h3 class="text-3xl font-headline font-extrabold text-primary">1.1%</h3>
+<div class="mt-4 flex items-center text-slate-400 text-xs font-bold">
+<span class="material-symbols-outlined text-sm mr-1">check_circle</span>
+                        Dentro de Límites
+                    </div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl">error_outline</span>
+</div>
+</div>
+</div>
+<!-- Main Layout: Heatmap & Charts -->
+<div class="asymmetric-grid">
+<!-- Heatmap Visualization Column -->
+<div class="space-y-6">
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+<div class="flex justify-between items-center mb-8">
+<h4 class="font-headline font-bold text-lg text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">layers</span>
+                            Visual Heatmap Tracking
+                        </h4>
+<div class="flex items-center gap-4 text-xs font-bold text-slate-500">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-red-500"></span> 1,200+ Clicks
+                            </div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-orange-400"></span> 500+ Clicks
+                            </div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-yellow-300"></span> 100+ Clicks
+                            </div>
+</div>
+</div>
+<!-- Email Template Simulation -->
+<div class="max-w-2xl mx-auto bg-white border border-outline-variant/30 rounded-lg shadow-xl overflow-hidden relative">
+<!-- Email Header -->
+<div class="p-6 bg-primary text-white flex justify-between items-center">
+<div class="font-headline font-bold text-xl">Azure Shield</div>
+<div class="text-[10px] opacity-60">View in Browser</div>
+</div>
+<!-- Hero Image Area -->
+<div class="relative">
+<img class="w-full h-48 object-cover" data-alt="Modern lifestyle insurance concept, happy young family in a sunlit modern living room with soft editorial lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgRdKvt8STKTuGX8FRs6c_j79Lwqb9b6i56xrGydK_b7n3O2MUyprA8GX66hXGptVDajnu_9QD0_E6bDjkGGj0j3W8KbYOgpjtkNIUxD5Qf7YrQW62h__jhJhD_HL_2fdX6E50V5q8YkBLOabPEOzXhZQZqF3dJEgrnK9OuVKMGacmX8VHMAPQV1G2DR0K88o22TwLgINtmTHmnRCARQ5niYMqJvsDR8EA3DxvZ5Ywkmn0LRdHd8HbsaMHcpbu9VtjDVBcIG8vRi_z"/>
+<!-- Heatmap Spot: Hero Image -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-orange-500 heatmap-glow rounded-full"></div>
+</div>
+<!-- Content Area -->
+<div class="p-10 text-center space-y-6">
+<h5 class="text-2xl font-headline font-extrabold text-slate-900 leading-tight">Asegura el futuro de los que más quieres hoy.</h5>
+<p class="text-slate-500 text-sm leading-relaxed">Nuestra póliza Vida Termino Q4 está diseñada para brindar la máxima protección con las primas más competitivas del mercado.</p>
+<!-- CTA BUTTON -->
+<div class="relative inline-block mt-4">
+<button class="bg-primary text-white font-bold py-4 px-12 rounded-xl text-lg relative z-10">Cotizar Ahora</button>
+<!-- INTENSE HEATMAP SPOT: BUTTON -->
+<div class="absolute inset-0 scale-150 bg-red-600 heatmap-glow rounded-full animate-pulse opacity-80"></div>
+<div class="absolute inset-0 scale-125 bg-red-500 heatmap-glow rounded-full"></div>
+</div>
+</div>
+<!-- Features Grid -->
+<div class="grid grid-cols-2 gap-4 p-8 bg-surface-container-low/50">
+<div class="p-4 bg-white rounded-lg border border-slate-100 relative">
+<p class="font-bold text-xs text-primary mb-1">Flexibilidad</p>
+<p class="text-[10px] text-slate-400">Planes desde 10 años</p>
+<div class="absolute top-2 right-2 w-6 h-6 bg-yellow-300 heatmap-glow rounded-full"></div>
+</div>
+<div class="p-4 bg-white rounded-lg border border-slate-100 relative">
+<p class="font-bold text-xs text-primary mb-1">Garantía</p>
+<p class="text-[10px] text-slate-400">Respaldo Internacional</p>
+<div class="absolute top-2 right-2 w-8 h-8 bg-orange-400 heatmap-glow rounded-full opacity-40"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Analytics Column -->
+<div class="space-y-6">
+<!-- Open Rate Chart Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm h-full">
+<h4 class="font-headline font-bold text-md text-primary mb-6">Performance Timeline</h4>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-xs font-bold text-slate-400">OPEN RATES</span>
+<span class="text-xs font-bold text-primary">Peak: 10:00 AM</span>
+</div>
+<div class="h-32 flex items-end gap-1">
+<div class="w-full bg-surface-container-high h-[20%] rounded-t-sm"></div>
+<div class="w-full bg-surface-container-high h-[35%] rounded-t-sm"></div>
+<div class="w-full bg-surface-container-high h-[45%] rounded-t-sm"></div>
+<div class="w-full bg-primary-container h-[90%] rounded-t-sm relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-black text-primary">42%</div>
+</div>
+<div class="w-full bg-surface-container-high h-[75%] rounded-t-sm"></div>
+<div class="w-full bg-surface-container-high h-[60%] rounded-t-sm"></div>
+<div class="w-full bg-surface-container-high h-[40%] rounded-t-sm"></div>
+<div class="w-full bg-surface-container-high h-[25%] rounded-t-sm"></div>
+</div>
+<div class="flex justify-between mt-2 text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+<span>6am</span>
+<span>9am</span>
+<span>12pm</span>
+<span>3pm</span>
+<span>6pm</span>
+</div>
+</div>
+<div class="pt-6 border-t border-slate-100">
+<h5 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Device Breakdown</h5>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-semibold">Mobile</span>
+<span class="font-bold">68%</span>
+</div>
+<div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[68%] rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-semibold">Desktop</span>
+<span class="font-bold">24%</span>
+</div>
+<div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-on-primary-container h-full w-[24%] rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-semibold">Tablet</span>
+<span class="font-bold">8%</span>
+</div>
+<div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-outline-variant h-full w-[8%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-tertiary-container/5 rounded-xl border border-on-tertiary-container/10">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">insights</span>
+<div>
+<p class="text-xs font-bold text-on-tertiary-container">Smart Insight</p>
+<p class="text-[11px] text-on-tertiary-container/80 mt-1">Users are 3x more likely to click 'Cotizar Ahora' on Mobile between 8am and 10am.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Hidden as per suppression rules for analytics/details) -->
+<!-- The FAB is suppressed for this screen as it is a details/analytics focus -->
+</body></html>
