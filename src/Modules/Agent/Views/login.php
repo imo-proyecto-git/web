@@ -3,18 +3,18 @@
 <head>
     <meta charset="<?= config('app.charset', 'utf-8') ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= __('Acceso Portal Agente') ?> – <?= $COMPANY_NAME ?></title>
+    <title><?= __('Acceso Portal Agente') ?> – <?= config('app.company.name', 'empresaIMO') ?></title>
     
     <!-- Design System Loading -->
-    <link href="<?= $font_url ?>" rel="stylesheet"/>
+    <link href="<?= config('ui.typography.url') ?>" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 
     <style>
         :root {
-            --primary: <?= $primary_color ?>;
-            --secondary: <?= $secondary_color ?>;
-            --accent: <?= $gold_color ?>;
-            --ff-head: <?= $font_heading ?>;
+            --primary: <?= config('ui.colors.primary', '#00113a') ?>;
+            --secondary: <?= config('ui.colors.secondary', '#002366') ?>;
+            --accent: <?= config('ui.colors.tertiary', '#00a371') ?>;
+            --ff-head: <?= config('ui.typography.heading', "'Manrope', sans-serif") ?>;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -126,7 +126,7 @@
                 <path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5L12 1zm0 4.5l5 2.25V11c0 3.5-2.3 6.8-5 7.9-2.7-1.1-5-4.4-5-7.9V7.75L12 5.5z"/>
             </svg>
         </div>
-        <h1><?= $COMPANY_NAME ?></h1>
+        <h1><?= config('app.company.name', 'empresaIMO') ?></h1>
         <p>Portal Agente · Zero-Trust Access</p>
     </div>
 
@@ -134,11 +134,11 @@
         <div class="alert"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
-    <form method="POST" action="<?= $APP_URL ?>/login">
+    <form method="POST" action="<?= config('app.url') ?>/login">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
 
         <label for="email"><?= __('Email Corporativo') ?></label>
-        <input id="email" type="email" name="email" placeholder="agente@<?= strtolower(str_replace(' ', '', $COMPANY_NAME)) ?>.com" required autofocus>
+        <input id="email" type="email" name="email" placeholder="agente@<?= strtolower(str_replace(' ', '', config('app.company.name', 'empresaIMO'))) ?>.com" required autofocus>
 
         <label for="password"><?= __('Contraseña') ?></label>
         <input id="password" type="password" name="password" placeholder="••••••••" required>

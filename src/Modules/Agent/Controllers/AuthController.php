@@ -19,7 +19,12 @@ class AuthController extends Controller
     public function showLogin(): void
     {
         if (Auth::check()) {
-            $this->redirect('/agent/dashboard');
+            $user = Auth::user();
+            if (in_array($user['role'] ?? 'agent', ['superadmin', 'manager', 'admin'])) {
+                $this->redirect('/manager/dashboard');
+            } else {
+                $this->redirect('/agent/dashboard');
+            }
             return;
         }
 
@@ -58,7 +63,13 @@ class AuthController extends Controller
         if (Auth::login($email, $password)) {
             // Regenerar token tras login (Seguridad)
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-            $this->redirect('/agent/dashboard');
+            
+            $user = Auth::user();
+            if (in_array($user['role'] ?? 'agent', ['superadmin', 'manager'])) {
+                $this->redirect('/manager/dashboard');
+            } else {
+                $this->redirect('/agent/dashboard');
+            }
         } else {
             $_SESSION['login_error'] = __('Credenciales incorrectas o cuenta inactiva.');
             $this->redirect('/login');

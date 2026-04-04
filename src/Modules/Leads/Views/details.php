@@ -1,174 +1,230 @@
 <?php include __DIR__ . '/../../Landing/Views/layout/header.php'; ?>
-<?php include __DIR__ . '/../../Agent/Views/layout/nav.php'; ?>
 
-<div class="flex pt-16">
-    <!-- SideNavBar de Lead (Drill-down) -->
-    <aside class="h-screen w-64 border-r border-outline-variant/10 bg-surface-container-low fixed left-0 top-16 flex flex-col p-4 space-y-2">
-        <div class="flex items-center gap-3 p-3 mb-6 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10">
-            <div class="h-10 w-10 bg-primary-container text-white flex items-center justify-center font-black rounded-lg">
-                <?= substr($phi['name'] ?? 'P', 0, 1) ?>
+<!-- Top Navigation (Bastion Portal Style) -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm h-16 flex justify-between items-center px-12 border-b border-outline-variant/5">
+    <div class="flex items-center gap-12">
+        <span class="text-2xl font-black text-primary tracking-tighter font-headline"><?= $COMPANY_NAME ?> Portal</span>
+        <div class="hidden md:flex gap-8 items-center">
+            <a class="text-on-surface-variant/70 font-bold hover:text-primary transition-colors text-sm" href="<?= config('app.url') ?>/agent/dashboard"><?= __('Dashboard') ?></a>
+            <a class="text-primary border-b-2 border-primary font-black pb-1 text-sm tracking-tight" href="#"><?= __('Leads') ?></a>
+            <a class="text-on-surface-variant/70 font-bold hover:text-primary transition-colors text-sm" href="#"><?= __('Policies') ?></a>
+            <a class="text-on-surface-variant/70 font-bold hover:text-primary transition-colors text-sm" href="#"><?= __('Claims') ?></a>
+        </div>
+    </div>
+    <div class="flex items-center gap-6">
+        <span class="material-symbols-outlined text-primary cursor-pointer relative">notifications<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border border-white"></span></span>
+        <span class="material-symbols-outlined text-primary cursor-pointer">settings</span>
+        <div class="w-8 h-8 rounded-lg overflow-hidden border border-primary/10 shadow-sm"><img src="https://ui-avatars.com/api/?name=Admin&background=00113a&color=fff" class="w-full h-full object-cover"></div>
+    </div>
+</nav>
+
+<div class="flex min-h-screen pt-16 bg-surface/30">
+    <!-- Sidebar -->
+    <aside class="w-72 border-r border-outline-variant/5 flex flex-col py-10 px-8 gap-8 sticky top-16 bg-white/50">
+        <div class="bg-indigo-50/50 p-5 rounded-2xl border border-primary/5 flex items-center gap-4 group">
+            <div class="w-12 h-12 rounded-xl overflow-hidden shadow-lg border-2 border-white group-hover:scale-110 transition-all">
+                <img src="https://ui-avatars.com/api/?name=<?= urlencode($phi['name']) ?>&background=00113a&color=fff" class="w-full h-full object-cover">
             </div>
-            <div class="overflow-hidden">
-                <p class="font-bold text-sm text-primary truncate"><?= $phi['name'] ?></p>
-                <p class="text-[9px] uppercase tracking-tighter text-on-surface-variant font-black"><?= $lead['insurance_type'] ?></p>
+            <div>
+                <p class="text-primary font-black text-sm tracking-tight mb-0.5"><?= $phi['name'] ?></p>
+                <p class="text-[9px] text-on-surface-variant/40 font-black uppercase tracking-widest leading-none">HIGH PRIORITY <?= $COMPANY_NAME ?></p>
             </div>
         </div>
 
-        <nav class="space-y-1">
-            <a class="flex items-center gap-3 px-3 py-2.5 font-bold text-primary bg-primary/5 rounded-lg transition-all" href="#">
-                <span class="material-symbols-outlined text-sm">person</span> <?= __('Resumen General') ?>
+        <nav class="flex flex-col gap-2 pt-4">
+            <a class="flex items-center gap-3 px-4 py-3.5 bg-primary/10 text-primary font-black text-xs rounded-xl shadow-sm transition-all" href="#">
+                <span class="material-symbols-outlined text-lg">person</span> <?= __('Lead Overview') ?>
             </a>
-            <a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant font-medium hover:bg-primary/5 hover:text-primary rounded-lg transition-all" href="#historial">
-                <span class="material-symbols-outlined text-sm">history</span> <?= __('Trazabilidad HIPAA') ?>
+            <a class="flex items-center gap-3 px-4 py-3.5 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
+                <span class="material-symbols-outlined text-lg">history</span> <?= __('Activity Log') ?>
             </a>
-            <a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant font-medium hover:bg-primary/5 hover:text-primary rounded-lg transition-all" href="#comisiones">
-                <span class="material-symbols-outlined text-sm">payments</span> <?= __('Comisiones') ?>
+            <a class="flex items-center gap-3 px-4 py-3.5 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
+                <span class="material-symbols-outlined text-lg">calendar_today</span> <?= __('Schedule Call') ?>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3.5 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
+                <span class="material-symbols-outlined text-lg">request_quote</span> <?= __('Policy Quotes') ?>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3.5 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
+                <span class="material-symbols-outlined text-lg">folder</span> <?= __('Documents') ?>
             </a>
         </nav>
 
-        <div class="mt-auto pt-4 border-t border-outline-variant/10">
-            <button class="w-full bg-primary text-white py-3 rounded-xl font-bold text-xs shadow-lg hover:opacity-90 transition-all uppercase tracking-widest">
-                <?= __('Generar Propuesta') ?>
-            </button>
+        <div class="mt-auto">
+            <a href="<?= config('app.url') ?>/agent/leads/<?= $lead['uuid'] ?>/report" target="_blank" class="w-full bg-primary text-white py-4 rounded-xl font-black text-[11px] uppercase tracking-widest flex items-center justify-center gap-2 shadow-2xl shadow-primary/30 hover:scale-105 transition-all">
+                <span class="material-symbols-outlined text-sm">picture_as_pdf</span> <?= __('Generate Quote') ?>
+            </a>
         </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 ml-64 p-8 bg-surface mb-12">
-        <!-- Breadcrumbs -->
-        <nav class="flex items-center gap-2 text-[10px] font-black text-on-surface-variant uppercase tracking-widest mb-8">
-            <a href="<?= $APP_URL ?>/agent/dashboard" class="hover:text-primary transition-colors"><?= __('Leads') ?></a>
-            <span class="material-symbols-outlined text-xs">chevron_right</span>
+    <main class="flex-1 p-12 max-w-[1440px] mx-auto">
+        <nav class="flex items-center gap-2 text-on-surface-variant/40 text-[11px] font-bold uppercase tracking-widest mb-10">
+            <a href="<?= config('app.url') ?>/agent/dashboard" class="hover:text-primary transition-colors"><?= __('Leads') ?></a>
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
             <span class="text-primary"><?= $phi['name'] ?></span>
         </nav>
 
-        <!-- Lead Profile Header -->
-        <div class="grid grid-cols-12 gap-8 mb-8">
-            <div class="col-span-12 lg:col-span-8 bg-surface-container-lowest p-8 rounded-2xl relative overflow-hidden shadow-sm border border-outline-variant/10">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-primary-container opacity-5 rounded-bl-full"></div>
-                
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
-                    <div class="flex items-center gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <!-- Central Lead Profile Card -->
+            <div class="lg:col-span-8 space-y-10">
+                <div class="bg-white rounded-[40px] p-12 shadow-2xl shadow-primary/5 border border-outline-variant/5 relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row items-center gap-10">
                         <div class="relative">
-                            <div class="w-24 h-24 rounded-full bg-surface-container-high border-4 border-white flex items-center justify-center text-4xl font-black text-primary/20">
-                                <?= substr($phi['name'], 0, 1) ?>
+                            <div class="w-32 h-32 rounded-[32px] overflow-hidden border-4 border-white shadow-2xl shadow-primary/20">
+                                <img src="https://ui-avatars.com/api/?name=<?= urlencode($phi['name']) ?>&background=00113a&color=fff&size=200" class="w-full h-full object-cover">
                             </div>
-                            <div class="absolute bottom-0 right-0 bg-on-tertiary-container text-white px-2 py-1 rounded-full text-[8px] font-black uppercase tracking-tighter">
-                                <?= __('Encriptado') ?>
+                            <span class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[9px] font-black uppercase px-3 py-1.5 rounded-full ring-4 ring-white tracking-widest shadow-lg"><?= __('VERIFICADO') ?></span>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h1 class="text-5xl font-black text-primary tracking-tighter mb-4"><?= $phi['name'] ?></h1>
+                            <div class="flex flex-wrap justify-center md:justify-start items-center gap-6 text-on-surface-variant/50 text-[11px] font-bold uppercase tracking-widest">
+                                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">location_on</span> Austin, TX</div>
+                                <div class="flex items-center gap-2 underline cursor-pointer hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">mail</span> <?= $phi['email'] ?></div>
                             </div>
                         </div>
-                        <div>
-                            <h1 class="text-4xl font-black text-primary tracking-tighter mb-2"><?= $phi['name'] ?></h1>
-                            <div class="flex flex-wrap items-center gap-4 text-on-surface-variant text-xs font-medium">
-                                <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm text-primary/50">mail</span> <?= $phi['email'] ?></span>
-                                <span class="w-1 h-1 bg-outline-variant/30 rounded-full"></span>
-                                <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-sm text-primary/50">call</span> <?= $phi['phone'] ?></span>
-                            </div>
+                        <div class="bg-indigo-50/50 p-6 rounded-[32px] border border-primary/5 text-center px-10 shrink-0">
+                            <p class="text-[9px] font-black text-emerald-600 uppercase tracking-widest mb-1"><?= __('PUNTUACIÓN DEL LEAD') ?></p>
+                            <h3 class="text-4xl font-black text-primary tracking-tighter mb-1"><?= (int)$lead['score'] ?>%</h3>
+                            <p class="text-emerald-500 text-[8px] font-black uppercase tracking-widest"><?= __('Calificación Alta') ?></p>
                         </div>
                     </div>
 
-                    <div class="bg-tertiary-container/10 p-5 rounded-2xl border border-tertiary-container/20 flex flex-col items-center min-w-[120px]">
-                        <span class="text-[9px] uppercase font-black text-on-tertiary-container tracking-widest mb-1"><?= __('Score IA') ?></span>
-                        <span class="text-4xl font-black text-on-tertiary-container"><?= $lead['score'] ?>%</span>
-                        <span class="text-[9px] text-on-tertiary-container font-bold uppercase"><?= ($lead['score'] >= 70) ? __('Calificación Alta') : __('Calificación Media') ?></span>
+                    <div class="flex flex-wrap gap-4 mt-12 border-t border-outline-variant/10 pt-10">
+                        <button class="flex-1 flex items-center justify-center gap-3 bg-primary text-white py-4 px-8 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-primary/30 hover:scale-105 transition-all">
+                            <span class="material-symbols-outlined text-lg">call</span> <?= __('Llamar Ahora') ?>
+                        </button>
+                        <button class="flex-1 flex items-center justify-center gap-3 bg-[#e9f7f0] text-[#1e4630] py-4 px-8 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#d5eee0] transition-all">
+                            <span class="material-symbols-outlined text-lg">chat</span> <?= __('Enviar WhatsApp') ?>
+                        </button>
+                        <button class="flex-1 flex items-center justify-center gap-3 bg-indigo-50 text-primary py-4 px-8 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-indigo-100 transition-all">
+                            <span class="material-symbols-outlined text-lg">mail</span> <?= __('Enviar Correo') ?>
+                        </button>
                     </div>
-                    <a href="<?= $APP_URL ?>/agent/leads/<?= $lead['uuid'] ?>/report" target="_blank" class="p-3 bg-surface-container-high rounded-xl text-primary hover:bg-primary hover:text-white transition-all shadow-sm" title="<?= __('Generar Reporte PII-Secure') ?>">
-                        <span class="material-symbols-outlined">print</span>
-                    </a>
                 </div>
 
-                <div class="mt-10 flex flex-wrap gap-4 relative z-10">
-                    <button class="bg-primary text-white px-6 py-3.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:shadow-xl hover:shadow-primary/20 transition-all">
-                        <span class="material-symbols-outlined text-sm">call</span> <?= __('Llamar Ahora') ?>
-                    </button>
-                    <button class="bg-surface-container-high text-primary px-6 py-3.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-surface-container-highest transition-all border border-outline-variant/10">
-                        <span class="material-symbols-outlined text-sm">chat</span> <?= __('WhatsApp') ?>
-                    </button>
-                    <button class="bg-surface-container-high text-primary px-6 py-3.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-surface-container-highest transition-all border border-outline-variant/10">
-                        <span class="material-symbols-outlined text-sm">mail</span> <?= __('Enviar Correo') ?>
-                    </button>
+                <!-- Historial de Actividad -->
+                <div class="bg-white rounded-[40px] p-12 shadow-2xl shadow-primary/5 border border-outline-variant/5">
+                    <div class="flex items-center gap-4 mb-12">
+                        <span class="material-symbols-outlined text-primary text-2xl">history</span>
+                        <h2 class="text-2xl font-black text-primary tracking-tight"><?= __('Historial de Actividad') ?></h2>
+                    </div>
+
+                    <div class="space-y-12 pl-4 border-l-2 border-outline-variant/10 relative">
+                        <?php foreach (array_slice($logs, 0, 4) as $index => $log): ?>
+                        <div class="relative">
+                            <div class="absolute -left-[27px] top-0 w-5 h-5 rounded-full bg-<?= $index == 0 ? 'primary' : ($index == 2 ? 'emerald-500' : 'surface-container-high') ?> border-4 border-white shadow-md"></div>
+                            <div>
+                                <p class="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest mb-1"><?= strtoupper(date('D, H:i A', strtotime($log['created_at']))) ?></p>
+                                <h4 class="text-sm font-black text-primary mb-1 tracking-tight"><?= $log['action'] ?></h4>
+                                <p class="text-[11px] text-on-surface-variant/60 font-medium leading-relaxed"><?= $log['details'] ?></p>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             </div>
 
-            <!-- AI Insight Widget -->
-            <div class="col-span-12 lg:col-span-4 bg-primary-container p-8 rounded-2xl text-white flex flex-col justify-between shadow-xl shadow-primary/10">
-                <div>
-                    <div class="flex items-center gap-2 mb-6">
-                        <span class="material-symbols-outlined text-gold-color">psychology</span>
-                        <h3 class="text-sm font-black uppercase tracking-widest"><?= __('IA Insights LLaMA') ?></h3>
+            <!-- AI Insights & Scheduler -->
+            <div class="lg:col-span-4 space-y-10">
+                <!-- AI INSIGHTS CARD -->
+                <div class="bg-primary rounded-[40px] p-10 text-white relative overflow-hidden shadow-2xl shadow-primary/40">
+                    <div class="flex items-center gap-3 mb-8">
+                        <span class="material-symbols-outlined text-emerald-400 text-xl">psychology</span>
+                        <h3 class="text-lg font-black tracking-tight uppercase"><?= __('AI INSIGHTS & SCRIPT') ?></h3>
                     </div>
-                    <p class="text-blue-200 text-sm leading-relaxed mb-6 italic opacity-90">
-                        "El prospecto muestra un alto interés en <strong><?= $lead['insurance_type'] ?></strong>. Los patrones de captura sugieren una intención de compra inmediata."
-                    </p>
-                </div>
-                <div class="space-y-3">
-                    <div class="flex items-center gap-2 text-xs font-bold">
-                        <span class="material-symbols-outlined text-gold-color text-sm">check_circle</span>
-                        <?= __('Email Verificado') ?>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs font-bold">
-                        <span class="material-symbols-outlined text-gold-color text-sm">check_circle</span>
-                        <?= __('PII Encriptada AES-256') ?>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    
+                    <?php 
+                    $insights = json_decode($lead['ai_insights'] ?? '{}', true);
+                    $profile = $insights['profile'] ?? 'Perfil en evaluación...';
+                    $script = $insights['script'] ?? 'Guion no generado.';
+                    ?>
 
-        <div class="grid grid-cols-12 gap-8">
-            <!-- Trazabilidad HIPAA Flow -->
-            <div id="historial" class="col-span-12 lg:col-span-7 bg-surface-container-low p-8 rounded-2xl border border-outline-variant/10">
-                <h2 class="text-xl font-black text-primary mb-8 flex items-center gap-2 uppercase tracking-tighter">
-                    <span class="material-symbols-outlined">history</span> <?= __('Trazabilidad Inmutable (Audit Log)') ?>
-                </h2>
-                
-                <div class="relative space-y-6 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/20">
-                    <?php foreach ($logs as $log): ?>
-                    <div class="relative pl-10">
-                        <div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-white border-2 border-<?= ($log['action'] == 'VIEW_PHI') ? 'primary' : 'outline-variant' ?> flex items-center justify-center z-10 shadow-sm">
-                            <span class="w-1.5 h-1.5 rounded-full bg-<?= ($log['action'] == 'VIEW_PHI') ? 'primary' : 'outline-variant' ?>"></span>
+                    <div class="mb-8">
+                        <p class="text-[10px] font-black text-indigo-200/60 uppercase tracking-widest mb-2 border-b border-white/10 pb-2">Perfil Psicológico Operativo</p>
+                        <p class="text-white text-[13px] leading-relaxed italic font-medium">
+                            "<?= htmlspecialchars($profile) ?>"
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-[10px] font-black text-emerald-400/80 uppercase tracking-widest mb-2 border-b border-white/10 pb-2">Micro-Guion Persuasivo (Generado por IA)</p>
+                        <div class="bg-white/10 p-4 rounded-2xl border border-white/10 relative">
+                            <span class="material-symbols-outlined absolute top-3 right-3 text-white/20 text-sm cursor-pointer hover:text-white transition-colors" title="Copiar guion">content_copy</span>
+                            <p class="text-emerald-50 text-[12px] font-medium leading-relaxed">
+                                <?= htmlspecialchars($script) ?>
+                            </p>
                         </div>
-                        <p class="text-[9px] font-black text-on-surface-variant uppercase mb-0.5"><?= date('d M, H:i', strtotime($log['created_at'])) ?></p>
-                        <h4 class="text-sm font-bold text-primary"><?= $log['action'] ?></h4>
-                        <p class="text-[10px] text-on-surface-variant leading-tight"><?= $log['details'] ?></p>
-                        <p class="text-[8px] text-primary/30 mt-1 font-mono">IP: <?= $log['ip_address'] ?></p>
                     </div>
-                    <?php endforeach; ?>
+
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3 text-emerald-400 font-bold text-[10px] uppercase tracking-tighter">
+                                <span class="material-symbols-outlined text-base">check_circle</span> <?= __('Análisis de Comportamiento LLaMA 3.1') ?>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-blue-500 rounded-full opacity-10 blur-[100px]"></div>
                 </div>
-            </div>
 
-            <!-- Commission Widget -->
-            <div id="comisiones" class="col-span-12 lg:col-span-5 bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant/10 shadow-sm">
-                <h2 class="text-xl font-black text-primary mb-8 flex items-center gap-2 uppercase tracking-tighter">
-                    <span class="material-symbols-outlined">payments</span> <?= __('Estimación de Comisiones') ?>
-                </h2>
-                
-                <div class="space-y-6">
-                    <div class="flex justify-between items-center py-4 border-b border-outline-variant/10">
-                        <span class="text-xs font-black text-on-surface-variant uppercase tracking-widest"><?= __('Tasa Base') ?> (<?= $lead['insurance_type'] ?>)</span>
-                        <span class="font-bold text-primary"><?= $commissions['base_rate'] ?></span>
-                    </div>
-                    <div class="flex justify-between items-center py-4 border-b border-outline-variant/10">
-                        <span class="text-xs font-black text-on-surface-variant uppercase tracking-widest"><?= __('Bono Calidad IA') ?></span>
-                        <span class="font-bold text-on-tertiary-container">+<?= $commissions['lead_bonus'] ?></span>
-                    </div>
-                    <div class="flex justify-between items-center py-4 text-primary">
-                        <span class="text-xs font-black uppercase tracking-widest"><?= __('Porcentaje Final') ?></span>
-                        <span class="text-2xl font-black"><?= $commissions['final_rate'] ?></span>
+                <!-- Follow-up Scheduler -->
+                <div class="bg-white rounded-[40px] p-10 shadow-2xl shadow-primary/5 border border-outline-variant/5">
+                    <div class="flex items-center gap-3 mb-10">
+                        <span class="material-symbols-outlined text-primary text-2xl">event_available</span>
+                        <h3 class="text-xl font-black text-primary tracking-tight"><?= __('Agenda de Seguimiento') ?></h3>
                     </div>
 
-                    <div class="p-6 bg-primary-container rounded-2xl text-center">
-                        <p class="text-[10px] text-white/60 font-black uppercase tracking-widest mb-2"><?= __('Monto Estimado de Comisión') ?></p>
-                        <p class="text-4xl font-black text-white">$<?= number_format($commissions['total_amount'], 2) ?> <span class="text-xs font-medium"><?= $commissions['currency'] ?></span></p>
-                    </div>
+                    <form class="space-y-8">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">FECHA DE LA CITA</label>
+                                <div class="relative">
+                                    <input type="text" class="w-full bg-indigo-50/50 border-none rounded-xl py-3.5 px-4 text-xs font-bold text-primary shadow-sm" placeholder="mm/dd/yyyy"/>
+                                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary/30 text-base">calendar_today</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">HORA</label>
+                                <div class="relative">
+                                    <input type="text" class="w-full bg-indigo-50/50 border-none rounded-xl py-3.5 px-4 text-xs font-bold text-primary shadow-sm" placeholder="--:-- --"/>
+                                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary/30 text-base">schedule</span>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="flex items-center gap-2 p-3 bg-surface-container-high rounded-xl text-xs text-on-surface-variant font-medium">
-                        <span class="material-symbols-outlined text-primary text-sm">info</span>
-                        <?= __('Sujeto a validación de póliza final y pago de prima.') ?>
-                    </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">TIPO DE LLAMADA</label>
+                            <div class="relative">
+                                <select class="w-full bg-indigo-50/50 border-none rounded-xl py-3.5 px-4 text-xs font-bold text-primary shadow-sm appearance-none cursor-pointer focus:ring-2 focus:ring-primary">
+                                    <option>Llamada Inicial / Introducción</option>
+                                    <option>Presentación de Propuesta</option>
+                                    <option>Cierre de Venta</option>
+                                </select>
+                                <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-primary/30 pointer-events-none">expand_more</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">NOTAS DE PREPARACIÓN</label>
+                            <textarea class="w-full bg-indigo-50/50 border-none rounded-xl py-4 px-5 text-xs font-medium text-primary shadow-sm h-32 resize-none" placeholder="Ej. El cliente está preocupado por la cobertura de enfermedades críticas..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full mt-4 py-5 bg-primary text-white font-black rounded-xl hover:bg-primary-container transition-all shadow-xl shadow-primary/20 text-xs uppercase tracking-widest">
+                            Agendar Seguimiento
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </main>
 </div>
+
+<footer class="w-full bg-white border-t border-outline-variant/10 px-12 py-8 mt-12 flex flex-col md:flex-row justify-between items-center gap-8">
+    <p class="text-[9px] font-black text-on-surface-variant/30 uppercase tracking-widest opacity-60">© <?= date('Y') ?> <?= $COMPANY_NAME ?> FINANCIAL SYSTEMS. SECURE EDITORIAL STANDARD.</p>
+    <div class="flex gap-10">
+        <a href="#" class="text-[9px] font-black text-on-surface-variant/40 hover:text-primary uppercase tracking-widest transition-all">Privacy Policy</a>
+        <a href="#" class="text-[9px] font-black text-on-surface-variant/40 hover:text-primary uppercase tracking-widest transition-all">Compliance Docs</a>
+        <a href="#" class="text-[9px] font-black text-on-surface-variant/40 hover:text-primary uppercase tracking-widest transition-all">Support</a>
+    </div>
+</footer>
 
 <?php include __DIR__ . '/../../Landing/Views/layout/footer.php'; ?>

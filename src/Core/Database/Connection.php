@@ -37,7 +37,22 @@ class Connection
             ];
 
             try {
-                self::$instance = new PDO($dsn, $user, $pass, $options);
+                $pdo = new PDO($dsn, $user, $pass, $options);
+                
+                // INYECCIÓN DE CONTEXTO PARA TRIGGERS MYSQL (Immutable Ledger)
+                // Esto permite a los triggers grabar auditorías automáticamente con la identidad del atacante/usuario.
+                $userId = $_SESSION['user_id'] ?? null;
+                $ip = $_SERVER['REMOTE_ADDR'] ?? 'CLI';
+                
+                if ($userId) {
+                    $pdo->exec("SET @imo_user_id = " . (int)$userId . ";");
+                } else {
+                    $pdo->exec("SET @imo_user_id = NULL;");
+                }
+                $pdo->exec("SET @imo_ip = " . $pdo->quote($ip) . ";");
+
+                self::$instance = $pdo;
+
             } catch (PDOException $e) {
                 $env = AppConfig::get('APP_ENV', 'local');
                 if ($env === 'local') {

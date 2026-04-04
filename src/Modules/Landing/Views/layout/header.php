@@ -21,31 +21,31 @@
             colors: {
               "primary": "<?= $primary_color ?>",
               "secondary": "<?= $secondary_color ?>",
-              "surface": "<?= $bg_light ?>",
-              "surface-bright": "<?= $surface_light ?>",
+              "tertiary": "<?= $tertiary_color ?>",
+              "tertiary-container": "<?= $tertiary_container ?>",
+              "on-tertiary-container": "<?= $on_tertiary_container ?>",
+              "surface": "<?= $surface ?>",
+              "surface-low": "<?= $surface_low ?>",
+              "surface-highest": "<?= $surface_highest ?>",
+              "surface-lowest": "<?= $surface_lowest ?>",
               "outline-variant": "<?= $border_light ?>",
-              "tertiary-fixed-dim": "<?= $gold_color ?>",
-              "on-tertiary-container": "<?= $color_success ?>",
-              "error-container": "<?= $color_warning ?>",
-              "error": "<?= config('ui.colors.danger') ?>",
+              "error": "<?= config('ui.colors.danger', '#ba1a1a') ?>",
               "on-surface": "#131b2e",
               "on-surface-variant": "#444650",
-              "primary-container": "<?= config('ui.colors.secondary') ?>",
-              "surface-container-lowest": "#ffffff",
-              "surface-container-low": "#f2f3ff",
-              "surface-container": "#eaedff",
-              "surface-container-high": "#e2e7ff",
-              "surface-container-highest": "#dae2fd",
             },
             fontFamily: {
-              "headline": [<?= $font_heading ?>],
-              "body": [<?= $font_body ?>],
+              "headline": ["Manrope", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
             },
             borderRadius: {
-                "DEFAULT": "0.125rem", 
-                "lg": "<?= config('ui.radius.sm') ?>", 
-                "xl": "<?= config('ui.radius.md') ?>", 
-                "full": "<?= config('ui.radius.pill') ?>"
+                "none": "0",
+                "sm": "<?= $radius_sm ?>", 
+                "md": "<?= $radius_md ?>", 
+                "lg": "8px", 
+                "xl": "12px", 
+                "2xl": "<?= $radius_lg ?>",
+                "3xl": "<?= $radius_xl ?>",
+                "full": "50rem"
             },
           },
         },
@@ -53,13 +53,25 @@
     </script>
 
     <style>
+      :root {
+        --surface: <?= $surface ?>;
+        --surface-low: <?= $surface_low ?>;
+        --surface-lowest: <?= $surface_lowest ?>;
+      }
       .material-symbols-outlined {
         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
       }
       .glass-card {
-        background: <?= hexToRgba($surface_light, 0.7) ?>;
+        background: <?= hexToRgba($surface_lowest, 0.7) ?>;
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, <?= $primary_color ?>, <?= $secondary_color ?>);
+        color: white;
+        border-radius: 8px; /* 0.5rem equivalent */
+        font-weight: 800;
+        letter-spacing: -0.01em;
       }
     </style>
 </head>

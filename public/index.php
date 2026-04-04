@@ -51,18 +51,34 @@ $router->get('/', 'Landing/Controllers/HomeController@index');
 $router->get('/agent/leads/{uuid}', 'Leads/Controllers/LeadController@show');
 $router->get('/agent/leads/{uuid}/report', 'Leads/Controllers/LeadController@report');
 $router->post('/api/v1/leads', 'Leads/Controllers/LeadController@store');
+$router->post('/agent/leads/{uuid}/status', 'Leads/Controllers/LeadController@updateStatus');
+$router->post('/api/v1/sync/offline', 'Leads/Controllers/LeadController@syncOffline');
 
-// Contratos y Firma Digital
+// Contratos y Firma Digital + OTP
 $router->get('/contracts/{uuid}', 'Contracts/Controllers/ContractController@show');
+$router->post('/contracts/{uuid}/otp/request', 'Contracts/Controllers/ContractController@requestOtp');
+$router->post('/contracts/{uuid}/otp/verify', 'Contracts/Controllers/ContractController@verifyOtp');
 $router->post('/contracts/{uuid}/sign', 'Contracts/Controllers/ContractController@sign');
 
 // Supervisión (Manager)
 $router->get('/manager/dashboard', 'Manager/Controllers/ManagerDashboardController@index');
+$router->get('/manager/users', 'Manager/Controllers/ManagerDashboardController@users');
+$router->get('/manager/roles', 'Manager/Controllers/ManagerDashboardController@roles');
+$router->get('/manager/audit', 'Audit/Controllers/AuditController@index');
+$router->get('/manager/audit/export', 'Audit/Controllers/AuditController@exportCsv');
 
-// Autenticación
+// Marketing (Azure Shield)
+$router->get('/manager/marketing/campaigns/create', 'Marketing/Controllers/CampaignController@create');
+$router->get('/manager/marketing/campaigns/analytics', 'Marketing/Controllers/CampaignController@analytics');
+$router->post('/api/v1/marketing/campaigns', 'Marketing/Controllers/CampaignController@store');
+$router->get('/api/v1/marketing/campaigns/{id}/status', 'Marketing/Controllers/CampaignController@queueStatus');
+$router->get('/api/v1/track/{campaign_id}/{lead_id}', 'Marketing/Controllers/CampaignController@trackOpen');
+
+// Autenticación & Configuración
 $router->get('/login',  'Agent/Controllers/AuthController@showLogin');
 $router->post('/login', 'Agent/Controllers/AuthController@login');
 $router->get('/logout', 'Agent/Controllers/AuthController@logout');
+$router->get('/settings/security', 'Agent/Controllers/SettingsController@security');
 
 // Portal
 $router->get('/agent/dashboard', 'Agent/Controllers/DashboardController@index');

@@ -57,6 +57,7 @@ class Auth
         $_SESSION['user_uuid']     = $user['uuid'];
         $_SESSION['user_email']    = $user['email'];
         $_SESSION['user_name']     = $user['full_name'] ?? $user['email'];
+        $_SESSION['role_id']       = (int)$user['role_id'];
         $_SESSION['user_role']     = $user['role_key'];
         $_SESSION['last_activity'] = time();
         $_SESSION['csrf_token']    = bin2hex(random_bytes(32)); // Token para protección CSRF
@@ -114,10 +115,11 @@ class Auth
     public static function user(): array
     {
         return [
-            'id'    => $_SESSION['user_id']    ?? null,
-            'email' => $_SESSION['user_email'] ?? null,
-            'name'  => $_SESSION['user_name']  ?? null,
-            'role'  => $_SESSION['user_role']  ?? null,
+            'id'      => $_SESSION['user_id']    ?? null,
+            'email'   => $_SESSION['user_email'] ?? null,
+            'name'    => $_SESSION['user_name']  ?? null,
+            'role'    => $_SESSION['user_role']  ?? null,
+            'role_id' => $_SESSION['role_id']    ?? null,
         ];
     }
 }

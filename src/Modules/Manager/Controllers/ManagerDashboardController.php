@@ -21,7 +21,7 @@ class ManagerDashboardController extends Controller
     public function index(): void
     {
         // 1. Autorización (Solo Manager o SuperAdmin)
-        if (!Auth::check() || !in_array(Auth::user()['role_id'], [1, 2])) {
+        if (!Auth::check() || (!Auth::hasRole('superadmin') && !Auth::hasRole('manager'))) {
             header('Location: ' . config('app.url') . '/login');
             exit;
         }
@@ -66,5 +66,54 @@ class ManagerDashboardController extends Controller
             error_log("[IMO][Manager] Error: " . $e->getMessage());
             die("Fallo en la carga del dashboard de supervisión.");
         }
+    }
+    /**
+     * GET /manager/users
+     * Gestión de Directorio de Usuarios.
+     */
+    public function users(): void
+    {
+        if (!Auth::check() || (!Auth::hasRole('superadmin') && !Auth::hasRole('manager'))) {
+            header('Location: ' . config('app.url') . '/login');
+            exit;
+        }
+
+        try {
+            $pdo = Connection::getInstance();
+            
+            $usersList = $pdo->query("
+                SELECT u.*, r.display_name as role_name 
+                FROM users u 
+                JOIN roles r ON u.role_id = r.id 
+                ORDER BY u.created_at DESC
+            ")->fetchAll();
+
+            $this->view('Manager/Views/users', [
+                'users' => $usersList,
+                'user'  => Auth::user(),
+                'stats' => [
+                    'total_users' => count($usersList),
+                    'active_now'  => 84, // Simulado para el look Bastion
+                ]
+            ]);
+        } catch (Exception $e) {
+            die("Fallo en la carga del directorio de usuarios.");
+        }
+    }
+
+    /**
+     * GET /manager/roles
+     * Vista de Roles y Permisos.
+     */
+    public function roles(): void
+    {
+        if (!Auth::check() || (!Auth::hasRole('superadmin') && !Auth::hasRole('manager'))) {
+            header('Location: ' . config('app.url') . '/login');
+            exit;
+        }
+
+        $this->view('Manager/Views/roles', [
+            'user' => Auth::user()
+        ]);
     }
 }

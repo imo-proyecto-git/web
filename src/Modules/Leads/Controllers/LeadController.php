@@ -67,7 +67,17 @@ class LeadController extends Controller
             // 6. Auditoría HIPAA
             AuditService::log(null, 'CAPTURE_LEAD', 'leads', (int)$pdo->lastInsertId(), 'Conversión exitosa desde Landing Page.');
 
-            // 7. Respuesta de Éxito
+            // 7. Motor de Scoring IA (Asíncrono simulado en Monolito)
+            $scoring = new \IMO\Modules\GAI\Services\ScoringService();
+            $scoring->qualify((int)$pdo->lastInsertId(), [
+                'name' => $fields['full_name'],
+                'email' => $fields['email'],
+                'phone' => $fields['phone'],
+                'insurance_type' => $fields['service_type'],
+                'timestamp' => date('H:i')
+            ]);
+
+            // 8. Respuesta de Éxito
             $this->json([
                 'status' => 'success', 
                 'message' => __('Información recibida. Un asesor te contactará pronto.'),
@@ -176,6 +186,130 @@ class LeadController extends Controller
             ]);
 
         } catch (Exception $e) { $this->redirect('/agent/dashboard'); }
+    }
+
+    /**
+     * Actualizar Estado del Lead: POST /agent/leads/{uuid}/status
+     */
+    public function updateStatus(string $uuid): void
+    {
+        if (!Auth::check()) { $this->json(['status' => 'error', 'message' => 'No autorizado'], 401); return; }
+
+        $status = trim(strip_tags($_POST['status'] ?? ''));
+        $allowed = ['new', 'contacted', 'qualified', 'converted', 'rejected'];
+
+        if (!in_array($status, $allowed)) {
+            $this->json(['status' => 'error', 'message' => 'Estado no válido'], 400); return;
+        }
+
+        try {
+            $pdo = Connection::getInstance();
+            
+            // Buscar lead para el audit
+            $stmt = $pdo->prepare("SELECT id FROM leads WHERE uuid = :u LIMIT 1");
+            $stmt->execute(['u' => $uuid]);
+            $lead = $stmt->fetch();
+
+            if (!$lead) { $this->json(['status' => 'error', 'message' => 'Lead no encontrado'], 404); return; }
+
+            // Actualización
+            $update = $pdo->prepare("UPDATE leads SET status = :s WHERE uuid = :u");
+            $update->execute(['s' => $status, 'u' => $uuid]);
+
+            // Auditoría HIPAA
+            AuditService::log(
+                Auth::user()['id'], 
+                'UPDATE_STATUS', 
+                'leads', 
+                (int)$lead['id'], 
+                "Estado del prospecto cambiado a: " . strtoupper($status)
+            );
+
+            $this->json(['status' => 'success', 'message' => 'Estado del prospecto actualizado.']);
+
+        } catch (Exception $e) { $this->json(['status' => 'error', 'message' => $e->getMessage()], 500); }
+    }
+
+    /**
+     * Sincronización de Leads Offline: POST /api/v1/sync/offline
+     */
+    public function syncOffline(): void
+    {
+        header('Content-Type: application/json');
+        
+        $input = file_get_contents('php://input');
+        $data = json_decode($input, true);
+        
+        if (empty($data['batch']) || !is_array($data['batch'])) {
+            $this->json(['status' => 'error', 'message' => 'Lote vacío o inválido.'], 400);
+            return;
+        }
+
+        try {
+            $pdo = Connection::getInstance();
+            $pdo->beginTransaction();
+            
+            $scoring = new \IMO\Modules\GAI\Services\ScoringService();
+            $processed = 0;
+
+            foreach ($data['batch'] as $leadData) {
+                // Sanitización 
+                $fields = [
+                    'full_name'    => trim(strip_tags($leadData['full_name'] ?? '')),
+                    'email'        => filter_var($leadData['email'] ?? '', FILTER_VALIDATE_EMAIL),
+                    'phone'        => trim(strip_tags($leadData['phone'] ?? '')),
+                    'service_type' => trim(strip_tags($leadData['service_type'] ?? 'unknown')),
+                ];
+                
+                if (empty($fields['full_name']) || empty($fields['email'])) continue;
+
+                $piiData = json_encode([
+                    'name'  => $fields['full_name'],
+                    'email' => $fields['email'],
+                    'phone' => $fields['phone'],
+                    'captured_at' => $leadData['timestamp'] ?? date('Y-m-d H:i:s'),
+                    'origin' => 'Landing Page (Offline Sync)'
+                ]);
+
+                $encryptedPayload = Encrypter::encrypt($piiData);
+                $uuid = $this->generateUuid();
+
+                $stmt = $pdo->prepare("
+                    INSERT INTO leads (uuid, encrypted_payload, insurance_type, origin_ip, status) 
+                    VALUES (:u, :p, :ins, :ip, 'new')
+                ");
+                
+                $stmt->execute([
+                    'u'   => $uuid,
+                    'p'   => $encryptedPayload,
+                    'ins' => $fields['service_type'],
+                    'ip'  => $_SERVER['REMOTE_ADDR'] ?? 'OFFLINE'
+                ]);
+
+                $leadId = (int)$pdo->lastInsertId();
+                AuditService::log(null, 'CAPTURE_LEAD', 'leads', $leadId, 'Sincronización Offline (Resiliencia).');
+
+                // Autonomía IAM (Scoring)
+                $scoring->qualify($leadId, [
+                    'name' => $fields['full_name'],
+                    'email' => $fields['email'],
+                    'phone' => $fields['phone'],
+                    'insurance_type' => $fields['service_type']
+                ]);
+                
+                $processed++;
+            }
+
+            $pdo->commit();
+            $this->json(['status' => 'success', 'message' => "Sincronizados $processed leads exitosamente."]);
+
+        } catch (Exception $e) {
+            if (isset($pdo) && $pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            error_log("[IMO][SyncOffline] Error: " . $e->getMessage());
+            $this->json(['status' => 'error', 'message' => 'Fallo en la sincronización del lote.'], 500);
+        }
     }
 
     private function generateUuid(): string

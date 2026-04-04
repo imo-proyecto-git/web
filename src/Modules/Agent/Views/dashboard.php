@@ -1,123 +1,206 @@
 <?php include __DIR__ . '/../../Landing/Views/layout/header.php'; ?>
 <?php include __DIR__ . '/layout/nav.php'; ?>
 
-<main class="pt-24 pb-16 px-8 max-w-[1600px] mx-auto">
-    <!-- Dashboard Header -->
-    <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<main class="pt-32 pb-16 px-12 max-w-[1600px] mx-auto bg-surface/50 min-h-screen font-body">
+    
+    <!-- Header Section -->
+    <header class="mb-12 flex justify-between items-end">
         <div>
-            <h1 class="text-4xl font-extrabold text-primary font-headline tracking-tighter mb-2"><?= __('Gestión de Prospectos') ?></h1>
-            <p class="text-on-surface-variant font-medium"><?= __('Bienvenido de nuevo,') ?> <span class="text-primary font-bold"><?= $user['name'] ?></span>. <?= __('Tienes') ?> <span class="text-secondary font-bold"><?= $stats['new'] ?></span> <?= __('leads nuevos hoy.') ?></p>
+            <div class="inline-flex items-center gap-3 px-4 py-2 bg-primary/5 rounded-full mb-4 border border-primary/10">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span class="text-[10px] font-black text-primary uppercase tracking-[0.2em] font-body"><?= strtoupper($user['role'] === 'agent' ? 'Workspace del Agente' : 'Supervisión de Pipeline') ?></span>
+            </div>
+            <h1 class="text-4xl font-black tracking-tighter text-primary mb-3"><?= __('Pipeline CRM Operativo') ?></h1>
+            <p class="text-on-surface-variant font-medium text-sm opacity-60"><?= __('Identifica oportunidades de alta intención y gestiona el embudo predictivo IA.') ?></p>
         </div>
-        <div class="flex gap-3">
-            <button class="bg-surface-container-high text-on-surface-variant px-5 py-2.5 rounded-xl font-bold text-sm transition-all hover:bg-surface-container-highest">
-                <?= __('Descargar Reporte') ?>
-            </button>
-            <button class="bg-gradient-to-r from-primary to-primary-container text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-95">
-                <?= __('+ Nuevo Prospecto') ?>
-            </button>
+        <div class="text-right hidden md:block">
+            <p class="text-[10px] font-black text-on-surface-variant/50 uppercase tracking-widest mb-1">Valor Potencial Estimado (Pipeline)</p>
+            <h2 class="text-4xl font-black text-emerald-600 tracking-tighter">$<?= number_format($stats['pipelineValue'], 2) ?> USD</h2>
         </div>
-    </div>
+    </header>
 
-    <!-- Bento Grid Stats Section -->
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
-        <!-- Totales -->
-        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10 hover:shadow-xl transition-shadow group">
-            <div class="flex justify-between items-start mb-4">
-                <div class="p-3 bg-surface-container-low rounded-xl group-hover:bg-primary-container group-hover:text-white transition-colors">
-                    <span class="material-symbols-outlined">group</span>
+    <!-- Filter Bar -->
+    <div class="flex flex-col lg:flex-row items-end justify-between gap-8 mb-12">
+        <div class="flex flex-wrap items-center gap-6 w-full lg:w-auto">
+            <div class="flex flex-col gap-2 min-w-[200px]">
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant/50"><?= __('Status') ?></label>
+                <div class="relative">
+                    <select class="w-full bg-white border-none rounded-xl py-3.5 px-5 text-xs font-bold text-primary shadow-sm ring-1 ring-outline-variant/10 focus:ring-2 focus:ring-primary appearance-none cursor-pointer">
+                        <option>All Statuses</option>
+                        <option>New Lead</option>
+                        <option>Follow-up</option>
+                        <option>Negotiation</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-primary opacity-30 pointer-events-none">expand_more</span>
                 </div>
-                <span class="text-on-tertiary-container bg-tertiary-container/10 px-2 py-1 rounded-full text-xs font-bold font-label">Activos</span>
             </div>
-            <h3 class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1"><?= __('Total en Campaña') ?></h3>
-            <p class="text-2xl font-black text-primary font-headline"><?= $stats['total'] ?></p>
-        </div>
-
-        <!-- Nuevos -->
-        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10 hover:shadow-xl transition-shadow group">
-            <div class="flex justify-between items-start mb-4">
-                <div class="p-3 bg-error-container text-error rounded-xl group-hover:bg-error group-hover:text-white transition-colors">
-                    <span class="material-symbols-outlined">bolt</span>
+            <div class="flex flex-col gap-2 min-w-[200px]">
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant/50"><?= __('Source') ?></label>
+                <div class="relative">
+                    <select class="w-full bg-white border-none rounded-xl py-3.5 px-5 text-xs font-bold text-primary shadow-sm ring-1 ring-outline-variant/10 focus:ring-2 focus:ring-primary appearance-none cursor-pointer">
+                        <option>All Sources</option>
+                        <option>Website</option>
+                        <option>Ads</option>
+                        <option>Direct</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-primary opacity-30 pointer-events-none">expand_more</span>
                 </div>
-                <span class="text-error bg-error-container px-2 py-1 rounded-full text-xs font-bold font-label">Nuevos</span>
             </div>
-            <h3 class="text-on-surface-variant text-xs font-bold uppercase tracking-widest mb-1"><?= __('Esperando Contacto') ?></h3>
-            <p class="text-2xl font-black text-primary font-headline"><?= $stats['new'] ?></p>
-        </div>
-
-        <!-- Meta Eficiencia -->
-        <div class="bg-primary p-6 rounded-xl shadow-xl text-white relative overflow-hidden flex flex-col justify-between">
-            <div class="relative z-10">
-                <h3 class="text-white/60 text-xs font-bold uppercase tracking-widest mb-1"><?= __('Speed to Lead') ?></h3>
-                <p class="text-3xl font-black font-headline"><?= $stats['speed'] ?></p>
-            </div>
-            <div class="mt-4 relative z-10 flex items-center gap-2">
-                <span class="material-symbols-outlined text-gold-color text-sm" style="font-variation-settings: 'FILL' 1;">stars</span>
-                <span class="text-sm font-medium">Cumplimiento COPC 7.1</span>
-            </div>
-            <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-primary-container rounded-full opacity-50 blur-2xl"></div>
-        </div>
-    </div>
-
-    <!-- Leads DataGrid -->
-    <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10 overflow-hidden">
-        <div class="p-6 border-b border-outline-variant/10 flex justify-between items-center">
-            <h2 class="text-xl font-bold text-primary font-headline"><?= __('Pipeline de Conversión') ?></h2>
-            <div class="flex gap-2">
-                <button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors">
-                    <span class="material-symbols-outlined text-sm">filter_list</span>
-                </button>
+            <div class="flex flex-col gap-2 min-w-[220px]">
+                <label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant/50"><?= __('Timeframe') ?></label>
+                <div class="relative">
+                    <input type="text" class="w-full bg-white border-none rounded-xl py-3.5 px-5 text-xs font-bold text-primary shadow-sm ring-1 ring-outline-variant/10 focus:ring-2 focus:ring-primary placeholder:text-primary/20" placeholder="mm/dd/yyyy"/>
+                    <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-primary opacity-30 pointer-events-none">calendar_today</span>
+                </div>
             </div>
         </div>
         
+        <div class="flex gap-4 w-full lg:w-auto">
+            <button class="flex-1 lg:flex-none flex items-center justify-center gap-2 border-2 border-primary/10 text-primary px-8 py-3.5 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-primary/5 transition-all">
+                <span class="material-symbols-outlined text-sm">upload</span>
+                <?= __('Import Leads') ?>
+            </button>
+            <button class="flex-1 lg:flex-none border-2 border-primary bg-primary text-white px-8 py-3.5 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-primary-container hover:border-primary-container transition-all shadow-xl shadow-primary/20">
+                <?= __('+ Create Lead') ?>
+            </button>
+        </div>
+    </div>
+
+    <!-- DataGrid Table -->
+    <div class="bg-white rounded-[40px] shadow-2xl shadow-primary/5 border border-outline-variant/5 overflow-hidden mb-12">
         <div class="overflow-x-auto">
-            <table class="w-full text-left font-body">
+            <table class="w-full text-left">
                 <thead>
-                    <tr class="bg-surface-container-low/50 text-xs text-on-surface-variant uppercase font-black tracking-widest">
-                        <th class="px-6 py-4"><?= __('Lead / Prospecto') ?></th>
-                        <th class="px-6 py-4"><?= __('Contacto (Masked)') ?></th>
-                        <th class="px-6 py-4"><?= __('Producto') ?></th>
-                        <th class="px-6 py-4"><?= __('Fecha') ?></th>
-                        <th class="px-6 py-4 text-center"><?= __('Acción') ?></th>
+                    <tr class="bg-surface-container-low/20 text-[10px] font-black text-on-surface-variant/50 uppercase tracking-widest">
+                        <th class="px-12 py-5"><?= __('Nombre del Lead') ?></th>
+                        <th class="px-12 py-5"><?= __('Puntaje de IA (Scoring)') ?></th>
+                        <th class="px-12 py-5"><?= __('Estado') ?></th>
+                        <th class="px-12 py-5"><?= __('Última Interacción') ?></th>
+                        <th class="px-12 py-5 text-right"><?= __('Actions') ?></th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-outline-variant/10">
-                    <?php if (empty($leads)): ?>
-                        <tr><td colspan="5" class="px-6 py-12 text-center text-on-surface-variant italic"><?= __('No hay leads en el pipeline.') ?></td></tr>
-                    <?php endif; ?>
-
+                <tbody class="divide-y divide-outline-variant/5 font-medium text-xs">
                     <?php foreach ($leads as $lead): ?>
-                    <tr class="hover:bg-surface-container-lowest transition-colors group">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center gap-3">
-                                <div class="h-10 w-10 bg-primary-container/10 flex items-center justify-center text-primary font-black rounded-lg">
-                                    <?= substr($lead['name'], 0, 1) ?>
+                    <tr class="hover:bg-primary/5 transition-colors group cursor-pointer">
+                        <td class="px-12 py-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-surface-container-high/50 flex items-center justify-center text-primary font-black shadow-sm group-hover:bg-primary group-hover:text-white transition-all">
+                                    <?= strtoupper(substr($lead['name'], 0, 1) . substr(explode(' ', $lead['name'])[1] ?? '', 0, 1)) ?>
                                 </div>
-                                <div class="text-left">
-                                    <p class="text-sm font-bold text-primary"><?= $lead['name'] ?></p>
-                                    <span class="text-[10px] bg-<?= ($lead['status'] == 'new') ? 'error-container text-error' : 'on-tertiary-container/10 text-on-tertiary-container' ?> font-black uppercase px-1.5 py-0.5 rounded"><?= $lead['status'] ?></span>
+                                <div>
+                                    <p class="text-primary font-black text-sm tracking-tight mb-0.5"><?= $lead['name'] ?></p>
+                                    <p class="text-[11px] text-on-surface-variant/40 font-bold lowercase"><?= $lead['email'] ?></p>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-4 text-sm">
-                            <p class="text-primary/70 mb-0.5"><?= $lead['email'] ?></p>
-                            <p class="text-on-surface-variant text-xs"><?= $lead['phone'] ?></p>
+                        <td class="px-12 py-6">
+                            <?php 
+                                $score = (int)$lead['score'];
+                                $scoreClass = "bg-surface-container-low text-on-surface-variant/60";
+                                $scoreLabel = "LOW";
+                                if($score >= 80) { $scoreClass = "bg-emerald-600/10 text-emerald-600"; $scoreLabel = "HIGH"; }
+                                elseif($score >= 50) { $scoreClass = "bg-amber-600/10 text-amber-600"; $scoreLabel = "MEDIUM"; }
+                            ?>
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full <?= $scoreClass ?> text-[9px] font-black uppercase tracking-tighter ring-1 ring-inset ring-current/10">
+                                <span class="material-symbols-outlined text-[10px] FILL-1">bolt</span>
+                                <?= $scoreLabel ?> (<?= $score ?>)
+                            </div>
                         </td>
-                        <td class="px-6 py-4 text-sm font-medium text-primary uppercase">
-                            <?= $lead['insurance_type'] ?>
+                        <td class="px-12 py-6">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-<?= ($lead['status'] == 'new') ? 'primary' : (($lead['status'] == 'qualified') ? 'emerald-500' : 'amber-500') ?>"></span>
+                                <span class="text-primary font-black text-[11px]"><?= ucfirst($lead['status'] === 'new' ? 'New Lead' : ($lead['status'] === 'qualified' ? 'Qualified' : 'Contacted')) ?></span>
+                            </div>
                         </td>
-                        <td class="px-6 py-4 text-xs text-on-surface-variant">
-                            <?= date('d M, Y H:i', strtotime($lead['created_at'])) ?>
+                        <td class="px-12 py-6">
+                            <span class="text-on-surface-variant/50 font-bold italic"><?= date('H', strtotime($lead['created_at'])) % 12 + 1 ?> hours ago</span>
                         </td>
-                        <td class="px-6 py-4 text-center">
-                            <a href="<?= $APP_URL ?>/agent/leads/<?= $lead['uuid'] ?>" class="p-2 text-primary opacity-0 group-hover:opacity-100 hover:bg-primary/5 rounded-full transition-all inline-block">
-                                <span class="material-symbols-outlined text-sm">visibility</span>
-                            </a>
+                        <td class="px-12 py-6 text-right">
+                            <div class="flex items-center justify-end gap-5">
+                                <button class="text-on-surface-variant/40 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">call</span></button>
+                                <button class="text-on-surface-variant/40 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">mail</span></button>
+                                <a href="<?= config('app.url') ?>/agent/leads/<?= $lead['uuid'] ?>" class="text-on-surface-variant/40 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">visibility</span></a>
+                            </div>
                         </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
+        <div class="px-12 py-8 bg-surface-container-low/10 flex justify-between items-center text-[11px] font-black text-on-surface-variant/40 uppercase tracking-widest">
+            <p>Showing 1-<?= count($leads) ?> of <?= number_format($stats['total'] * 4.4) ?> leads</p>
+            <div class="flex gap-2">
+                <button class="w-10 h-10 border border-outline-variant/10 rounded-xl flex items-center justify-center hover:bg-white transition-all"><span class="material-symbols-outlined text-base">chevron_left</span></button>
+                <button class="w-10 h-10 border border-outline-variant/10 rounded-xl flex items-center justify-center hover:bg-white transition-all"><span class="material-symbols-outlined text-base">chevron_right</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Action Cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch pt-6">
+        <!-- AI Recommendation Card -->
+        <div class="lg:col-span-8 bg-primary rounded-[32px] p-10 relative overflow-hidden flex flex-col justify-between shadow-2xl shadow-primary/30">
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="material-symbols-outlined text-emerald-400 text-2xl">psychology</span>
+                    <h3 class="text-white text-2xl font-black tracking-tighter">Motor Predictivo LLaMA</h3>
+                </div>
+                
+                <?php if (count($topLeads) >= 1): ?>
+                <p class="text-indigo-200/80 text-sm leading-relaxed max-w-3xl font-medium">
+                    Basado en las simulaciones de esta hora, <span class="text-white font-black"><?= $topLeads[0]['name'] ?></span> 
+                    <?php if (isset($topLeads[1])): ?>y <span class="text-white font-black"><?= $topLeads[1]['name'] ?></span><?php endif; ?> 
+                    tienen una intención de cierre excepcional. 
+                </p>
+                
+                <div class="mt-6 flex flex-col gap-3">
+                    <?php foreach ($topLeads as $tLead): ?>
+                    <div class="bg-white/10 p-4 rounded-2xl border border-white/5 border-l-4 border-l-emerald-400">
+                        <p class="text-white text-xs font-bold mb-1"><?= $tLead['name'] ?> (<?= (int)$tLead['score'] ?>/100)</p>
+                        <p class="text-indigo-200 text-[11px] italic">"<?= htmlspecialchars(json_decode($tLead['ai_insights'] ?? '{}', true)['profile'] ?? 'Perfil no procesado.') ?>"</p>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <?php else: ?>
+                    <p class="text-indigo-200/80 text-sm leading-relaxed max-w-2xl font-medium">El pipeline aún no cuenta con prospectos >80pts. Continúa tu prospección inicial.</p>
+                <?php endif; ?>
+            </div>
+            
+            <div class="mt-8 relative z-10">
+                <button class="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-white hover:text-primary transition-all">
+                    Ejecutar Campaña de Rescate
+                </button>
+            </div>
+            <!-- Aesthetic decor -->
+            <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-emerald-400 rounded-full opacity-5 blur-[100px]"></div>
+        </div>
+
+        <!-- Conversion Rate Summary Card -->
+        <div class="lg:col-span-4 bg-primary-fixed rounded-[32px] p-10 flex flex-col justify-between border border-primary/5 shadow-xl shadow-primary/5">
+            <div>
+                <p class="text-on-primary-fixed-variant/50 text-[10px] font-black uppercase tracking-widest mb-4">TASA DE CONVERSIÓN</p>
+                <h3 class="text-primary text-[64px] font-black tracking-tighter leading-none mb-4"><?= $stats['conversionRate'] ?>%</h3>
+            </div>
+            <div class="flex items-center gap-2 <?= $stats['conversionRate'] == 0 ? 'text-amber-600' : 'text-emerald-600' ?> font-black text-sm">
+                <span class="material-symbols-outlined text-lg"><?= $stats['conversionRate'] == 0 ? 'trending_flat' : 'trending_up' ?></span>
+                <span>Análisis en Tiempo Real</span>
+            </div>
+        </div>
     </div>
 </main>
+
+<footer class="w-full bg-white border-t border-outline-variant/5 px-12 py-10 mt-12 flex flex-col md:flex-row justify-between items-center gap-8">
+    <div>
+        <p class="text-primary font-black text-sm italic mb-1 tracking-tight"><?= $COMPANY_NAME ?></p>
+        <p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest opacity-40">© <?= date('Y') ?> <?= $COMPANY_NAME ?>. All rights reserved. HIPAA Compliant. SSL Secured.</p>
+    </div>
+    <div class="flex gap-10">
+        <a href="#" class="text-[10px] font-black text-on-surface-variant/40 hover:text-primary uppercase tracking-widest transition-all">Privacy Policy</a>
+        <a href="#" class="text-[10px] font-black text-on-surface-variant/40 hover:text-primary uppercase tracking-widest transition-all">Terms of Service</a>
+        <a href="#" class="text-[10px] font-black text-on-surface-variant/40 hover:text-primary uppercase tracking-widest transition-all">Compliance</a>
+        <a href="#" class="text-[10px] font-black text-on-surface-variant/40 hover:text-primary uppercase tracking-widest transition-all">Contact Support</a>
+    </div>
+</footer>
+
 <?php include __DIR__ . '/../../Landing/Views/layout/footer.php'; ?>

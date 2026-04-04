@@ -1,4 +1,5 @@
-# empresaIMO - Plataforma Enterprise Agent Portal
+# empresaIMO - Plataforma Enterprise Agent Portal / IMO-OS
+v5.0 - High Availability & Smart Compliance
 
 Plataforma CRM y de gestión de prospectos de alto rendimiento diseñada para una gestora de seguros (IMO). Arquitectura resiliente, segura y altamente parametrizable.
 
@@ -22,7 +23,9 @@ Plataforma CRM y de gestión de prospectos de alto rendimiento diseñada para un
 2. **Dashboard Agente**: Gestión de pipeline, métricas y detalles de lead 360°.
 3. **Firma Digital**: Firma electrónica integrada (Click-to-sign) con prueba de integridad SHA-256.
 4. **Dashboard Supervisión**: KPIs globales y auditoría centralizada para gerencia.
-5. **Generador de Reportes**: Exportación segura de informes PII (Print-optimized).
+5. **Marketing Suite**: Gestor visual de campañas (GrapesJS) y despacho masivo.
+6. **Smart Contracts**: Firma digital con verificación de identidad vía OTP (Fase 5).
+7. **Background Workers**: Procesamiento asíncrono de colas (Database-backed) para alta disponibilidad.
 
 ## Instalación y Configuración
 1. Clonar el repositorio.

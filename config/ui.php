@@ -13,22 +13,25 @@ return [
     ],
     
     'colors' => [
-        'bg_light' => env('UI_COLOR_BG_LIGHT', '#faf8ff'),
-        'surface_light' => env('UI_COLOR_SURFACE_LIGHT', '#ffffff'),
-        'border_light' => env('UI_COLOR_BORDER_LIGHT', 'rgba(197, 198, 210, 0.4)'),
+        'surface' => env('UI_COLOR_SURFACE', '#faf8ff'),
+        'surface_low' => env('UI_COLOR_SURFACE_LOW', '#f2f3ff'),
+        'surface_highest' => env('UI_COLOR_SURFACE_HIGHEST', '#dae2fd'),
+        'surface_lowest' => env('UI_COLOR_SURFACE_LOWEST', '#ffffff'),
+        'border_light' => env('UI_COLOR_BORDER_LIGHT', 'rgba(197, 198, 210, 0.2)'),
         'primary' => env('UI_PRIMARY_COLOR', '#00113a'),
         'secondary' => env('UI_SECONDARY_COLOR', '#002366'),
-        'gold' => env('UI_GOLD_COLOR', '#4edea3'),
+        'tertiary' => env('UI_TERTIARY_COLOR', '#00a371'),
+        'tertiary_container' => env('UI_TERTIARY_CONTAINER', 'rgba(0, 163, 113, 0.1)'),
+        'on_tertiary_container' => env('UI_ON_TERTIARY_CONTAINER', '#00a371'),
         'success' => env('UI_COLOR_SUCCESS', '#00a371'),
         'warning' => env('UI_COLOR_WARNING', '#ffdad6'),
-        'danger' => env('UI_COLOR_DANGER', '#ba1a1a'),
-        'info' => env('UI_COLOR_INFO', '#758dd5'),
     ],
     
     'radius' => [
-        'sm' => env('UI_RADIUS_SM', '6px'),
+        'sm' => env('UI_RADIUS_SM', '8px'),
         'md' => env('UI_RADIUS_MD', '12px'),
         'lg' => env('UI_RADIUS_LG', '20px'),
+        'xl' => env('UI_RADIUS_XL', '32px'),
         'pill' => env('UI_RADIUS_PILL', '50rem'),
     ],
     

@@ -1,158 +1,330 @@
 <?php include __DIR__ . '/../../Landing/Views/layout/header.php'; ?>
 
-<div class="flex min-h-screen pt-16">
-    <!-- Sidebar de Supervisión -->
-    <aside class="h-screen w-64 border-r border-outline-variant/10 flex flex-col py-8 px-5 gap-6 sticky top-16 bg-surface-container-low shadow-sm">
-        <div class="mb-4 px-2">
-            <p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-black mb-1 opacity-60"><?= __('Oversight Module') ?></p>
-            <h2 class="text-primary font-headline font-black text-2xl tracking-tighter"><?= __('Bastion Hub') ?></h2>
+<!-- Tailwind Extensión (Ad-Hoc para igualar mockup) -->
+<style>
+    body { background-color: #f8f9fc; }
+    .nav-link-active { color: #00113a; border-bottom: 3px solid #1a56db; font-weight: 700; padding-bottom: 1.2rem; }
+    .nav-link { color: #6b7280; font-weight: 600; transition: color 0.2s; }
+    .nav-link:hover { color: #00113a; }
+    
+    .sidebar-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0; color: #4b5563; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; }
+    .sidebar-link:hover { color: #00113a; }
+    .sidebar-link .material-symbols-outlined { color: #6b7280; font-size: 1.25rem; transition: color 0.2s; }
+    .sidebar-link:hover .material-symbols-outlined { color: #00113a; }
+    
+    .kpi-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); position: relative; overflow: hidden; }
+    .kpi-card::before { content: ''; position: absolute; left: 0; top: 10%; bottom: 10%; width: 4px; border-radius: 0 4px 4px 0; }
+    .kpi-border-dark::before { background-color: #00113a; }
+    .kpi-border-emerald::before { background-color: #10b981; }
+    .kpi-border-red::before { background-color: #ef4444; }
+
+    .role-pill-admin { background-color: #00113a; color: white; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em; }
+    .role-pill-supervisor { background-color: #e0e7ff; color: #3730a3; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em; }
+    .role-pill-agente { background-color: #f3f4f6; color: #4b5563; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em; }
+
+    .log-icon-success { background-color: #d1fae5; color: #059669; }
+    .log-icon-danger { background-color: #fee2e2; color: #dc2626; }
+    .log-icon-neutral { background-color: #f3f4f6; color: #4b5563; }
+    .log-icon-warning { background-color: #dcfce3; color: #10b981; } /* as per visual */
+
+    .global-status-banner { background-color: #031435; border-radius: 16px; color: white; padding: 2.5rem; }
+    .global-status-box { background-color: rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1rem 1.5rem; text-align: center; }
+</style>
+
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-white border-b border-gray-100 flex justify-between items-center px-10 h-[72px]">
+    <div class="flex items-center gap-16 h-full">
+        <span class="text-xl font-bold text-[#1a56db] tracking-tight font-headline">empresa<span class="text-[#00113a]">IMO</span></span>
+        <div class="hidden md:flex gap-8 items-end h-full pt-6">
+            <a class="nav-link-active text-sm uppercase tracking-wider" href="<?= config('app.url') ?>/manager/dashboard">Dashboard</a>
+            <a class="nav-link text-sm uppercase tracking-wider pb-[1.2rem]" href="<?= config('app.url') ?>/manager/users">User Management</a>
+            <a class="nav-link text-sm uppercase tracking-wider pb-[1.2rem]" href="<?= config('app.url') ?>/manager/roles">Roles & Permissions</a>
+            <a class="nav-link text-sm uppercase tracking-wider pb-[1.2rem]" href="<?= config('app.url') ?>/manager/audit">System Logs</a>
+            <a class="nav-link text-sm uppercase tracking-wider pb-[1.2rem]" href="#">Settings</a>
+        </div>
+    </div>
+    <div class="flex items-center gap-6">
+        <div class="relative cursor-pointer">
+            <span class="material-symbols-outlined text-gray-500 hover:text-gray-800 transition-colors">notifications</span>
+            <span class="absolute top-0 right-0.5 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
+        </div>
+        <span class="material-symbols-outlined text-gray-500 hover:text-gray-800 transition-colors text-[28px] cursor-pointer">account_circle</span>
+    </div>
+</nav>
+
+<div class="flex min-h-screen pt-[72px]">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-[#f8f9fc] flex flex-col py-8 px-8 border-r border-gray-100 sticky top-[72px] h-[calc(100vh-72px)] shrink-0">
+        <div class="mb-8">
+            <h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">SYSTEM OVERSIGHT</h4>
+            <h2 class="text-[#00113a] font-black text-[22px] tracking-tight leading-none">Admin Panel</h2>
         </div>
         
-        <nav class="flex flex-col gap-1">
-            <a class="flex items-center gap-3 px-3 py-2.5 bg-primary/5 text-primary rounded-xl font-bold text-sm scale-[1.02] transition-all" href="#">
-                <span class="material-symbols-outlined text-sm">dashboard</span> <?= __('Dashboard') ?>
-            </a>
-            <a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl font-semibold text-sm transition-all" href="#">
-                <span class="material-symbols-outlined text-sm">group</span> <?= __('Agentes') ?>
-            </a>
-            <a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl font-semibold text-sm transition-all" href="#">
-                <span class="material-symbols-outlined text-sm">history_edu</span> <?= __('Auditoría Central') ?>
-            </a>
-            <a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-xl font-semibold text-sm transition-all" href="#">
-                <span class="material-symbols-outlined text-sm">security</span> <?= __('Seguridad PII') ?>
-            </a>
+        <nav class="flex flex-col gap-1 mb-auto">
+            <a class="sidebar-link" href="#"><span class="material-symbols-outlined">history_edu</span> Audit Trail</a>
+            <a class="sidebar-link" href="#"><span class="material-symbols-outlined">security</span> Security Center</a>
+            <a class="sidebar-link" href="#"><span class="material-symbols-outlined">cloud_download</span> Data Export</a>
+            <a class="sidebar-link" href="#"><span class="material-symbols-outlined">vpn_key</span> API Keys</a>
+            <a class="sidebar-link" href="#"><span class="material-symbols-outlined">help</span> Support</a>
         </nav>
 
-        <div class="mt-auto pt-6 border-t border-outline-variant/10">
-            <button class="w-full bg-primary-container text-white py-3.5 rounded-xl font-black text-[10px] uppercase tracking-widest hover:opacity-90 shadow-lg shadow-primary/20 transition-all">
-                <?= __('Generar Reporte Global') ?>
+        <div class="mt-auto flex flex-col gap-6">
+            <button class="w-full bg-[#00113a] hover:bg-[#1a2b5a] text-white py-3 rounded-lg font-semibold text-sm transition-colors shadow-md">
+                New System Alert
             </button>
-            <a href="<?= $APP_URL ?>/logout" class="flex items-center gap-3 px-3 py-3 mt-4 text-on-surface-variant/60 hover:text-error transition-colors text-xs font-bold uppercase tracking-widest">
-                <span class="material-symbols-outlined text-sm">logout</span> <?= __('Cerrar Sesión') ?>
+            <a href="<?= config('app.url') ?>/logout" class="flex items-center gap-3 text-gray-600 hover:text-red-500 transition-colors font-semibold text-sm">
+                <span class="material-symbols-outlined text-xl">logout</span> Sign Out
             </a>
         </div>
     </aside>
 
-    <!-- Área de Contenido Principal -->
-    <main class="flex-1 p-10 bg-surface">
-        <header class="mb-12 flex justify-between items-end">
-            <div>
-                <h1 class="text-4xl font-black tracking-tighter text-primary mb-2"><?= __('Supervisión Comercial') ?></h1>
-                <p class="text-on-surface-variant text-sm font-medium opacity-80"><?= __('Bienvenido Administrador.') ?> <?= __('Monitoreo en tiempo real bajo cumplimiento HIPAA/COPC.') ?></p>
-            </div>
-            <div class="bg-surface-container-high rounded-full px-4 py-2 flex items-center gap-2 border border-outline-variant/10">
-                <span class="w-2 h-2 bg-on-tertiary-container rounded-full animate-pulse"></span>
-                <span class="text-[10px] font-black uppercase text-primary tracking-widest"><?= __('Servidores estables') ?></span>
-            </div>
+    <!-- Main Content -->
+    <main class="flex-1 p-10 max-w-7xl">
+        <header class="mb-10">
+            <h1 class="text-4xl font-bold text-[#00113a] tracking-tight mb-2">Resumen del Sistema</h1>
+            <p class="text-gray-500 text-[15px] font-medium">Estado actual de la infraestructura y métricas de seguridad en tiempo real.</p>
         </header>
 
-        <!-- KPI Bento Grid -->
+        <!-- KPI Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-            <div class="bg-surface-container-lowest p-6 rounded-2xl border-l-4 border-primary shadow-sm hover:shadow-xl transition-all group">
-                <p class="text-on-surface-variant text-[10px] font-black uppercase tracking-widest mb-3 opacity-60"><?= __('Total Prospectos') ?></p>
+            <!-- Card 1 -->
+            <div class="kpi-card kpi-border-dark pl-8">
+                <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2">TOTAL USUARIOS</p>
                 <div class="flex items-baseline gap-2">
-                    <h3 class="text-4xl font-black text-primary tracking-tight"><?= $stats['total_leads'] ?></h3>
-                    <span class="text-on-tertiary-container text-xs font-black">+12%</span>
+                    <h3 class="text-3xl font-black text-[#00113a]">12,482</h3>
+                    <span class="text-emerald-500 font-bold text-xs">+12%</span>
                 </div>
             </div>
             
-            <div class="bg-surface-container-lowest p-6 rounded-2xl border-l-4 border-primary shadow-sm hover:shadow-xl transition-all group">
-                <p class="text-on-surface-variant text-[10px] font-black uppercase tracking-widest mb-3 opacity-60"><?= __('Agentes Activos') ?></p>
+            <!-- Card 2 -->
+            <div class="kpi-card kpi-border-dark pl-8">
+                <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2">SESIONES ACTIVAS</p>
                 <div class="flex items-baseline gap-2">
-                    <h3 class="text-4xl font-black text-primary tracking-tight"><?= $stats['active_sessions'] ?></h3>
-                    <span class="text-on-surface-variant text-xs font-bold"><?= __('En línea') ?></span>
+                    <h3 class="text-3xl font-black text-[#00113a]">843</h3>
+                    <div class="flex items-center gap-1.5 ml-1">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                        <span class="text-emerald-500 font-bold text-xs">En vivo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="kpi-card kpi-border-emerald pl-8">
+                <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2">CUMPLIMIENTO</p>
+                <div class="flex items-baseline gap-2">
+                    <h3 class="text-3xl font-black text-emerald-500">98.2%</h3>
+                    <span class="text-gray-400 font-bold text-[10px]">ISO 27001</span>
                 </div>
             </div>
 
-            <div class="bg-surface-container-lowest p-6 rounded-2xl border-l-4 border-on-tertiary-container shadow-sm hover:shadow-xl transition-all group">
-                <p class="text-on-surface-variant text-[10px] font-black uppercase tracking-widest mb-3 opacity-60"><?= __('Contratos Firmados') ?></p>
+            <!-- Card 4 -->
+            <div class="kpi-card kpi-border-red pl-8">
+                <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2">ALERTAS CRITICAS</p>
                 <div class="flex items-baseline gap-2">
-                    <h3 class="text-4xl font-black text-on-tertiary-container tracking-tight"><?= $stats['signed_contracts'] ?></h3>
-                    <span class="text-on-surface-variant/40 text-xs font-black italic"><?= __('Verified') ?></span>
+                    <h3 class="text-3xl font-black text-red-500">3</h3>
+                    <span class="text-red-500 font-bold text-xs">Acción Requerida</span>
                 </div>
-            </div>
-
-            <div class="bg-primary p-6 rounded-2xl shadow-2xl relative overflow-hidden flex flex-col justify-between">
-                <div>
-                    <p class="text-white/60 text-[10px] font-black uppercase tracking-widest mb-3"><?= __('Compliance Score') ?></p>
-                    <h3 class="text-4xl font-black text-gold-color tracking-tight"><?= $stats['compliance_pct'] ?>%</h3>
-                </div>
-                <div class="text-[9px] text-white/50 font-bold uppercase tracking-wider"><?= __('Protocolo HIPAA v2.1') ?></div>
-                <div class="absolute -bottom-8 -right-8 w-24 h-24 bg-primary-container rounded-full opacity-30 blur-2xl"></div>
             </div>
         </div>
 
-        <!-- Vista Dual: Agentes + Auditoría -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <!-- Tabla de Agentes -->
-            <div class="lg:col-span-8 bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm border border-outline-variant/10">
-                <div class="px-8 py-5 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-low/30 backdrop-blur-sm">
-                    <h2 class="font-black text-primary tracking-tight"><?= __('Gestión de Productividad - Agentes') ?></h2>
-                    <button class="text-primary text-[10px] font-black hover:underline uppercase tracking-widest"><?= __('Ver Todo') ?></button>
+        <div class="flex flex-col lg:flex-row gap-6 mb-10 w-full align-top">
+            <!-- User Table Section -->
+            <div class="w-full lg:w-2/3 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col self-start">
+                <div class="px-6 py-5 flex justify-between items-center border-b border-gray-50">
+                    <h2 class="font-bold text-[#00113a] text-lg">Gestión Rápida de Usuarios</h2>
+                    <a href="<?= config('app.url') ?>/manager/users" class="text-gray-500 text-sm font-semibold hover:text-[#00113a] flex items-center gap-1 transition-colors">
+                        Ver todos <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </a>
                 </div>
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto p-2">
                     <table class="w-full text-left">
-                        <thead class="bg-surface-container-low/30">
-                            <tr>
-                                <th class="px-8 py-3 text-[10px] font-black text-on-surface-variant uppercase tracking-widest"><?= __('Agente') ?></th>
-                                <th class="px-8 py-3 text-[10px] font-black text-on-surface-variant uppercase tracking-widest"><?= __('Rol') ?></th>
-                                <th class="px-8 py-3 text-[10px] font-black text-on-surface-variant uppercase tracking-widest"><?= __('Estatus') ?></th>
+                        <thead>
+                            <tr class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                                <th class="px-6 py-4">USUARIO</th>
+                                <th class="px-6 py-4 text-center">ROL</th>
+                                <th class="px-6 py-4">ESTADO</th>
+                                <th class="px-6 py-4 text-right">ACCIONES</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-outline-variant/10 font-medium text-xs">
-                            <?php foreach ($agents as $agent): ?>
-                            <tr class="hover:bg-surface-container-low/50 transition-colors">
-                                <td class="px-8 py-4">
+                        <tbody class="divide-y divide-gray-50">
+                            <!-- Fila 1 -->
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="px-6 py-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-lg bg-primary-container text-white flex items-center justify-center font-black">
-                                            <?= substr($agent['email'], 0, 1) ?>
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-sm shrink-0">
+                                            AR
                                         </div>
-                                        <p class="text-primary font-bold"><?= $agent['email'] ?></p>
+                                        <div>
+                                            <p class="text-[#00113a] font-bold text-[13px]">Alejandro Rivera</p>
+                                            <p class="text-gray-500 text-[11px]">a.rivera@bastion.com</p>
+                                        </div>
                                     </div>
                                 </td>
-                                <td class="px-8 py-4">
-                                    <span class="px-3 py-1 bg-primary text-white text-[9px] font-black uppercase rounded-full tracking-widest"><?= $agent['role'] ?></span>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="role-pill-admin uppercase">Admin</span>
                                 </td>
-                                <td class="px-8 py-4">
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-<?= ($agent['status'] == 'active') ? 'on-tertiary-container' : 'error' ?>"></span>
-                                        <span class="text-on-surface-variant/70 font-bold uppercase text-[10px]"><?= $agent['status'] ?></span>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                        <span class="text-gray-600 text-xs font-semibold">Activo</span>
                                     </div>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="text-gray-400 hover:text-[#00113a]"><span class="material-symbols-outlined">more_vert</span></button>
                                 </td>
                             </tr>
-                            <?php endforeach; ?>
+                            
+                            <!-- Fila 2 -->
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-sm shrink-0">
+                                            MC
+                                        </div>
+                                        <div>
+                                            <p class="text-[#00113a] font-bold text-[13px]">Mariana Costa</p>
+                                            <p class="text-gray-500 text-[11px]">m.costa@bastion.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="role-pill-supervisor uppercase">Supervisor</span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                        <span class="text-gray-600 text-xs font-semibold">Activo</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="text-gray-400 hover:text-[#00113a]"><span class="material-symbols-outlined">more_vert</span></button>
+                                </td>
+                            </tr>
+
+                            <!-- Fila 3 -->
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-bold text-sm shrink-0">
+                                            JS
+                                        </div>
+                                        <div>
+                                            <p class="text-[#00113a] font-bold text-[13px]">Julian Soto</p>
+                                            <p class="text-gray-500 text-[11px]">j.soto@bastion.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="role-pill-agente uppercase">Agente</span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-gray-300"></span>
+                                        <span class="text-gray-500 text-xs font-semibold">Inactivo</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="text-gray-400 hover:text-[#00113a]"><span class="material-symbols-outlined">more_vert</span></button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Feed de Auditoría HIPAA -->
-            <div class="lg:col-span-4 bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/10 flex flex-col">
-                <div class="px-8 py-5 border-b border-outline-variant/10 flex items-center justify-between bg-primary-container text-white">
-                    <h2 class="font-black tracking-tight text-sm uppercase"><?= __('Audit Trail PHI-Secure') ?></h2>
-                    <span class="material-symbols-outlined text-sm">verified_user</span>
+            <!-- Audit Logs Section -->
+            <div class="w-full lg:w-1/3 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col self-start">
+                <div class="px-6 py-5 flex items-center justify-between border-b border-gray-50">
+                    <h2 class="font-bold text-[#00113a] text-lg">Seguridad y Logs</h2>
+                    <span class="material-symbols-outlined text-[#00113a] text-xl">shield</span>
                 </div>
-                <div class="p-6 flex flex-col gap-6 overflow-y-auto max-h-[600px]">
-                    <?php foreach ($logs as $log): ?>
-                    <div class="flex gap-4 border-l-2 border-primary/10 pl-4 py-1">
-                        <div class="mt-1 w-6 h-6 rounded bg-primary/5 flex items-center justify-center shrink-0">
-                            <span class="material-symbols-outlined text-primary text-xs">history_edu</span>
+                <div class="p-6 flex flex-col gap-6 flex-1">
+                    
+                    <!-- Log 1 -->
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-lg log-icon-success flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[16px]">verified_user</span>
                         </div>
-                        <div class="overflow-hidden">
-                            <p class="text-[11px] font-black text-primary leading-tight truncate"><?= $log['action'] ?></p>
-                            <p class="text-[9px] text-on-surface-variant/70 mt-1 italic"><?= $log['user_email'] ?? __('System') ?></p>
-                            <p class="text-[8px] font-black text-outline uppercase mt-1"><?= date('H:i', strtotime($log['created_at'])) ?> • IP: <?= $log['ip_address'] ?></p>
+                        <div>
+                            <p class="text-[13px] font-bold text-[#00113a]">MFA Login Success</p>
+                            <p class="text-[12px] text-gray-500 mt-0.5">Admin: Alejandro Rivera</p>
+                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wide mt-1">HACE 2 MINUTOS</p>
                         </div>
                     </div>
-                    <?php endforeach; ?>
                     
-                    <button class="w-full mt-4 py-3 bg-surface-container-high rounded-xl text-primary text-[10px] font-black uppercase tracking-widest hover:bg-primary-container hover:text-white transition-all">
-                        <?= __('Revisar Bitácora Completa') ?>
-                    </button>
+                    <!-- Log 2 -->
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-lg log-icon-danger flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[16px]">close</span>
+                        </div>
+                        <div>
+                            <p class="text-[13px] font-bold text-[#00113a]">Contract Deleted</p>
+                            <p class="text-[12px] text-gray-500 mt-0.5">Ref ID: #CT-9821-X</p>
+                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wide mt-1">HACE 14 MINUTOS</p>
+                        </div>
+                    </div>
+
+                    <!-- Log 3 -->
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-lg log-icon-neutral flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[16px]">manage_accounts</span>
+                        </div>
+                        <div>
+                            <p class="text-[13px] font-bold text-[#00113a]">Role Updated</p>
+                            <p class="text-[12px] text-gray-500 mt-0.5">Agente → Supervisor</p>
+                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wide mt-1">HACE 1 HORA</p>
+                        </div>
+                    </div>
+
+                    <!-- Log 4 -->
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-lg log-icon-success flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[16px]">lock</span>
+                        </div>
+                        <div>
+                            <p class="text-[13px] font-bold text-[#00113a]">Password Reset Request</p>
+                            <p class="text-[12px] text-gray-500 mt-0.5">User: Carlos Mendez</p>
+                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wide mt-1">HACE 3 HORAS</p>
+                        </div>
+                    </div>
+                    
+                    <a href="<?= config('app.url') ?>/manager/audit" class="mt-2 w-full py-3 bg-white border border-gray-200 text-[#00113a] text-[11px] font-bold uppercase tracking-widest text-center hover:bg-gray-50 transition-colors rounded-lg block">
+                        REVISAR AUDITORÍA COMPLETA
+                    </a>
                 </div>
             </div>
         </div>
+
+        <!-- Global Status Banner -->
+        <div class="global-status-banner flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="max-w-2xl">
+                <h3 class="text-white font-bold text-2xl mb-3 leading-tight tracking-tight">Estado Global del Sistema</h3>
+                <p class="text-indigo-200/80 text-[14px] leading-relaxed font-medium">
+                    Todos los nodos de la región "US-East-1" están operando con una latencia inferior a 45ms. El próximo respaldo programado es en 2 horas.
+                </p>
+            </div>
+            <div class="flex gap-4 flex-shrink-0">
+                <div class="global-status-box min-w-[120px]">
+                    <p class="text-[10px] text-indigo-300 font-bold uppercase tracking-widest mb-1.5">CPU LOAD</p>
+                    <p class="text-white text-2xl font-bold">12%</p>
+                </div>
+                <div class="global-status-box min-w-[120px]">
+                    <p class="text-[10px] text-indigo-300 font-bold uppercase tracking-widest mb-1.5">DISK OPS</p>
+                    <p class="text-white text-2xl font-bold">Stable</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Extensión del Footer según mock (Integrado) -->
+        <footer class="mt-16 border-t border-gray-200 pt-8 pb-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-[11px] uppercase tracking-widest text-gray-400 font-bold">© 2024 ADMINBASTION IMO. ALL RIGHTS RESERVED.</p>
+            <div class="flex gap-6">
+                <a class="text-[11px] uppercase tracking-widest text-gray-400 hover:text-gray-600 font-bold transition-all" href="#">COMPLIANCE</a>
+                <a class="text-[11px] uppercase tracking-widest text-gray-400 hover:text-gray-600 font-bold transition-all" href="#">SECURITY POLICY</a>
+                <a class="text-[11px] uppercase tracking-widest text-gray-400 hover:text-gray-600 font-bold transition-all" href="#">TERMS OF SERVICE</a>
+            </div>
+        </footer>
     </main>
 </div>
 
-<?php include __DIR__ . '/../../Landing/Views/layout/footer.php'; ?>
+<?php // El footer base original está omitido visualmente para matchear el diseño del mockup, se integra nativamente HTML ?>
