@@ -56,6 +56,7 @@ $router->post('/api/v1/sync/offline', 'Leads/Controllers/LeadController@syncOffl
 
 // Contratos y Firma Digital + OTP
 $router->get('/contracts/builder', 'Contracts/Controllers/ContractController@builder');
+$router->post('/api/v1/contracts', 'Contracts/Controllers/ContractController@store');
 $router->get('/contracts/{uuid}', 'Contracts/Controllers/ContractController@show');
 $router->post('/contracts/{uuid}/otp/request', 'Contracts/Controllers/ContractController@requestOtp');
 $router->post('/contracts/{uuid}/otp/verify', 'Contracts/Controllers/ContractController@verifyOtp');
@@ -85,6 +86,7 @@ $router->get('/settings/security', 'Agent/Controllers/SettingsController@securit
 // Portal
 $router->get('/agent/dashboard', 'Agent/Controllers/DashboardController@index');
 $router->get('/agent/pipeline', 'Agent/Controllers/PipelineController@index');
+$router->get('/agent/incomes', 'Agent/Controllers/DashboardController@incomes');
 
 // Ejecución del Despachador
 $router->dispatch();

@@ -10,7 +10,7 @@ if ($user['role'] === 'manager' || $user['role'] === 'superadmin') {
 <div class="flex-1 bg-surface min-h-screen <?= ($user['role'] === 'agent') ? 'pt-24' : 'pt-32' ?> px-10 pb-10">
     <div class="max-w-7xl mx-auto">
         
-        <header class="mb-10 flex justify-between items-end gap-6">
+        <header class="mb-10 flex flex-col md:flex-row justify-between items-end gap-6">
             <div>
                 <div class="flex items-center gap-3">
                     <span class="material-symbols-outlined text-4xl text-indigo-500">draw</span>
@@ -18,9 +18,19 @@ if ($user['role'] === 'manager' || $user['role'] === 'superadmin') {
                 </div>
                 <p class="text-on-surface-variant/60 font-bold text-sm mt-2 ml-[3.25rem]">Generador dinámico de Contratos con Firma OTP (Cumplimiento HIPAA)</p>
             </div>
-            <div class="flex gap-4">
-                <button class="bg-white border border-outline-variant/10 text-primary px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-sm hover:bg-surface-low transition-all">Vista Previa</button>
-                <button class="btn-primary px-8 py-3 rounded-xl shadow-2xl shadow-primary/30 hover:scale-105 transition-all uppercase tracking-widest text-[10px] font-black"><span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">send</span> Emitir a Lead</span></button>
+            <div class="flex gap-4 w-full md:w-auto">
+                <div class="flex-1 md:flex-none">
+                    <p class="text-[9px] font-black uppercase text-on-surface-variant/40 mb-2 ml-1">Seleccionar Lead</p>
+                    <select id="lead-selector" class="w-full md:w-64 bg-white border border-outline-variant/10 rounded-xl py-3 px-4 text-xs font-bold text-primary shadow-sm appearance-none cursor-pointer focus:ring-2 focus:ring-primary h-[46px]">
+                        <?php foreach($leads as $l): ?>
+                            <option value="<?= $l['id'] ?>"><?= $l['name'] ?> (ID: #<?= substr($l['uuid'], 0, 8) ?>)</option>
+                        <?php endforeach; ?>
+                        <?php if(empty($leads)): ?>
+                            <option value="">No hay leads disponibles</option>
+                        <?php endif; ?>
+                    </select>
+                </div>
+                <button id="emit-contract-btn" class="btn-primary px-8 py-3 rounded-xl shadow-2xl shadow-primary/30 hover:scale-105 transition-all uppercase tracking-widest text-[10px] font-black h-[46px] mt-auto"><span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">send</span> Emitir a Lead</span></button>
             </div>
         </header>
 
@@ -83,12 +93,20 @@ if ($user['role'] === 'manager' || $user['role'] === 'superadmin') {
                     <!-- Lienzo (Canvas) -->
                     <div class="flex-1 p-16" id="canvas-area">
                         <!-- Default Template Loaded -->
-                        <div class="border border-dashed border-outline-variant/20 rounded-2xl p-10 hover:border-indigo-500/50 transition-colors group cursor-text relative mb-6">
+                        <div id="contract-wrapper" class="border border-dashed border-outline-variant/20 rounded-2xl p-10 hover:border-indigo-500/50 transition-colors group cursor-text relative mb-6">
                             <button class="absolute top-4 right-4 text-on-surface-variant/20 group-hover:text-error transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
-                            <h2 class="text-2xl font-black text-primary font-headline uppercase tracking-tighter mb-4 outline-none" contenteditable="true">ACUERDO DE BLINDAJE PATRIMONIAL</h2>
-                            <p class="text-sm font-medium text-on-surface-variant/70 leading-relaxed outline-none" contenteditable="true">
-                                Este acuerdo se celebra en el día [FECHA] entre <?= $COMPANY_NAME ?? 'IMO-OS' ?> y el cliente amparado. Los fondos aportados se gestionarán bajo la estructura B.T.I.D.
-                            </p>
+                            <h2 id="editable-title" class="text-2xl font-black text-primary font-headline uppercase tracking-tighter mb-4 outline-none" contenteditable="true">ACUERDO DE BLINDAJE PATRIMONIAL</h2>
+                            <div id="editable-content" class="text-sm font-medium text-on-surface-variant/70 leading-relaxed outline-none min-h-[400px]" contenteditable="true">
+                                <p class="mb-6">Este acuerdo se celebra en el día [FECHA] entre <?= $COMPANY_NAME ?? 'IMO-OS' ?> y el cliente amparado. Los fondos aportados se gestionarán bajo la estructura B.T.I.D.</p>
+                                <h3 class="font-black text-primary uppercase tracking-widest text-xs mb-4">1. OBJETO DEL CONTRATO</h3>
+                                <p class="mb-6">El presente documento tiene como fin establecer los t&eacute;rminos de protecci&oacute;n patrimonial y gesti&oacute;n de activos en modalidad de seguros a t&eacute;rmino con inversi&oacute;n de excedentes.</p>
+                                <h3 class="font-black text-primary uppercase tracking-widest text-xs mb-4">2. COMPROMISO HIPAA</h3>
+                                <p class="mb-6">Todas las partes aceptan el manejo de Informaci&oacute;n de Salud Protegida (PHI) bajo los est&aacute;ndares federales vigentes.</p>
+                                <div class="mt-20 p-8 border-4 border-indigo-500/10 rounded-3xl bg-indigo-50/10 text-center">
+                                    <p class="text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-4">BLOQUE DE SEGURIDAD O.T.P.</p>
+                                    <div class="h-10 w-40 bg-indigo-500/10 rounded-lg mx-auto border-2 border-dashed border-indigo-500/20"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Drop Zone -->
@@ -103,6 +121,92 @@ if ($user['role'] === 'manager' || $user['role'] === 'superadmin') {
         </div>
     </div>
 </div>
+
+<script>
+/**
+ * Lógica del Constructor de Contratos (Emission AJAX)
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const emitBtn = document.getElementById('emit-contract-btn');
+    const leadSelector = document.getElementById('lead-selector');
+    const titleEl = document.getElementById('editable-title');
+    const contentEl = document.getElementById('editable-content');
+
+    if (!emitBtn) return;
+
+    emitBtn.addEventListener('click', async () => {
+        const leadId = leadSelector.value;
+        const title = titleEl.innerText;
+        const content = contentEl.innerHTML;
+
+        if (!leadId) {
+            alert('Por favor, selecciona un Lead para emitir el contrato.');
+            return;
+        }
+
+        const originalHTML = emitBtn.innerHTML;
+        emitBtn.disabled = true;
+        emitBtn.innerHTML = '<span class="flex items-center gap-2"><span class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span> Emitiendo...</span>';
+
+        try {
+            const response = await fetch('<?= config("app.url") ?>/api/v1/contracts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    lead_id: leadId,
+                    title: title,
+                    content: content
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                // Notificación de éxito
+                const workspace = document.getElementById('canvas-area');
+                workspace.innerHTML = `
+                    <div class="py-20 text-center animate-in fade-in zoom-in duration-500">
+                        <div class="w-24 h-24 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-10 text-emerald-500 shadow-2xl shadow-emerald-500/20">
+                            <span class="material-symbols-outlined text-5xl font-black">verified</span>
+                        </div>
+                        <h3 class="font-headline text-4xl font-black text-primary mb-6 tracking-tighter uppercase leading-none italic">Contrato Emitido</h3>
+                        <p class="text-on-surface-variant/40 font-bold uppercase tracking-[0.2em] text-[10px] mb-8">UUID: ${result.uuid}</p>
+                        <div class="p-6 bg-surface-low rounded-2xl max-w-md mx-auto mb-10 border border-outline-variant/10">
+                            <p class="text-xs font-bold text-primary mb-2 uppercase tracking-widest">Enlace de Firma (Sello HIPAA):</p>
+                            <input readonly value="${result.link}" class="w-full bg-white border-none text-[10px] text-primary p-3 rounded font-black tracking-widest select-all text-center"/>
+                        </div>
+                        <div class="h-1.5 w-24 bg-emerald-500 rounded-full mx-auto"></div>
+                        <button onclick="window.location.reload()" class="mt-12 text-primary font-black text-[10px] uppercase tracking-[0.3em] hover:opacity-60 transition-all">Crear otro documento</button>
+                    </div>
+                `;
+            } else {
+                alert(result.message || 'Error al emitir contrato.');
+                emitBtn.disabled = false;
+                emitBtn.innerHTML = originalHTML;
+            }
+        } catch (e) {
+            console.error(e);
+            alert('Error crítico de red. Verifica la consola.');
+            emitBtn.disabled = false;
+            emitBtn.innerHTML = originalHTML;
+        }
+    });
+
+    // Auto-Save simulation UI
+    let timeout = null;
+    const observer = new MutationObserver(() => {
+        clearTimeout(timeout);
+        const autoSaveTxt = document.querySelector('.text-emerald-500');
+        if (autoSaveTxt) autoSaveTxt.innerText = ' Guardando cambios...';
+        timeout = setTimeout(() => {
+            if (autoSaveTxt) autoSaveTxt.innerText = ' Auto-Guardado';
+        }, 1000);
+    });
+    
+    observer.observe(titleEl, { childList: true, characterData: true, subtree: true });
+    observer.observe(contentEl, { childList: true, characterData: true, subtree: true });
+});
+</script>
 
 <?php 
 if ($user['role'] === 'manager' || $user['role'] === 'superadmin') {

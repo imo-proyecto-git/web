@@ -100,6 +100,67 @@ class DashboardController extends Controller
         return str_repeat('*', max(0, strlen($phone) - 4)) . substr($phone, -4);
     }
 
+    /**
+     * GET /agent/incomes
+     * Visualización de Comisiones y Rendimiento Financiero.
+     */
+    public function incomes(): void
+    {
+        if (!Auth::check()) {
+            header('Location: ' . config('app.url') . '/login');
+            exit;
+        }
+
+        try {
+            $pdo  = Connection::getInstance();
+            $user = Auth::user();
+
+            // Solo traer leads convertidos para este agente
+            $stmt = $pdo->prepare("SELECT * FROM leads WHERE status = 'converted' AND assigned_user_id = :uid");
+            $stmt->execute(['uid' => $user['id']]);
+            $closedLeads = $stmt->fetchAll();
+
+            $totalEarnings = 0;
+            $commissions = [];
+
+            foreach ($closedLeads as $lead) {
+                try {
+                    $pii = json_decode(Encrypter::decrypt($lead['encrypted_payload']), true);
+                    $name = $pii['name'] ?? 'Cliente Protegido';
+                } catch (Exception $e) {
+                    $name = 'HIPAA Masked';
+                }
+
+                // Cálculo de comisión simulado (B.T.I.D. model)
+                $premium = ($lead['insurance_type'] === 'wealth') ? 5000 : 1200;
+                $commissionRate = 0.20; // 20% flat fee for the example
+                $earned = $premium * $commissionRate;
+                $totalEarnings += $earned;
+
+                $commissions[] = [
+                    'client' => $name,
+                    'type'   => strtoupper($lead['insurance_type']),
+                    'date'   => $lead['updated_at'],
+                    'premium'=> $premium,
+                    'earned' => $earned
+                ];
+            }
+
+            $this->view('Agent/Views/incomes', [
+                'user'          => $user,
+                'totalEarnings' => $totalEarnings,
+                'commissions'   => $commissions,
+                'stats'         => [
+                    'active_pipeline' => 45000, // Hardcoded for demo
+                    'last_month'      => 8200
+                ]
+            ]);
+
+        } catch (Exception $e) {
+            $this->view('Landing/Views/404');
+        }
+    }
+
     private function calculateStats(array $leads, float $pipelineValue): array
     {
         $converted = count(array_filter($leads, fn($l) => $l['status'] === 'converted'));

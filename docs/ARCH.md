@@ -14,10 +14,11 @@
 ### 2.2. Capa de Módulos (`src/Modules`)
 Diseño de dominios independientes:
 - **Agent/Manager**: Portales de usuario final diferenciados por rol.
-- **Leads**: Gestión del ciclo de vida del prospecto.
+- **Pipeline (CRM)**: Tablero Kanban para gestión táctica de leads.
+- **Contracts**: Constructor de documentos y motor de firma digital con OTP.
 - **GAI (GenAI)**: Orquestación de inferencia con LLMs (Groq/OpenAI) para scoring comercial.
-- **Marketing**: Motor de campañas masivas (en desarrollo).
 - **Audit**: Ledger inmutable de eventos sensibles.
+- **Financials (Incomes)**: Gestión de sistema residual y liquidación de comisiones.
 
 ## 3. Flujo de Datos y Seguridad (HIPAA)
 1. **Captura**: Las entradas de datos sensibles (PHI/PII) pasan por un `EncryptionService` antes de persistir en `leads.encrypted_payload`.
@@ -36,4 +37,4 @@ Para garantizar la escalabilidad y disponibilidad 24/7 de **empresaIMO (IMO-OS)*
 - Dashboard de monitoreo de salud del Worker (Heartbeat).
 
 ---
-*Ultima actualización: 04 Abril 2026 - Fase 5 Desplegada*
+*Ultima actualización: 10 Abril 2026 - Fase 5 Operativa (Kanban, Contracts & Incomes)*

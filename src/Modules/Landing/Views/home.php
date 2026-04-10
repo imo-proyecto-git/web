@@ -161,27 +161,44 @@
     </div>
 </section>
 
-<!-- Gamification / Lifestyle -->
-<section class="py-32 bg-surface text-center px-12 relative overflow-hidden border-b border-outline-variant/5">
-    <div class="relative z-10 max-w-5xl mx-auto">
-        <p class="text-primary/40 font-black tracking-[0.3em] uppercase text-[10px] mb-4">Bonos. Premios. Libertad.</p>
-        <h2 class="text-4xl md:text-6xl font-black font-headline text-primary uppercase tracking-tighter mb-20 leading-[0.9]">No es solo un negocio.<br>Es un <span class="text-tertiary">Estilo de Vida.</span></h2>
+<!-- Gamification / Lifestyle (Ubicado después del Océano Azul) -->
+<section class="py-40 relative overflow-hidden group">
+    <!-- Background Luxury Resort con Parallax-like effect -->
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover brightness-50 contrast-125 transition-transform duration-1000 group-hover:scale-105" alt="Luxury Resort Background"/>
+        <div class="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/40 to-primary/90"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-12 text-center">
+        <p class="text-sky-400 font-black tracking-[0.4em] uppercase text-[11px] mb-6 drop-shadow-md">Bonos • Premios • Libertad Patrimonial</p>
+        <h2 class="text-5xl md:text-7xl font-black font-headline text-white uppercase tracking-tighter mb-24 leading-[0.85]">No es un trabajo.<br><span class="text-transparent border-t-2 border-b-2 border-white/20 px-4 -rotate-1 inline-block mt-4 bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">Es un Estilo de Vida.</span></h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass-card p-12 hover:-translate-y-2 transition-transform shadow-xl shadow-primary/5">
-                <span class="material-symbols-outlined text-5xl text-amber-500 mb-6 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">workspace_premium</span>
-                <h3 class="font-black text-primary text-xl uppercase tracking-tighter mb-4">Reconocimiento Constante</h3>
-                <p class="text-sm text-on-surface-variant/60 font-medium">Desde artículos de lujo hasta eventos exclusivos. Cada meta alcanzada en tu agencia te acerca a algo grande.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <!-- Reconocimiento -->
+            <div class="backdrop-blur-xl bg-white/5 p-12 rounded-[40px] border border-white/10 hover:border-amber-400/40 transition-all duration-500 hover:-translate-y-4 group/card">
+                <div class="w-20 h-20 bg-amber-500/20 rounded-2xl flex items-center justify-center mx-auto mb-10 text-amber-500 shadow-[0_0_30px_rgba(245,158,11,0.2)] group-hover/card:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-5xl">workspace_premium</span>
+                </div>
+                <h3 class="font-black text-white text-2xl uppercase tracking-tighter mb-6 italic">Reconocimiento <span class="text-amber-400">Rolex</span></h3>
+                <p class="text-sm text-white/60 font-medium leading-relaxed">Tus logros no pasan desapercibidos. Premiamos tu excelencia con símbolos de estatus y éxito que perduran.</p>
             </div>
-            <div class="glass-card p-12 hover:-translate-y-2 transition-transform md:scale-105 border border-primary/10 bg-white shadow-2xl shadow-primary/10 relative z-10">
-                <span class="material-symbols-outlined text-5xl text-blue-500 mb-6 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">flight_takeoff</span>
-                <h3 class="font-black text-primary text-xl uppercase tracking-tighter mb-4">Viajes Élite Internacionales</h3>
-                <p class="text-sm text-on-surface-variant/60 font-medium">Descubre el mundo, disfruta experiencias increíbles y crea recuerdos inolvidables para ti y un acompañante anualmente.</p>
+            
+            <!-- Viajes -->
+            <div class="backdrop-blur-xl bg-white/5 p-12 rounded-[40px] border border-white/10 hover:border-sky-400/40 transition-all duration-500 hover:-translate-y-4 group/card">
+                <div class="w-20 h-20 bg-sky-500/20 rounded-2xl flex items-center justify-center mx-auto mb-10 text-sky-500 shadow-[0_0_30px_rgba(14,165,233,0.2)] group-hover/card:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-5xl">flight_takeoff</span>
+                </div>
+                <h3 class="font-black text-white text-2xl uppercase tracking-tighter mb-6 italic">Viajes Élite <span class="text-sky-400">Resorts</span></h3>
+                <p class="text-sm text-white/60 font-medium leading-relaxed">Desde las playas de la Riviera Maya hasta los horizontes de París. Tu pasaporte será tu mejor herramienta de trabajo.</p>
             </div>
-            <div class="glass-card p-12 hover:-translate-y-2 transition-transform shadow-xl shadow-primary/5">
-                <span class="material-symbols-outlined text-5xl text-emerald-500 mb-6 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">payments</span>
-                <h3 class="font-black text-primary text-xl uppercase tracking-tighter mb-4">Libertad y Dinero en Efectivo</h3>
-                <p class="text-sm text-on-surface-variant/60 font-medium">Bonos predictibles que impulsan tu crecimiento, pagos rápidos y libertad financiera real basada en impacto.</p>
+
+            <!-- Bonos -->
+            <div class="backdrop-blur-xl bg-white/5 p-12 rounded-[40px] border border-white/10 hover:border-emerald-400/40 transition-all duration-500 hover:-translate-y-4 group/card">
+                <div class="w-20 h-20 bg-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-10 text-emerald-500 shadow-[0_0_30px_rgba(16,185,129,0.2)] group-hover/card:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-5xl">payments</span>
+                </div>
+                <h3 class="font-black text-white text-2xl uppercase tracking-tighter mb-6 italic">Bonos <span class="text-emerald-400">Predictibles</span></h3>
+                <p class="text-sm text-white/60 font-medium leading-relaxed">Crea una base financiera sólida con bonos basados en impacto real. Dinero real para metas reales.</p>
             </div>
         </div>
     </div>
@@ -239,20 +256,58 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-            <div class="md:col-span-4 bg-indigo-50 p-12 rounded-[40px] border border-primary/5 flex flex-col justify-between group">
-                <div>
-                    <span class="material-symbols-outlined text-4xl text-primary mb-10 block">groups</span>
-                    <h3 class="text-3xl font-black text-primary mb-6 tracking-tight">Resiliencia</h3>
-                    <p class="text-primary/60 leading-relaxed font-medium">Modelos de cobertura adaptables que crecen con usted, asegurando su patrimonio ante cualquier imprevisto global.</p>
-                </div>
             </div>
-            <div class="md:col-span-8 relative rounded-[40px] overflow-hidden group shadow-2xl shadow-primary/20 border border-outline-variant/10 h-[400px]">
-                <img id="legacy-dynamic-img" src="<?= config('ui.assets.legacy') ?>" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Retirement Freedom"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
-                <div class="absolute bottom-12 left-12">
-                    <p class="text-emerald-400 font-bold uppercase tracking-[0.2em] text-[10px] mb-2 px-2 py-1 bg-emerald-500/10 inline-block rounded-md border border-emerald-500/20">LIBERTAD PATRIMONIAL</p>
-                    <p class="text-white font-black text-3xl tracking-tight leading-tight">Tu tranquilidad es nuestro único objetivo.</p>
+        </div>
+
+        <!-- Educación Financiera: El Principio "Término + Inversión" (Propuesta 4) -->
+        <div class="mt-20 bg-white border-4 border-primary/5 rounded-[48px] p-12 md:p-20 relative overflow-hidden group">
+            <div class="absolute right-0 top-0 w-1/3 h-full bg-indigo-50/50 -skew-x-12 translate-x-1/2"></div>
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="px-4 py-1.5 bg-amber-500/10 text-amber-700 text-[10px] font-black uppercase tracking-[0.3em] rounded-lg mb-8 inline-block border border-amber-500/20">La Regla Dorada de Wall Street</span>
+                    <h3 class="text-4xl md:text-5xl font-black text-primary tracking-tighter mb-10 leading-[0.9] italic">"Compra a término e invierte la diferencia"</h3>
+                    <p class="text-lg text-on-surface-variant/70 font-medium leading-relaxed mb-10">
+                        No somos vendedores de pólizas, somos tus <strong>educadores financieros</strong>. El seguro tradicional es costoso e ineficiente. Nuestra metodología te enseña no solo a estar protegido hoy, sino a ser rico mañana.
+                    </p>
+                    <div class="flex items-center gap-6">
+                        <div class="flex flex-col">
+                            <span class="text-3xl font-black text-primary italic">20X</span>
+                            <span class="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-widest">Protección superior</span>
+                        </div>
+                        <div class="w-px h-10 bg-outline-variant/10"></div>
+                        <div class="flex flex-col">
+                            <span class="text-3xl font-black text-emerald-500 italic">$0.00</span>
+                            <span class="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-widest">En costos ocultos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-surface-low rounded-3xl p-10 border border-outline-variant/10 shadow-2xl shadow-primary/5 relative">
+                    <div class="flex justify-between items-center mb-10 border-b border-outline-variant/10 pb-6">
+                        <p class="text-[11px] font-black uppercase tracking-widest text-primary">Comparativa de Acumulación</p>
+                        <span class="material-symbols-outlined text-primary/30">insights</span>
+                    </div>
+                    <!-- Mock Graph simple para impacto visual -->
+                    <div class="space-y-8">
+                        <div>
+                            <div class="flex justify-between text-[10px] font-black uppercase tracking-widest mb-2">
+                                <span class="text-on-surface-variant/40">Seguro Tradicional</span>
+                                <span class="text-red-500">Estancado</span>
+                            </div>
+                            <div class="h-3 bg-red-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-red-500 w-1/4 transition-all duration-1000 group-hover:w-1/3"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-[10px] font-black uppercase tracking-widest mb-2">
+                                <span class="text-primary italic">Estrategia empresaIMO</span>
+                                <span class="text-emerald-500 animate-pulse">Crecimiento Compuesto</span>
+                            </div>
+                            <div class="h-3 bg-emerald-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-emerald-500 w-full shadow-[0_0_15px_rgba(16,185,129,0.5)]"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-10 text-[10px] text-on-surface-variant/40 font-bold italic text-center">Basado en proyecciones promedio de interés compuesto del 8% anual.</p>
                 </div>
             </div>
         </div>

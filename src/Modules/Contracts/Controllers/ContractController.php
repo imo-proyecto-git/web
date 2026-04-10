@@ -26,9 +26,104 @@ class ContractController extends Controller
             exit;
         }
 
-        $this->view('Contracts/Views/builder', [
-            'user' => \IMO\Core\Security\Auth::user()
-        ]);
+        try {
+            $pdo = Connection::getInstance();
+            $user = \IMO\Core\Security\Auth::user();
+            
+            // Traer leads para el selector del builder
+            $whereClause = ($user['role'] === 'agent') ? "assigned_user_id = :uid" : "1=1";
+            $stmt = $pdo->prepare("SELECT id, uuid, encrypted_payload FROM leads WHERE $whereClause ORDER BY created_at DESC");
+            if ($user['role'] === 'agent') {
+                $stmt->execute(['uid' => $user['id']]);
+            } else {
+                $stmt->execute();
+            }
+            $leads = $stmt->fetchAll();
+
+            // Desencriptar nombres para el selector
+            foreach ($leads as &$lead) {
+                try {
+                    $pii = json_decode(\IMO\Core\Security\Encrypter::decrypt($lead['encrypted_payload']), true);
+                    $lead['name'] = $pii['name'] ?? 'Lead Sin Nombre';
+                } catch (Exception $e) {
+                    $lead['name'] = 'Lead Protegido';
+                }
+            }
+
+            $this->view('Contracts/Views/builder', [
+                'user'  => $user,
+                'leads' => $leads
+            ]);
+
+        } catch (Exception $e) {
+            $this->view('Landing/Views/404');
+        }
+    }
+
+    /**
+     * POST /api/v1/contracts/store
+     * Guarda el contrato generado en el builder.
+     */
+    public function store(): void
+    {
+        header('Content-Type: application/json');
+        if (!\IMO\Core\Security\Auth::check()) {
+            $this->json(['status' => 'error', 'message' => 'No autorizado'], 401);
+            return;
+        }
+
+        try {
+            $input = json_decode(file_get_contents('php://input'), true);
+            $leadId  = (int)($input['lead_id'] ?? 0);
+            $title   = trim($input['title'] ?? '');
+            $content = $input['content'] ?? '';
+
+            if (!$leadId || !$title || !$content) {
+                $this->json(['status' => 'error', 'message' => 'Datos incompletos.'], 422);
+                return;
+            }
+
+            $pdo = Connection::getInstance();
+            
+            // Validar que el lead exista
+            $checkLead = $pdo->prepare("SELECT id FROM leads WHERE id = :id");
+            $checkLead->execute(['id' => $leadId]);
+            if (!$checkLead->fetch()) {
+                $this->json(['status' => 'error', 'message' => 'Lead inválido.'], 404);
+                return;
+            }
+
+            // Generar UUID
+            $data = random_bytes(16);
+            $data[6] = chr(ord($data[6]) & 0x0f | 0x40); 
+            $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+            $uuid = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+
+            $stmt = $pdo->prepare("
+                INSERT INTO contracts (uuid, lead_id, title, content, status) 
+                VALUES (:uuid, :lead_id, :title, :content, 'sent')
+            ");
+            $stmt->execute([
+                'uuid'    => $uuid,
+                'lead_id' => $leadId,
+                'title'   => $title,
+                'content' => $content
+            ]);
+
+            $contractId = $pdo->lastInsertId();
+
+            AuditService::log(\IMO\Core\Security\Auth::user()['id'], 'CONTRACT_CREATED', 'contracts', (int)$contractId, "Emitido a Lead ID: $leadId");
+
+            $this->json([
+                'status'  => 'success', 
+                'message' => 'Contrato emitido exitosamente. El cliente recibirá una notificación.',
+                'uuid'    => $uuid,
+                'link'    => config('app.url') . "/contracts/$uuid"
+            ]);
+
+        } catch (Exception $e) {
+            $this->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+        }
     }
 
     /**

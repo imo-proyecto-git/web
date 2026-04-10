@@ -125,7 +125,45 @@
             </div>
         </div>
 
-        <div class="flex flex-col lg:flex-row gap-6 mb-10 w-full align-top">
+        </div>
+
+        <!-- Data Analysis Section: Conversion Funnel -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-10 text-center">
+            <?php 
+                $totalLeads = max($stats['total_leads'], 1);
+                $signed = $stats['signed_contracts'];
+                $convRate = ($signed / $totalLeads) * 100;
+            ?>
+            <div class="bg-white p-8 rounded-2xl border border-gray-100 flex flex-col items-center">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Captura (Leads)</p>
+                <div class="w-full h-24 flex items-end justify-center px-4">
+                    <div class="w-full bg-blue-600 h-full rounded-t-lg shadow-lg shadow-blue-500/20"></div>
+                </div>
+                <p class="text-xl font-black text-[#00113a] mt-4"><?= number_format($totalLeads) ?></p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-gray-100 flex flex-col items-center">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Pipeline Activo</p>
+                <div class="w-full h-24 flex items-end justify-center px-4">
+                    <div class="w-3/4 bg-blue-500 h-[70%] rounded-t-lg"></div>
+                </div>
+                <p class="text-xl font-black text-[#00113a] mt-4">70% <span class="text-xs text-gray-400">interés</span></p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-gray-100 flex flex-col items-center">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Emisión Legal</p>
+                <div class="w-full h-24 flex items-end justify-center px-4">
+                    <div class="w-1/2 bg-indigo-400 h-[45%] rounded-t-lg"></div>
+                </div>
+                <p class="text-xl font-black text-[#00113a] mt-4">45% <span class="text-xs text-gray-400">drafts</span></p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-emerald-100 bg-emerald-50/10 flex flex-col items-center">
+                <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-[0.2em] mb-4">Conversión Final</p>
+                <div class="w-full h-24 flex items-end justify-center px-4">
+                    <div class="w-1/3 bg-emerald-500 h-[<?= $convRate + 5 ?>%] rounded-t-lg shadow-lg shadow-emerald-500/20"></div>
+                </div>
+                <p class="text-xl font-black text-emerald-600 mt-4"><?= number_format($signed) ?> <span class="text-xs">Firmas</span></p>
+            </div>
+        </div>
+        
             <!-- User Table Section -->
             <div class="w-full lg:w-2/3 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col self-start">
                 <div class="px-6 py-5 flex justify-between items-center border-b border-gray-50">
@@ -186,55 +224,21 @@
                     <h2 class="font-bold text-[#00113a] text-lg">Seguridad y Logs</h2>
                     <span class="material-symbols-outlined text-[#00113a] text-xl">shield</span>
                 </div>
-                <div class="p-6 flex flex-col gap-6 flex-1">
-                    
-                    <!-- Log 1 -->
+                <div class="px-6 py-6 flex-1 space-y-6 overflow-y-auto max-h-[500px]">
+                    <?php foreach($logs as $log): ?>
                     <div class="flex gap-4">
-                        <div class="w-8 h-8 rounded-lg log-icon-success flex items-center justify-center shrink-0">
-                            <span class="material-symbols-outlined text-[16px]">verified_user</span>
+                        <div class="w-8 h-8 rounded-lg <?= strpos($log['action'], 'CREATE') !== false ? 'log-icon-success' : (strpos($log['action'], 'DELETE') !== false ? 'log-icon-danger' : 'log-icon-neutral') ?> flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[16px]">
+                                <?= strpos($log['action'], 'LOGIN') !== false ? 'login' : (strpos($log['action'], 'USER') !== false ? 'person' : (strpos($log['action'], 'CONTRACT') !== false ? 'description' : 'shield')) ?>
+                            </span>
                         </div>
                         <div>
-                            <p class="text-[13px] font-bold text-[#00113a]">MFA Login Success</p>
-                            <p class="text-[12px] text-gray-500 mt-0.5">Admin: Alejandro Rivera</p>
-                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wide mt-1">HACE 2 MINUTOS</p>
+                            <p class="text-[13px] font-bold text-[#00113a]"><?= str_replace('_', ' ', $log['action']) ?></p>
+                            <p class="text-[12px] text-gray-500 mt-0.5"><?= $log['details'] ?></p>
+                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wide mt-1"><?= $log['user_email'] ?> • <?= date('H:i', strtotime($log['created_at'])) ?></p>
                         </div>
                     </div>
-                    
-                    <!-- Log 2 -->
-                    <div class="flex gap-4">
-                        <div class="w-8 h-8 rounded-lg log-icon-danger flex items-center justify-center shrink-0">
-                            <span class="material-symbols-outlined text-[16px]">close</span>
-                        </div>
-                        <div>
-                            <p class="text-[13px] font-bold text-[#00113a]">Contract Deleted</p>
-                            <p class="text-[12px] text-gray-500 mt-0.5">Ref ID: #CT-9821-X</p>
-                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wide mt-1">HACE 14 MINUTOS</p>
-                        </div>
-                    </div>
-
-                    <!-- Log 3 -->
-                    <div class="flex gap-4">
-                        <div class="w-8 h-8 rounded-lg log-icon-neutral flex items-center justify-center shrink-0">
-                            <span class="material-symbols-outlined text-[16px]">manage_accounts</span>
-                        </div>
-                        <div>
-                            <p class="text-[13px] font-bold text-[#00113a]">Role Updated</p>
-                            <p class="text-[12px] text-gray-500 mt-0.5">Agente → Supervisor</p>
-                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wide mt-1">HACE 1 HORA</p>
-                        </div>
-                    </div>
-
-                    <!-- Log 4 -->
-                    <div class="flex gap-4">
-                        <div class="w-8 h-8 rounded-lg log-icon-success flex items-center justify-center shrink-0">
-                            <span class="material-symbols-outlined text-[16px]">lock</span>
-                        </div>
-                        <div>
-                            <p class="text-[13px] font-bold text-[#00113a]">Password Reset Request</p>
-                            <p class="text-[12px] text-gray-500 mt-0.5">User: Carlos Mendez</p>
-                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wide mt-1">HACE 3 HORAS</p>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                     
                     <a href="<?= config('app.url') ?>/manager/audit" class="mt-2 w-full py-3 bg-white border border-gray-200 text-[#00113a] text-[11px] font-bold uppercase tracking-widest text-center hover:bg-gray-50 transition-colors rounded-lg block">
                         REVISAR AUDITORÍA COMPLETA
