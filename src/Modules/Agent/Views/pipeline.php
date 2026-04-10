@@ -1,30 +1,37 @@
+<?php include __DIR__ . '/../../Landing/Views/layout/header.php'; ?>
 <?php include __DIR__ . '/layout/nav.php'; ?>
 
 <style>
 /* CSS para Kanban Drag & Drop Visual Effect */
-.kanban-col { min-height: 500px; }
-.kanban-card { transition: transform 0.2s, box-shadow 0.2s; cursor: grab; }
+.kanban-col { min-height: 500px; padding-bottom: 2rem; }
+.kanban-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: grab; }
+.kanban-card:hover { transform: translateY(-4px) scale(1.02); }
 .kanban-card:active { cursor: grabbing; transform: scale(0.98); }
-.kanban-ghost { opacity: 0.4; border: 2px dashed #1a56db; background: transparent; }
+.kanban-ghost { opacity: 0.2; border: 2px dashed #00113a; background: rgba(0, 17, 58, 0.05); }
+.kanban-container::-webkit-scrollbar { height: 8px; }
+.kanban-container::-webkit-scrollbar-thumb { background: rgba(0, 17, 58, 0.1); border-radius: 99px; }
 </style>
 
 <div class="flex-1 bg-surface min-h-screen pt-24 px-10 pb-10">
-    <div class="flex justify-between items-center mb-8">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
         <div>
-            <h1 class="text-4xl font-black text-primary tracking-tighter mb-2 font-headline uppercase"><?= __('Lead Pipeline') ?></h1>
-            <p class="text-on-surface-variant/60 font-bold text-sm tracking-widest uppercase"><?= __('Tablero Kanban Operativo') ?></p>
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-2 h-8 bg-primary rounded-full"></div>
+                <h1 class="text-5xl font-black text-primary tracking-tighter font-headline uppercase italic leading-none"><?= __('Lead Pipeline') ?></h1>
+            </div>
+            <p class="text-on-surface-variant/40 font-black text-[10px] tracking-[0.4em] uppercase ml-5"><?= __('Gestión de Embudo de Ventas Digital') ?></p>
         </div>
-        <div class="flex items-center gap-4">
-            <button class="bg-white border border-outline-variant/10 text-primary px-4 py-2 rounded-lg font-bold text-xs uppercase tracking-widest shadow-sm hover:bg-surface-low transition-all">Vista Lista</button>
-            <button class="btn-primary px-6 py-2 shadow-lg shadow-primary/20 hover:scale-105 transition-all text-xs uppercase tracking-widest"><span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">add</span> Nuevo Lead</span></button>
+        <div class="flex items-center gap-4 bg-white/50 backdrop-blur-md p-2 rounded-2xl border border-white/40 shadow-xl shadow-primary/5">
+            <button class="bg-white text-primary px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-sm hover:bg-surface transition-all border border-outline-variant/10">Vista Lista</button>
+            <button class="btn-primary px-8 py-2.5 shadow-2xl shadow-primary/20 hover:scale-105 transition-all text-[10px] font-black uppercase tracking-widest"><span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">add</span> Nuevo Lead</span></button>
         </div>
     </div>
 
     <!-- Kanban Board -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 overflow-x-auto pb-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 kanban-container overflow-x-auto pb-12">
         
         <!-- NEW -->
-        <div class="bg-surface-lowest rounded-3xl p-5 border border-outline-variant/5 shadow-2xl shadow-primary/5 kanban-col flex flex-col gap-4">
+        <div class="bg-surface-lowest/50 backdrop-blur-sm rounded-[40px] p-6 border border-white shadow-2xl shadow-primary/5 kanban-col flex flex-col gap-5">
             <div class="flex justify-between items-center px-2 mb-2">
                 <div class="flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
@@ -53,7 +60,7 @@
         </div>
 
         <!-- CONTACTED -->
-        <div class="bg-surface-lowest rounded-3xl p-5 border border-outline-variant/5 shadow-2xl shadow-primary/5 kanban-col flex flex-col gap-4">
+        <div class="bg-surface-lowest/50 backdrop-blur-sm rounded-[40px] p-6 border border-white shadow-2xl shadow-primary/5 kanban-col flex flex-col gap-5">
             <div class="flex justify-between items-center px-2 mb-2">
                 <div class="flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]"></span>
@@ -74,7 +81,7 @@
         </div>
 
         <!-- QUALIFIED / CONTRACT SENT -->
-        <div class="bg-surface-lowest rounded-3xl p-5 border border-outline-variant/5 shadow-2xl shadow-primary/5 kanban-col flex flex-col gap-4">
+        <div class="bg-surface-lowest/50 backdrop-blur-sm rounded-[40px] p-6 border border-white shadow-2xl shadow-primary/5 kanban-col flex flex-col gap-5">
             <div class="flex justify-between items-center px-2 mb-2">
                 <div class="flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.8)]"></span>
@@ -95,7 +102,7 @@
         </div>
 
         <!-- CLOSED / CONVERTED -->
-        <div class="bg-surface-lowest rounded-3xl p-5 border border-outline-variant/5 shadow-2xl shadow-primary/5 kanban-col flex flex-col gap-4">
+        <div class="bg-surface-lowest/50 backdrop-blur-sm rounded-[40px] p-6 border border-white shadow-2xl shadow-primary/5 kanban-col flex flex-col gap-5">
             <div class="flex justify-between items-center px-2 mb-2">
                 <div class="flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>

@@ -17,6 +17,7 @@ Plataforma CRM y de gestión de prospectos de alto rendimiento diseñada para un
 - **Base de Datos**: MySQL / MariaDB (Optimización para hosting compartido)
 - **Motor de IA**: Groq Integration (LLaMA 3.1) para Lead Scoring asíncrono.
 - **Frontend**: Vanilla JS + Tailwind CSS (Bento Layout System + Framer-like animations).
+- **Branding Premium**: Sistema de diseño basado en Glassmorphism (blurs progresivos) y tipografía editorial de alto impacto para portales de gestión.
 - **Global Layout System**: Arquitectura de navegación unificada (Shared Components) para Agentes y Managers, optimizando la coherencia visual y carga cognitiva.
 - **Inyección de Contexto**: El Motor de Vistas (`Engine.php`) inyecta automáticamente el estado global (User, Config) eliminando el boiler-plate en controladores.
 - **UX Premium**: Sistema de Parallax dinámico y jerarquía visual optimizada.

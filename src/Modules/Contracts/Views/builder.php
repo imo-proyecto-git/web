@@ -1,7 +1,8 @@
+<?php include __DIR__ . '/../../Landing/Views/layout/header.php'; ?>
 <?php 
 // Usaremos el panel nav del agente o del manager dependiendo del rol
 if ($user['role'] === 'manager' || $user['role'] === 'superadmin') {
-    include __DIR__ . '/../../Landing/Views/layout/header.php';
+    // Ya incluye el nav en el dashboard, pero si es necesario lo podemos forzar aquí si no viene de layout
 } else {
     include __DIR__ . '/../../Agent/Views/layout/nav.php';
 }
@@ -10,13 +11,17 @@ if ($user['role'] === 'manager' || $user['role'] === 'superadmin') {
 <div class="flex-1 bg-surface min-h-screen <?= ($user['role'] === 'agent') ? 'pt-24' : 'pt-32' ?> px-10 pb-10">
     <div class="max-w-7xl mx-auto">
         
-        <header class="mb-10 flex flex-col md:flex-row justify-between items-end gap-6">
+        <header class="mb-12 flex flex-col md:flex-row justify-between items-end gap-10">
             <div>
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-4xl text-indigo-500">draw</span>
-                    <h1 class="text-4xl font-black text-primary tracking-tighter uppercase font-headline">Contract Builder</h1>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-indigo-500 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-indigo-500/20">
+                        <span class="material-symbols-outlined text-2xl">draw</span>
+                    </div>
+                    <div>
+                        <h1 class="text-5xl font-black text-primary tracking-tighter uppercase font-headline italic leading-none">Constructor</h1>
+                        <p class="text-on-surface-variant/40 font-black text-[10px] tracking-[0.4em] uppercase mt-2">Ingeniería Legal & Compliance HIPAA</p>
+                    </div>
                 </div>
-                <p class="text-on-surface-variant/60 font-bold text-sm mt-2 ml-[3.25rem]">Generador dinámico de Contratos con Firma OTP (Cumplimiento HIPAA)</p>
             </div>
             <div class="flex gap-4 w-full md:w-auto">
                 <div class="flex-1 md:flex-none">
@@ -76,7 +81,9 @@ if ($user['role'] === 'manager' || $user['role'] === 'superadmin') {
 
             <!-- Workspace / Documento (Right Area) -->
             <div class="lg:col-span-9">
-                <div class="bg-white rounded-[40px] shadow-2xl shadow-primary/10 border border-outline-variant/5 min-h-[800px] flex flex-col overflow-hidden relative">
+                <div class="bg-white rounded-[48px] shadow-[0_40px_100px_-20px_rgba(0,17,58,0.15)] border border-outline-variant/10 min-h-[900px] flex flex-col overflow-hidden relative">
+                    <!-- Blueprint Grid Overlay (Subtle) -->
+                    <div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image: radial-gradient(#00113a 0.5px, transparent 0.5px); background-size: 20px 20px;"></div>
                     
                     <!-- Toolbar Editor -->
                     <div class="bg-surface-low border-b border-outline-variant/10 px-8 py-4 flex items-center gap-6">
@@ -92,20 +99,32 @@ if ($user['role'] === 'manager' || $user['role'] === 'superadmin') {
                     </div>
 
                     <!-- Lienzo (Canvas) -->
-                    <div class="flex-1 p-16" id="canvas-area">
+                    <div class="flex-1 p-20 relative z-10" id="canvas-area">
                         <!-- Default Template Loaded -->
-                        <div id="contract-wrapper" class="border border-dashed border-outline-variant/20 rounded-2xl p-10 hover:border-indigo-500/50 transition-colors group cursor-text relative mb-6">
-                            <button class="absolute top-4 right-4 text-on-surface-variant/20 group-hover:text-error transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
-                            <h2 id="editable-title" class="text-2xl font-black text-primary font-headline uppercase tracking-tighter mb-4 outline-none" contenteditable="true">ACUERDO DE BLINDAJE PATRIMONIAL</h2>
-                            <div id="editable-content" class="text-sm font-medium text-on-surface-variant/70 leading-relaxed outline-none min-h-[400px]" contenteditable="true">
-                                <p class="mb-6">Este acuerdo se celebra en el día [FECHA] entre <?= $COMPANY_NAME ?? 'IMO-OS' ?> y el cliente amparado. Los fondos aportados se gestionarán bajo la estructura B.T.I.D.</p>
-                                <h3 class="font-black text-primary uppercase tracking-widest text-xs mb-4">1. OBJETO DEL CONTRATO</h3>
-                                <p class="mb-6">El presente documento tiene como fin establecer los t&eacute;rminos de protecci&oacute;n patrimonial y gesti&oacute;n de activos en modalidad de seguros a t&eacute;rmino con inversi&oacute;n de excedentes.</p>
-                                <h3 class="font-black text-primary uppercase tracking-widest text-xs mb-4">2. COMPROMISO HIPAA</h3>
-                                <p class="mb-6">Todas las partes aceptan el manejo de Informaci&oacute;n de Salud Protegida (PHI) bajo los est&aacute;ndares federales vigentes.</p>
-                                <div class="mt-20 p-8 border-4 border-indigo-500/10 rounded-3xl bg-indigo-50/10 text-center">
-                                    <p class="text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-4">BLOQUE DE SEGURIDAD O.T.P.</p>
-                                    <div class="h-10 w-40 bg-indigo-500/10 rounded-lg mx-auto border-2 border-dashed border-indigo-500/20"></div>
+                        <div id="contract-wrapper" class="bg-white border border-outline-variant/10 rounded-[32px] p-16 shadow-2xl shadow-primary/5 hover:border-indigo-500/30 transition-all group cursor-text relative mb-10 overflow-hidden">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500/10 group-hover:bg-indigo-500 transition-colors"></div>
+                            <button class="absolute top-6 right-6 text-on-surface-variant/10 group-hover:text-error transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
+                            <h2 id="editable-title" class="text-4xl font-black text-primary font-headline uppercase tracking-tighter mb-8 outline-none leading-none" contenteditable="true">ACUERDO DE BLINDAJE PATRIMONIAL</h2>
+                            <div class="w-20 h-1 bg-primary/10 mb-12"></div>
+                            <div id="editable-content" class="text-[15px] font-medium text-on-surface-variant/70 leading-[1.8] outline-none min-h-[400px]" contenteditable="true">
+                                <p class="mb-8">Este acuerdo se celebra en el día <span class="bg-indigo-50 px-2 py-0.5 rounded text-indigo-600 font-bold">[FECHA]</span> entre <span class="text-primary font-black"><?= $COMPANY_NAME ?? 'IMO-OS' ?></span> y el cliente amparado. Los fondos aportados se gestionarán bajo la estructura <span class="border-b-2 border-indigo-500/30 text-primary">B.T.I.D.</span></p>
+                                <h3 class="font-black text-primary uppercase tracking-[0.2em] text-[11px] mb-6 flex items-center gap-2">
+                                    <span class="w-6 h-px bg-primary/20"></span> 1. OBJETO DEL CONTRATO
+                                </h3>
+                                <p class="mb-10">El presente documento tiene como fin establecer los t&eacute;rminos de protecci&oacute;n patrimonial y gesti&oacute;n de activos en modalidad de seguros a t&eacute;rmino con inversi&oacute;n de excedentes.</p>
+                                <h3 class="font-black text-primary uppercase tracking-[0.2em] text-[11px] mb-6 flex items-center gap-2">
+                                    <span class="w-6 h-px bg-primary/20"></span> 2. COMPROMISO HIPAA
+                                </h3>
+                                <p class="mb-12">Todas las partes aceptan el manejo de Informaci&oacute;n de Salud Protegida (PHI) bajo los est&aacute;ndares federales vigentes.</p>
+                                
+                                <div class="mt-32 p-12 border-2 border-dashed border-indigo-500/20 rounded-[40px] bg-indigo-50/20 text-center relative group/sig">
+                                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-white px-6 py-1 border border-indigo-100 rounded-full shadow-sm">
+                                        <p class="text-[9px] font-black text-indigo-500 uppercase tracking-widest leading-none">Protocolo de Seguridad O.T.P.</p>
+                                    </div>
+                                    <div class="h-16 w-64 bg-white rounded-2xl mx-auto border border-indigo-500/10 shadow-inner flex items-center justify-center">
+                                        <span class="text-[10px] font-black text-primary/20 uppercase tracking-[0.4em]">Sello Digital</span>
+                                    </div>
+                                    <p class="text-[9px] text-on-surface-variant/30 font-bold mt-6 uppercase tracking-widest italic">Validación biométrica requerida mediante dispositivo móvil del suscriptor.</p>
                                 </div>
                             </div>
                         </div>

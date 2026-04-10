@@ -4,19 +4,20 @@
 <main class="pt-32 pb-16 px-12 max-w-[1600px] mx-auto bg-surface/50 min-h-screen font-body">
     
     <!-- Header Section -->
-    <header class="mb-12 flex justify-between items-end">
-        <div>
-            <div class="inline-flex items-center gap-3 px-4 py-2 bg-primary/5 rounded-full mb-4 border border-primary/10">
-                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-                <span class="text-[10px] font-black text-primary uppercase tracking-[0.2em] font-body"><?= strtoupper($user['role'] === 'agent' ? 'Workspace del Agente' : 'Supervisión de Pipeline') ?></span>
+    <header class="mb-16 flex flex-col md:flex-row justify-between items-end gap-10 p-12 bg-white/40 backdrop-blur-3xl rounded-[48px] border border-white/40 shadow-2xl shadow-primary/5 relative overflow-hidden">
+        <div class="relative z-10">
+            <div class="inline-flex items-center gap-3 px-5 py-2.5 bg-primary/5 rounded-2xl mb-6 border border-primary/10">
+                <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_12px_rgba(16,185,129,0.5)]"></span>
+                <span class="text-[10px] font-black text-primary uppercase tracking-[0.3em] font-body">Estado del Sistema: Operacional</span>
             </div>
-            <h1 class="text-4xl font-black tracking-tighter text-primary mb-3"><?= __('Pipeline CRM Operativo') ?></h1>
-            <p class="text-on-surface-variant font-medium text-sm opacity-60"><?= __('Identifica oportunidades de alta intención y gestiona el embudo predictivo IA.') ?></p>
+            <h1 class="text-6xl font-black tracking-tighter text-primary mb-4 italic font-headline leading-none capitalize"><?= __('Workspace') ?></h1>
+            <p class="text-on-surface-variant/50 font-black text-[10px] tracking-[0.3em] uppercase ml-1"><?= __('Métricas y Gestión de Embudo Predictivo IA') ?></p>
         </div>
-        <div class="text-right hidden md:block">
-            <p class="text-[10px] font-black text-on-surface-variant/50 uppercase tracking-widest mb-1">Valor Potencial Estimado (Pipeline)</p>
-            <h2 class="text-4xl font-black text-emerald-600 tracking-tighter">$<?= number_format($stats['pipelineValue'], 2) ?> USD</h2>
+        <div class="text-right relative z-10">
+            <p class="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-[0.4em] mb-4 pr-2">Pipeline Estimado (VALOR POTENCIAL)</p>
+            <h2 class="text-6xl font-black text-emerald-600 tracking-tighter leading-none">$<?= number_format($stats['pipelineValue'], 2) ?> <span class="text-sm opacity-30 text-primary">USD</span></h2>
         </div>
+        <div class="absolute -top-32 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
     </header>
 
     <!-- Filter Bar -->

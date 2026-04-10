@@ -11,44 +11,37 @@
     <link rel="icon" type="image/png" href="<?= $APP_URL ?>/assets/img/favicon.png">
 
     <!-- Tailwind Play CDN -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
-    <script id="tailwind-config">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      console.log("Tailwind Loader: Initializing...");
+      console.log("Design Tokens:", {
+        primary: "<?= $primary_color ?? '#00113a' ?>",
+        surface: "<?= $surface ?? '#faf8ff' ?>",
+        radius: "<?= $radius_md ?? '12px' ?>"
+      });
+      
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
             colors: {
-              "primary": "<?= $primary_color ?>",
-              "secondary": "<?= $secondary_color ?>",
-              "tertiary": "<?= $tertiary_color ?>",
-              "tertiary-container": "<?= $tertiary_container ?>",
-              "on-tertiary-container": "<?= $on_tertiary_container ?>",
-              "surface": "<?= $surface ?>",
-              "surface-low": "<?= $surface_low ?>",
-              "surface-highest": "<?= $surface_highest ?>",
-              "surface-lowest": "<?= $surface_lowest ?>",
-              "outline-variant": "<?= $border_light ?>",
-              "error": "<?= config('ui.colors.danger', '#ba1a1a') ?>",
+              "primary": "<?= $primary_color ?? '#00113a' ?>",
+              "secondary": "<?= $secondary_color ?? '#002366' ?>",
+              "tertiary": "<?= $tertiary_color ?? '#00a371' ?>",
+              "surface": "<?= $surface ?? '#faf8ff' ?>",
+              "surface-low": "<?= $surface_low ?? '#f2f3ff' ?>",
+              "surface-highest": "<?= $surface_highest ?? '#dae2fd' ?>",
+              "surface-lowest": "<?= $surface_lowest ?? '#ffffff' ?>",
+              "outline-variant": "<?= $border_light ?? 'rgba(0,0,0,0.1)' ?>",
               "on-surface": "#131b2e",
               "on-surface-variant": "#444650",
             },
             fontFamily: {
               "headline": ["Manrope", "sans-serif"],
               "body": ["Inter", "sans-serif"],
-            },
-            borderRadius: {
-                "none": "0",
-                "sm": "<?= $radius_sm ?>", 
-                "md": "<?= $radius_md ?>", 
-                "lg": "8px", 
-                "xl": "12px", 
-                "2xl": "<?= $radius_lg ?>",
-                "3xl": "<?= $radius_xl ?>",
-                "full": "50rem"
-            },
-          },
-        },
+            }
+          }
+        }
       }
     </script>
 
