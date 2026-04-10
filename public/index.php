@@ -55,6 +55,7 @@ $router->post('/agent/leads/{uuid}/status', 'Leads/Controllers/LeadController@up
 $router->post('/api/v1/sync/offline', 'Leads/Controllers/LeadController@syncOffline');
 
 // Contratos y Firma Digital + OTP
+$router->get('/contracts/builder', 'Contracts/Controllers/ContractController@builder');
 $router->get('/contracts/{uuid}', 'Contracts/Controllers/ContractController@show');
 $router->post('/contracts/{uuid}/otp/request', 'Contracts/Controllers/ContractController@requestOtp');
 $router->post('/contracts/{uuid}/otp/verify', 'Contracts/Controllers/ContractController@verifyOtp');

@@ -87,10 +87,10 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
             <!-- Card 1 -->
             <div class="kpi-card kpi-border-dark pl-8">
-                <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2">TOTAL USUARIOS</p>
+                <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2">TOTAL LEADS</p>
                 <div class="flex items-baseline gap-2">
-                    <h3 class="text-3xl font-black text-[#00113a]">12,482</h3>
-                    <span class="text-emerald-500 font-bold text-xs">+12%</span>
+                    <h3 class="text-3xl font-black text-[#00113a]"><?= number_format($stats['total_leads']) ?></h3>
+                    <span class="text-emerald-500 font-bold text-xs">Avanzando</span>
                 </div>
             </div>
             
@@ -98,7 +98,7 @@
             <div class="kpi-card kpi-border-dark pl-8">
                 <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2">SESIONES ACTIVAS</p>
                 <div class="flex items-baseline gap-2">
-                    <h3 class="text-3xl font-black text-[#00113a]">843</h3>
+                    <h3 class="text-3xl font-black text-[#00113a]"><?= number_format($stats['active_sessions']) ?></h3>
                     <div class="flex items-center gap-1.5 ml-1">
                         <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
                         <span class="text-emerald-500 font-bold text-xs">En vivo</span>
@@ -110,17 +110,17 @@
             <div class="kpi-card kpi-border-emerald pl-8">
                 <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2">CUMPLIMIENTO</p>
                 <div class="flex items-baseline gap-2">
-                    <h3 class="text-3xl font-black text-emerald-500">98.2%</h3>
+                    <h3 class="text-3xl font-black text-emerald-500"><?= number_format($stats['compliance_pct'], 1) ?>%</h3>
                     <span class="text-gray-400 font-bold text-[10px]">ISO 27001</span>
                 </div>
             </div>
 
             <!-- Card 4 -->
             <div class="kpi-card kpi-border-red pl-8">
-                <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2">ALERTAS CRITICAS</p>
+                <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2">CONTRATOS FIRMADOS</p>
                 <div class="flex items-baseline gap-2">
-                    <h3 class="text-3xl font-black text-red-500">3</h3>
-                    <span class="text-red-500 font-bold text-xs">Acción Requerida</span>
+                    <h3 class="text-3xl font-black text-emerald-500"><?= number_format($stats['signed_contracts']) ?></h3>
+                    <span class="text-emerald-500 font-bold text-xs">Ingreso Consolidado</span>
                 </div>
             </div>
         </div>
@@ -145,86 +145,36 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-50">
-                            <!-- Fila 1 -->
+                            <?php foreach ($agents as $agent): ?>
                             <tr class="hover:bg-gray-50/50 transition-colors">
                                 <td class="px-6 py-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-sm shrink-0">
-                                            AR
+                                        <div class="w-10 h-10 rounded-full <?= $agent['status'] === 'active' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-500' ?> flex items-center justify-center font-bold text-sm shrink-0 uppercase">
+                                            <?= substr(explode('@', $agent['email'])[0], 0, 2) ?>
                                         </div>
                                         <div>
-                                            <p class="text-[#00113a] font-bold text-[13px]">Alejandro Rivera</p>
-                                            <p class="text-gray-500 text-[11px]">a.rivera@bastion.com</p>
+                                            <p class="text-[#00113a] font-bold text-[13px] capitalize"><?= explode('@', $agent['email'])[0] ?></p>
+                                            <p class="text-gray-500 text-[11px]"><?= $agent['email'] ?></p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-center">
-                                    <span class="role-pill-admin uppercase">Admin</span>
+                                    <span class="role-pill-<?= strtolower($agent['role'] ?? 'agente') ?> uppercase"><?= $agent['role'] ?></span>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center gap-1.5">
-                                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                        <span class="text-gray-600 text-xs font-semibold">Activo</span>
+                                        <span class="w-2 h-2 rounded-full <?= $agent['status'] === 'active' ? 'bg-emerald-500' : 'bg-gray-400' ?>"></span>
+                                        <span class="text-gray-600 text-xs font-semibold capitalize"><?= $agent['status'] ?></span>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <button class="text-gray-400 hover:text-[#00113a]"><span class="material-symbols-outlined">more_vert</span></button>
                                 </td>
                             </tr>
-                            
-                            <!-- Fila 2 -->
-                            <tr class="hover:bg-gray-50/50 transition-colors">
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-sm shrink-0">
-                                            MC
-                                        </div>
-                                        <div>
-                                            <p class="text-[#00113a] font-bold text-[13px]">Mariana Costa</p>
-                                            <p class="text-gray-500 text-[11px]">m.costa@bastion.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-center">
-                                    <span class="role-pill-supervisor uppercase">Supervisor</span>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center gap-1.5">
-                                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                                        <span class="text-gray-600 text-xs font-semibold">Activo</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-right">
-                                    <button class="text-gray-400 hover:text-[#00113a]"><span class="material-symbols-outlined">more_vert</span></button>
-                                </td>
-                            </tr>
-
-                            <!-- Fila 3 -->
-                            <tr class="hover:bg-gray-50/50 transition-colors">
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 font-bold text-sm shrink-0">
-                                            JS
-                                        </div>
-                                        <div>
-                                            <p class="text-[#00113a] font-bold text-[13px]">Julian Soto</p>
-                                            <p class="text-gray-500 text-[11px]">j.soto@bastion.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-center">
-                                    <span class="role-pill-agente uppercase">Agente</span>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center gap-1.5">
-                                        <span class="w-2 h-2 rounded-full bg-gray-300"></span>
-                                        <span class="text-gray-500 text-xs font-semibold">Inactivo</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-right">
-                                    <button class="text-gray-400 hover:text-[#00113a]"><span class="material-symbols-outlined">more_vert</span></button>
-                                </td>
-                            </tr>
+                            <?php endforeach; ?>
+                            <?php if(empty($agents)): ?>
+                                <tr><td colspan="4" class="text-center py-6 text-xs font-bold text-gray-400">No hay agentes bajo supervisión.</td></tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

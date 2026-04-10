@@ -16,6 +16,22 @@ use Exception;
 class ContractController extends Controller
 {
     /**
+     * GET /contracts/builder
+     * Constructor de Contratos (Arrastrar y Soltar), accesible para Agentes y Managers.
+     */
+    public function builder(): void
+    {
+        if (!\IMO\Core\Security\Auth::check()) {
+            header('Location: ' . config('app.url') . '/login');
+            exit;
+        }
+
+        $this->view('Contracts/Views/builder', [
+            'user' => \IMO\Core\Security\Auth::user()
+        ]);
+    }
+
+    /**
      * GET /contracts/{uuid}
      * Visualiza el contrato para firma (Vista de Consentimiento con OTP flow).
      */

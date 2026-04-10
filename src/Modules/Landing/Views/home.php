@@ -128,7 +128,7 @@
 </section>
 
 <!-- Split Screen B2B (Océano Rojo vs Azul) -->
-<section class="min-h-[80vh] grid grid-cols-1 md:grid-cols-2">
+<section id="oceano-section" class="min-h-[80vh] grid grid-cols-1 md:grid-cols-2">
     <!-- Océano Rojo -->
     <div class="bg-[#1f0b0f] text-[#ff8585] p-12 md:p-24 flex flex-col justify-center relative overflow-hidden group border-r border-[#ff8585]/10">
         <div class="relative z-10 max-w-xl mx-auto md:ml-auto md:mr-0 text-left md:text-right">
@@ -517,17 +517,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. Observer para el Auto-Apertura (Invitación permanente una vez vista)
-    if (sectionTestimonios) {
-        const testimoniosObserver = new IntersectionObserver((entries) => {
+    const oceanoSection = document.getElementById('oceano-section');
+    if (oceanoSection) {
+        const oceanoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !hasAutoOpened) {
                     toggleChat(true);
-                    hasAutoOpened = true; // Se mantiene, no se resetea al subir (petición del usuario)
-                    testimoniosObserver.disconnect();
+                    hasAutoOpened = true; 
+                    oceanoObserver.disconnect();
                 }
             });
         }, { threshold: 0.1 });
-        testimoniosObserver.observe(sectionTestimonios);
+        oceanoObserver.observe(oceanoSection);
     }
 
     const leadForm = document.querySelector('form[action$="/api/v1/leads"]');
