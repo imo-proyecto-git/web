@@ -26,8 +26,10 @@ class Connection
             $pass    = AppConfig::get('DB_PASS',    '');
             $charset = AppConfig::get('APP_CHARSET','utf8mb4');
 
-            // connect_timeout=5 en el DSN es el único timeout real para conexión inicial en MySQL
-            $dsn = "mysql:host={$host};port={$port};dbname={$db};charset={$charset};connect_timeout=5";
+            $timeout = AppConfig::get('DB_TIMEOUT', '5');
+
+            // connect_timeout en el DSN es el único timeout real para conexión inicial en MySQL
+            $dsn = "mysql:host={$host};port={$port};dbname={$db};charset={$charset};connect_timeout={$timeout}";
 
             $options = [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

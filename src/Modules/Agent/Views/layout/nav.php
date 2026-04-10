@@ -22,7 +22,7 @@
                 <span class="material-symbols-outlined text-primary text-xl font-bold">settings</span>
             </button>
             <div class="h-10 w-10 rounded-xl overflow-hidden shadow-lg shadow-primary/10 border-2 border-white mx-2 cursor-pointer hover:scale-105 transition-all">
-                <img src="https://ui-avatars.com/api/?name=<?= urlencode($user['name'] ?? 'U') ?>&background=00113a&color=fff" alt="<?= $user['name'] ?? 'User' ?>" class="w-full h-full object-cover"/>
+                <img src="<?= avatar_url($user['name'] ?? 'U') ?>" alt="<?= $user['name'] ?? 'User' ?>" class="w-full h-full object-cover"/>
             </div>
             <!-- Logout Button -->
             <a href="<?= config('app.url') ?>/logout" class="p-2.5 hover:bg-error/10 text-error/80 hover:text-error rounded-full transition-colors flex items-center justify-center" title="Cerrar sesión">

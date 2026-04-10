@@ -63,6 +63,7 @@ $router->post('/contracts/{uuid}/sign', 'Contracts/Controllers/ContractControlle
 // Supervisión (Manager)
 $router->get('/manager/dashboard', 'Manager/Controllers/ManagerDashboardController@index');
 $router->get('/manager/users', 'Manager/Controllers/ManagerDashboardController@users');
+$router->post('/manager/api/v1/users/store', 'Manager/Controllers/ManagerDashboardController@store');
 $router->get('/manager/roles', 'Manager/Controllers/ManagerDashboardController@roles');
 $router->get('/manager/audit', 'Audit/Controllers/AuditController@index');
 $router->get('/manager/audit/export', 'Audit/Controllers/AuditController@exportCsv');

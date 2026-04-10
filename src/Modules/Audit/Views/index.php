@@ -12,7 +12,7 @@
     </div>
     <div class="flex items-center gap-6 text-on-surface-variant/20">
         <span class="material-symbols-outlined text-primary cursor-pointer relative">notifications<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border border-white"></span></span>
-        <div class="w-8 h-8 rounded-lg overflow-hidden border border-primary/10 shadow-sm"><img src="https://ui-avatars.com/api/?name=Admin&background=00113a&color=fff" class="w-full h-full object-cover"></div>
+        <div class="w-8 h-8 rounded-lg overflow-hidden border border-primary/10 shadow-sm"><img src="<?= avatar_url('Admin') ?>" class="w-full h-full object-cover"></div>
     </div>
 </nav>
 

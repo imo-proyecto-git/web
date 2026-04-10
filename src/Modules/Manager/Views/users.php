@@ -67,11 +67,90 @@
                 <button class="bg-surface-low text-primary px-10 py-5 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-surface-highest transition-all">
                     <?= __('Filtrar') ?>
                 </button>
-                <button class="btn-primary px-10 py-5 shadow-2xl shadow-primary/30 hover:scale-105 transition-all uppercase tracking-widest text-xs">
+                <button id="btn-add-user" onclick="openAddUserModal()" class="btn-primary px-10 py-5 shadow-2xl shadow-primary/30 hover:scale-105 transition-all uppercase tracking-widest text-xs">
                     <?= __('Añadir Usuario') ?>
                 </button>
             </div>
         </header>
+
+        <!-- Add User Modal -->
+        <div id="modal-add-user" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-6 bg-primary/40 backdrop-blur-xl animate-in fade-in duration-300">
+            <div class="bg-white w-full max-w-lg rounded-[40px] shadow-2xl border border-outline-variant/10 p-12 relative overflow-hidden animate-in zoom-in slide-in-from-bottom-8 duration-500">
+                <button onclick="closeAddUserModal()" class="absolute top-8 right-8 text-on-surface-variant/20 hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-3xl">close</span>
+                </button>
+
+                <h3 class="text-3xl font-black text-primary tracking-tighter mb-10 font-headline uppercase italic"><?= __('Alta de Usuario') ?></h3>
+                
+                <form id="form-add-user" class="space-y-8">
+                    <div class="space-y-3">
+                        <p class="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">Email Corporativo</p>
+                        <input type="email" name="email" required class="w-full bg-surface-low border-none rounded-xl py-4 px-6 text-sm font-bold text-primary placeholder:text-primary/10 transition-all focus:ring-2 focus:ring-primary" placeholder="agente@<?= strtolower(str_replace(' ', '', $COMPANY_NAME)) ?>.com">
+                    </div>
+
+                    <div class="space-y-3">
+                        <p class="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">Contraseña Temporal</p>
+                        <input type="password" name="password" required class="w-full bg-surface-low border-none rounded-xl py-4 px-6 text-sm font-bold text-primary placeholder:text-primary/10 transition-all focus:ring-2 focus:ring-primary" placeholder="••••••••">
+                    </div>
+
+                    <div class="space-y-3">
+                        <p class="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">Asignar Rol</p>
+                        <select name="role_id" required class="w-full bg-surface-low border-none rounded-xl py-4 px-6 text-sm font-bold text-primary transition-all focus:ring-2 focus:ring-primary appearance-none">
+                            <option value="3">Agente de Ventas</option>
+                            <option value="2">Gerente Comercial</option>
+                            <option value="1">Super Administrador</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-6">
+                        <button type="submit" class="w-full py-6 bg-primary text-white font-black text-sm uppercase tracking-widest rounded-2xl shadow-2xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 group">
+                            <span class="material-symbols-outlined group-hover:rotate-12 transition-transform">person_add</span> Enrolar Usuario
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            function openAddUserModal() {
+                document.getElementById('modal-add-user').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeAddUserModal() {
+                document.getElementById('modal-add-user').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+
+            document.getElementById('form-add-user').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = e.target.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                btn.disabled = true;
+                btn.innerHTML = '<span class="flex items-center justify-center gap-3"><span class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span> PROCESANDO...</span>';
+
+                try {
+                    const formData = new FormData(e.target);
+                    const response = await fetch('<?= config("app.url") ?>/manager/api/v1/users/store', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+
+                    if (result.status === 'success') {
+                        alert(result.message);
+                        window.location.reload();
+                    } else {
+                        alert(result.message);
+                        btn.disabled = false;
+                        btn.innerHTML = originalText;
+                    }
+                } catch (err) {
+                    alert('Error de conexión con el servidor.');
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            });
+        </script>
 
         <!-- KPI Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">

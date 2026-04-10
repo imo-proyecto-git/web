@@ -116,4 +116,77 @@ class ManagerDashboardController extends Controller
             'user' => Auth::user()
         ]);
     }
+    /**
+     * POST /manager/api/v1/users/store
+     * Crea un nuevo usuario en el sistema con auditoría HIPAA.
+     */
+     public function store(): void
+     {
+         if (!Auth::check() || (!Auth::hasRole('superadmin') && !Auth::hasRole('manager'))) {
+             header('Content-Type: application/json');
+             echo json_encode(['status' => 'error', 'message' => 'No autorizado']);
+             return;
+         }
+
+         $email    = trim($_POST['email'] ?? '');
+         $password = trim($_POST['password'] ?? '');
+         $roleId   = (int)($_POST['role_id'] ?? 3);
+
+         if (!$email || !$password) {
+             header('Content-Type: application/json');
+             echo json_encode(['status' => 'error', 'message' => 'Email y contraseña son obligatorios']);
+             return;
+         }
+
+         try {
+             $pdo = Connection::getInstance();
+
+             // Verificar duplicado
+             $check = $pdo->prepare("SELECT id FROM users WHERE email = :email");
+             $check->execute(['email' => $email]);
+             if ($check->fetch()) {
+                header('Content-Type: application/json');
+                echo json_encode(['status' => 'error', 'message' => 'El email ya está registrado']);
+                return;
+             }
+
+             // Generar UUID
+             $data = random_bytes(16);
+             $data[6] = chr(ord($data[6]) & 0x0f | 0x40); 
+             $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+             $uuid = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+
+             $hash = password_hash($password, PASSWORD_BCRYPT);
+
+             $stmt = $pdo->prepare("
+                INSERT INTO users (uuid, role_id, email, password_hash, status) 
+                VALUES (:uuid, :role, :email, :hash, 'active')
+             ");
+             
+             $stmt->execute([
+                 'uuid'  => $uuid,
+                 'role'  => $roleId,
+                 'email' => $email,
+                 'hash'  => $hash
+             ]);
+
+             $newId = $pdo->lastInsertId();
+
+             // Log de Auditoría HIPAA
+             \IMO\Modules\Audit\Services\AuditService::log(
+                 Auth::user()['id'], 
+                 'USER_CREATE', 
+                 'users', 
+                 (int)$newId, 
+                 "Creado nuevo usuario: $email con rol ID $roleId"
+             );
+
+             header('Content-Type: application/json');
+             echo json_encode(['status' => 'success', 'message' => 'Usuario enrolado exitosamente']);
+
+         } catch (Exception $e) {
+             header('Content-Type: application/json');
+             echo json_encode(['status' => 'error', 'message' => 'Fallo en la base de datos: ' . $e->getMessage()]);
+         }
+     }
 }

@@ -14,7 +14,7 @@
     <div class="flex items-center gap-6">
         <span class="material-symbols-outlined text-primary cursor-pointer relative">notifications<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border border-white"></span></span>
         <span class="material-symbols-outlined text-primary cursor-pointer">settings</span>
-        <div class="w-8 h-8 rounded-lg overflow-hidden border border-primary/10 shadow-sm"><img src="https://ui-avatars.com/api/?name=Admin&background=00113a&color=fff" class="w-full h-full object-cover"></div>
+        <div class="w-8 h-8 rounded-lg overflow-hidden border border-primary/10 shadow-sm"><img src="<?= avatar_url('Admin') ?>" class="w-full h-full object-cover"></div>
     </div>
 </nav>
 
@@ -23,7 +23,7 @@
     <aside class="w-72 border-r border-outline-variant/5 flex flex-col py-10 px-8 gap-8 sticky top-16 bg-white/50">
         <div class="bg-indigo-50/50 p-5 rounded-2xl border border-primary/5 flex items-center gap-4 group">
             <div class="w-12 h-12 rounded-xl overflow-hidden shadow-lg border-2 border-white group-hover:scale-110 transition-all">
-                <img src="https://ui-avatars.com/api/?name=<?= urlencode($phi['name']) ?>&background=00113a&color=fff" class="w-full h-full object-cover">
+                <img src="<?= avatar_url($phi['name']) ?>" class="w-full h-full object-cover">
             </div>
             <div>
                 <p class="text-primary font-black text-sm tracking-tight mb-0.5"><?= $phi['name'] ?></p>
@@ -71,7 +71,7 @@
                     <div class="flex flex-col md:flex-row items-center gap-10">
                         <div class="relative">
                             <div class="w-32 h-32 rounded-[32px] overflow-hidden border-4 border-white shadow-2xl shadow-primary/20">
-                                <img src="https://ui-avatars.com/api/?name=<?= urlencode($phi['name']) ?>&background=00113a&color=fff&size=200" class="w-full h-full object-cover">
+                                <img src="<?= avatar_url($phi['name'], '00113a', 'fff', 200) ?>" class="w-full h-full object-cover">
                             </div>
                             <span class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[9px] font-black uppercase px-3 py-1.5 rounded-full ring-4 ring-white tracking-widest shadow-lg"><?= __('VERIFICADO') ?></span>
                         </div>

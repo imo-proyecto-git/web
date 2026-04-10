@@ -18,30 +18,54 @@
 </nav>
 
 <!-- Hero Section -->
-<section class="relative pt-32 pb-24 overflow-hidden bg-surface">
-    <!-- Grid pattern background -->
-    <div class="absolute inset-x-0 bottom-0 h-80 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none"></div>
+<section id="hero-section" class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
+    <!-- Large Background Image (Premium Feel with Parallax) -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+        <img id="hero-dynamic-bg" src="<?= config('ui.assets.hero') ?>" class="w-full h-[120%] object-cover opacity-30 blur-[0.5px] transform transition-all duration-700 will-change-transform" style="top: -10%" alt="Family Legacy"/>
+        <div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/80 to-transparent"></div>
+        <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-surface to-transparent"></div>
+    </div>
     
-    <div class="max-w-[1440px] mx-auto px-12 grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
-        <!-- Hero Text (Scale Leap) -->
+    <div class="max-w-[1440px] mx-auto px-12 grid grid-cols-1 lg:grid-cols-12 gap-20 items-center relative z-10">
+        <!-- Hero Text (Modular Scale) -->
         <div class="lg:col-span-7 pt-20">
-            <div class="inline-flex items-center gap-3 px-4 py-2 bg-primary/5 rounded-full mb-10">
+            <div class="inline-flex items-center gap-3 px-4 py-2 bg-primary/5 rounded-full mb-10 border border-primary/10">
                 <span class="w-2 h-2 bg-tertiary rounded-full animate-pulse"></span>
-                <span class="text-[10px] font-black text-primary uppercase tracking-[0.2em] font-body"><?= __('Infraestructura FinTech Certificada') ?></span>
+                <span class="text-[11px] font-black text-primary uppercase tracking-[0.3em] font-body">INTELIGENCIA FINANCIERA • LEGADO REAL</span>
             </div>
-            <h1 class="font-headline text-[7.5rem] font-black text-primary leading-[0.8] tracking-[-0.04em] mb-12 uppercase">
-                Asegura tu<br/>
-                <span class="text-tertiary">Legado Ahora.</span>
+            <h1 class="font-headline text-7xl xl:text-8xl font-black text-primary leading-[0.9] tracking-[-0.04em] mb-12 uppercase">
+                Compra un Término.<br/>
+                <span class="text-tertiary">Invierte la Diferencia.</span>
             </h1>
-            <p class="text-on-surface-variant/60 font-medium text-2xl leading-relaxed max-w-2xl mb-16 px-1 border-l-4 border-primary/5">
-                <?= __('Proporcionamos el motor tecnológico que impulsa a las IMOs más exitosas. No asuma riesgos innecesarios. Proteja el futuro de su familia con nuestra arquitectura financiera blindada (HIPAA/GDPR). Cupos de evaluación premium limitados este mes.') ?>
+            <p class="text-on-surface-variant/70 font-medium text-xl xl:text-2xl leading-relaxed max-w-2xl mb-16 px-4 border-l-4 border-tertiary/20">
+                <?= __('Proporcionamos el blindaje que tu familia merece. No se trata de gastar más, se trata de hacerlo inteligente. Asegura tu futuro hoy mismo.') ?>
             </p>
+            
+            <!-- Strategic Triad (Icons from Image 1) -->
+            <div class="flex flex-wrap gap-12 mb-16">
+                <div class="flex flex-col items-center gap-4">
+                    <div class="w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-primary border border-primary/5">
+                        <span class="material-symbols-outlined text-3xl">shield</span>
+                    </div>
+                    <p class="text-[10px] font-black text-primary uppercase tracking-[0.2em]"><?= __('Protege Hoy') ?></p>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-primary border border-primary/5">
+                        <span class="material-symbols-outlined text-3xl">trending_up</span>
+                    </div>
+                    <p class="text-[10px] font-black text-primary uppercase tracking-[0.2em]"><?= __('Crece Mañana') ?></p>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center text-primary border border-primary/5">
+                        <span class="material-symbols-outlined text-3xl">groups</span>
+                    </div>
+                    <p class="text-[10px] font-black text-primary uppercase tracking-[0.2em]"><?= __('Asegura Siempre') ?></p>
+                </div>
+            </div>
+
             <div class="flex flex-wrap gap-8 items-center pt-4">
-                <button class="btn-primary px-12 py-5 text-xs uppercase tracking-[0.2em] shadow-2xl shadow-primary/40 hover:scale-105 transition-all">
-                    <?= __('Iniciar Auditoría') ?>
-                </button>
-                <button class="text-primary font-black text-xs uppercase tracking-[0.2em] hover:translate-x-2 transition-transform flex items-center gap-3">
-                    <?= __('Ver Documentación') ?> <span class="material-symbols-outlined">east</span>
+                <button onclick="document.querySelector('#lead-form-anchor').scrollIntoView({behavior:'smooth'})" class="btn-primary px-12 py-5 text-xs uppercase tracking-[0.2em] shadow-2xl shadow-primary/40 hover:scale-105 transition-all">
+                    <?= __('Blindar mi Familia Ahora') ?>
                 </button>
             </div>
         </div>
@@ -53,69 +77,52 @@
                     <span class="w-3 h-3 bg-red-500 rounded-full animate-ping"></span> <span class="text-xs font-black text-primary uppercase tracking-widest">En Vivo</span>
                 </div>
                 <h3 class="font-headline text-3xl font-black text-primary mb-10 tracking-tighter uppercase leading-none"><?= __('Protege tu Patrimonio Hoy') ?></h3>
-                <form action="<?= config('app.url') ?>/api/v1/leads" method="POST" class="space-y-10">
+                
+                <!-- Adaptive Toggle -->
+                <div class="flex bg-surface-low p-2 rounded-2xl mb-10 border border-primary/5">
+                    <button type="button" onclick="setFormGoal('blindaje')" id="toggle-blindaje" class="flex-1 py-3 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all bg-primary text-white">Blindaje Familiar</button>
+                    <button type="button" onclick="setFormGoal('retiro')" id="toggle-retiro" class="flex-1 py-3 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all text-on-surface-variant/40 hover:text-primary">Libertad Retiro</button>
+                </div>
+
+                <form action="<?= config('app.url') ?>/api/v1/leads" method="POST" class="space-y-8">
+                    <input type="hidden" name="goal" id="form-goal" value="blindaje">
+                    
                     <div class="space-y-3">
                         <label class="text-[10px] font-black text-on-surface-variant/30 uppercase tracking-[0.2em] px-1 font-body">Nombre Completo</label>
                         <input name="full_name" required class="w-full bg-surface-low border-none rounded-xl py-5 px-8 text-sm font-bold text-primary placeholder:text-primary/10 transition-all focus:ring-2 focus:ring-primary" placeholder="Ej: Juan Pérez" type="text"/>
                     </div>
+                    
                     <div class="grid grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label class="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">Correo Electrónico</label>
-                            <input name="email" required class="w-full bg-white border-none ring-1 ring-primary/5 focus:ring-2 focus:ring-primary rounded-xl py-4 px-5 text-sm font-bold shadow-sm transition-all" placeholder="juan@empresa.com" type="email"/>
+                            <input name="email" required class="w-full bg-white border-none ring-1 ring-primary/5 focus:ring-2 focus:ring-primary rounded-xl py-4 px-5 text-sm font-bold shadow-sm transition-all" placeholder="juan@<?= strtolower(str_replace(' ', '', config('app.company.name'))) ?>.com" type="email"/>
                         </div>
                         <div class="space-y-2">
                             <label class="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">Teléfono</label>
                             <input name="phone" required class="w-full bg-white border-none ring-1 ring-primary/5 focus:ring-2 focus:ring-primary rounded-xl py-4 px-5 text-sm font-bold shadow-sm transition-all" placeholder="+1 (555) 000-0000" type="tel"/>
                         </div>
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">Tipo de Seguro</label>
-                        <div class="relative">
-                            <select name="service_type" class="w-full bg-white border-none ring-1 ring-primary/5 focus:ring-2 focus:ring-primary rounded-xl py-4 px-5 text-sm font-bold shadow-sm transition-all appearance-none cursor-pointer">
-                                <option value="life">Seguro de Vida</option>
-                                <option value="health">Gastos Médicos Mayores</option>
-                                <option value="wealth">Protección Patrimonial</option>
+
+                    <!-- Adaptive Questions Area -->
+                    <div id="adaptive-questions" class="space-y-6">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">Dependientes a proteger</label>
+                            <select name="dependents" class="w-full bg-white border-none ring-1 ring-primary/5 focus:ring-2 focus:ring-primary rounded-xl py-4 px-5 text-sm font-bold shadow-sm transition-all">
+                                <option value="0">Solo yo</option>
+                                <option value="1-2">1 - 2 personas</option>
+                                <option value="3+">3 o más personas</option>
                             </select>
-                            <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-primary/30 pointer-events-none">expand_more</span>
                         </div>
                     </div>
+
                     <button type="submit" class="btn-primary w-full py-6 uppercase text-xs tracking-[0.2em] shadow-2xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all">
-                        <?= __('Calcular Cobertura') ?> 
+                        <?= __('Calcular mi Plan de Blindaje') ?> 
                     </button>
                     <p class="text-[9px] text-center text-on-surface-variant/30 font-black uppercase tracking-widest">Al clicar, aceptas nuestra política de privacidad HIPAA.</p>
                 </form>
             </div>
             <!-- Architectural decor -->
             <div class="absolute -right-20 -bottom-20 w-[600px] h-[600px] bg-primary rounded-full opacity-[0.03] blur-[120px]"></div>
-        </div>
-            <!-- Chat Widget Overlay -->
-            <div class="absolute -bottom-8 -right-8 z-20 w-80 bg-primary/95 backdrop-blur-xl rounded-3xl shadow-2xl p-6 border border-white/10 hidden md:block">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center relative">
-                            <span class="material-symbols-outlined text-emerald-400 text-lg">chat</span>
-                            <span class="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-primary"></span>
-                        </div>
-                        <div>
-                            <p class="text-white text-xs font-black tracking-tight"><?= __('Asistente Virtual') ?></p>
-                            <p class="text-emerald-400 text-[10px] font-bold tracking-widest uppercase">EN LÍNEA</p>
-                        </div>
-                    </div>
-                    <span class="material-symbols-outlined text-white/40 cursor-pointer">close</span>
-                </div>
-                <div class="space-y-4 mb-6">
-                    <div class="bg-indigo-500/20 p-4 rounded-2xl rounded-tl-none border border-white/5">
-                        <p class="text-white/80 text-[11px] leading-relaxed">Hola 👋 ¿Estás buscando proteger tu patrimonio? Te puedo ayudar a pre-calificar en 2 minutos.</p>
-                    </div>
-                    <div class="bg-indigo-500/10 p-3 rounded-2xl text-center border border-white/5 cursor-pointer hover:bg-indigo-500/30 transition-all">
-                        <p class="text-white font-black text-[11px]"><?= __('Sí, busco seguro de vida.') ?></p>
-                    </div>
-                </div>
-                <div class="relative">
-                    <input class="w-full bg-white/10 border-none rounded-xl py-3 pl-4 pr-12 text-[10px] text-white placeholder:text-white/20 focus:ring-1 focus:ring-emerald-500/50" placeholder="Escribe tu mensaje..."/>
-                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-white/50 text-sm">send</span>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -130,25 +137,44 @@
         
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
             <div class="md:col-span-8 bg-surface-container-low/30 p-12 rounded-[40px] border border-outline-variant/5 flex flex-col justify-between group hover:shadow-2xl hover:shadow-primary/5 transition-all">
-                <div class="max-w-md">
+                <div class="max-w-2xl">
                     <div class="w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center mb-10 text-emerald-500 group-hover:scale-110 transition-transform">
                         <span class="material-symbols-outlined text-4xl FILL-1">verified_user</span>
                     </div>
-                    <h3 class="text-3xl font-black text-primary mb-6 tracking-tight">Seguridad Institucional</h3>
-                    <p class="text-on-surface-variant leading-relaxed font-medium opacity-70">Implementamos protocolos de seguridad Azure Shield, garantizando que su información financiera y personal permanezca blindada bajo los estándares HIPAA y GDPR más estrictos.</p>
+                    <h3 class="text-3xl font-black text-primary mb-10 tracking-tight">Construye tu Libertad</h3>
+                    
+                    <!-- Checklist from Image 2 -->
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4 text-primary font-bold">
+                            <span class="material-symbols-outlined text-emerald-500">check_circle</span>
+                            <span>Amplía tu cobertura significativamente.</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-primary font-bold">
+                            <span class="material-symbols-outlined text-emerald-500">check_circle</span>
+                            <span>Reduce tu costo operativo y primas.</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-primary font-bold">
+                            <span class="material-symbols-outlined text-emerald-500">check_circle</span>
+                            <span>Invierte para un mejor futuro patrimonial.</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-primary font-bold">
+                            <span class="material-symbols-outlined text-emerald-500">check_circle</span>
+                            <span>Disfruta con tranquilidad tus años dorados.</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="mt-14 flex items-center text-primary font-black gap-3 group-hover:gap-6 transition-all cursor-pointer uppercase tracking-widest text-[11px]">
-                    Saber más <span class="material-symbols-outlined">arrow_forward</span>
+                    Ver Planes Verificados <span class="material-symbols-outlined">arrow_forward</span>
                 </div>
             </div>
             
             <div class="md:col-span-4 bg-primary p-12 rounded-[40px] text-white flex flex-col justify-between shadow-2xl shadow-primary/20 relative overflow-hidden">
                 <div class="relative z-10">
-                    <span class="material-symbols-outlined text-4xl text-blue-400 mb-10 block">bolt</span>
-                    <h3 class="text-3xl font-black mb-6 tracking-tight">Rapidez Extrema</h3>
-                    <p class="text-white/60 leading-relaxed font-medium">Cotizaciones en tiempo real impulsadas por IA. Sin papeleo innecesario, solo resultados inmediatos.</p>
+                    <span class="material-symbols-outlined text-4xl text-blue-400 mb-10 block">auto_awesome</span>
+                    <h3 class="text-3xl font-black mb-6 tracking-tight">Legado Real</h3>
+                    <p class="text-white/60 leading-relaxed font-medium">No se trata de gastar más en seguros, sino de usar ese capital para crear libertad real para los tuyos.</p>
                 </div>
-                <div class="mt-14 text-white/40 text-[11px] font-black tracking-widest uppercase relative z-10">98% Eficiencia Operativa</div>
+                <div class="mt-14 text-white/40 text-[11px] font-black tracking-widest uppercase relative z-10">Metodología BTID Certificada</div>
                 <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-500 rounded-full opacity-10 blur-[100px]"></div>
             </div>
         </div>
@@ -161,12 +187,12 @@
                     <p class="text-primary/60 leading-relaxed font-medium">Modelos de cobertura adaptables que crecen con usted, asegurando su patrimonio ante cualquier imprevisto global.</p>
                 </div>
             </div>
-            <div class="md:col-span-8 relative rounded-[40px] overflow-hidden group shadow-2xl shadow-primary/20 border border-outline-variant/10">
-                <img src="<?= config('app.url') ?>/assets/img/imo_fintech_hero.png" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 group-hover:-rotate-1" alt="Fintech Data Center Concept"/>
+            <div class="md:col-span-8 relative rounded-[40px] overflow-hidden group shadow-2xl shadow-primary/20 border border-outline-variant/10 h-[400px]">
+                <img id="legacy-dynamic-img" src="<?= config('ui.assets.legacy') ?>" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Retirement Freedom"/>
                 <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
                 <div class="absolute bottom-12 left-12">
-                    <p class="text-emerald-400 font-bold uppercase tracking-[0.2em] text-[10px] mb-2 px-2 py-1 bg-emerald-500/10 inline-block rounded-md border border-emerald-500/20">AI LEAD SCORING</p>
-                    <p class="text-white font-black text-3xl tracking-tight leading-tight">Analítica predictiva para tu futuro.</p>
+                    <p class="text-emerald-400 font-bold uppercase tracking-[0.2em] text-[10px] mb-2 px-2 py-1 bg-emerald-500/10 inline-block rounded-md border border-emerald-500/20">LIBERTAD PATRIMONIAL</p>
+                    <p class="text-white font-black text-3xl tracking-tight leading-tight">Tu tranquilidad es nuestro único objetivo.</p>
                 </div>
             </div>
         </div>
@@ -174,7 +200,7 @@
 </section>
 
 <!-- Testimonials Section -->
-<section class="py-24 bg-surface/50">
+<section id="testimonios" class="py-24 bg-surface/50">
     <div class="max-w-[1440px] mx-auto px-12">
         <h2 class="text-center font-headline text-4xl font-black text-primary tracking-tighter mb-20"><?= __('Lo que dicen nuestros asegurados') ?></h2>
         
@@ -200,7 +226,7 @@
                 </div>
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl overflow-hidden border-2 border-primary/5">
-                        <img src="https://ui-avatars.com/api/?name=<?= urlencode($t['name']) ?>&background=00113a&color=fff" class="w-full h-full object-cover"/>
+                        <img src="<?= avatar_url($t['name']) ?>" class="w-full h-full object-cover"/>
                     </div>
                     <div>
                         <p class="text-primary font-black text-sm tracking-tight"><?= $t['name'] ?></p>
@@ -214,6 +240,46 @@
 </section>
 
 <!-- Footer -->
+<!-- Global Floating Assistant -->
+<div id="floating-chat" class="fixed bottom-8 right-8 z-[60] flex flex-col items-end gap-4 transition-all duration-500 transform translate-y-10 opacity-0 pointer-events-none">
+    <!-- Chat Window -->
+    <div id="chat-window" class="w-72 bg-primary/95 backdrop-blur-2xl rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,17,58,0.5)] p-5 border border-white/10 mb-2 scale-90 opacity-0 pointer-events-none origin-bottom-right transition-all duration-500">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-emerald-500/30 flex-shrink-0">
+                    <img src="<?= config('ui.assets.asistente') ?>" class="w-full h-full object-cover" alt="Asistente Virtual"/>
+                </div>
+                <div>
+                    <p class="text-white text-xs font-black tracking-tight"><?= __('Ana') ?></p>
+                    <p class="text-emerald-400 text-[8px] font-bold tracking-widest uppercase">ASESORA SENIOR</p>
+                </div>
+            </div>
+            <button onclick="toggleChat(false)" class="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined text-white/40 text-lg">close</span>
+            </button>
+        </div>
+        <div class="space-y-4 mb-6">
+            <div class="bg-indigo-500/20 p-4 rounded-2xl rounded-tl-none border border-white/5">
+                <p class="text-white/80 text-[10px] leading-relaxed">Hola 👋 Soy Ana. ¿Estás buscando proteger tu patrimonio o planificar tu retiro? Te guiaré paso a paso.</p>
+            </div>
+            <div class="bg-emerald-500/20 p-3 rounded-2xl text-center border border-white/10 cursor-pointer hover:bg-emerald-500/40 transition-all">
+                <p class="text-white font-black text-[9px]"><?= __('Hablar con Ana') ?></p>
+            </div>
+        </div>
+        <div class="relative">
+            <input class="w-full bg-white/10 border-none rounded-xl py-3 pl-4 pr-12 text-[10px] text-white placeholder:text-white/20 focus:ring-1 focus:ring-emerald-500/50" placeholder="Pregunta algo..."/>
+            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-white/50 text-sm">send</span>
+        </div>
+    </div>
+    
+    <!-- Bubble Toggle -->
+    <button onclick="toggleChat()" class="w-16 h-16 bg-primary rounded-full shadow-2xl flex items-center justify-center group relative hover:scale-110 transition-all duration-300">
+        <div class="absolute inset-0 bg-primary rounded-full animate-ping opacity-20 group-hover:opacity-40"></div>
+        <span id="chat-icon-open" class="material-symbols-outlined text-white text-3xl">chat</span>
+        <span id="chat-icon-close" class="material-symbols-outlined text-white text-3xl hidden">close</span>
+    </button>
+</div>
+
 <footer class="bg-white border-t border-outline-variant/5 py-24">
     <div class="max-w-[1440px] mx-auto px-12">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
@@ -254,7 +320,140 @@
 </footer>
 
 <script>
+/**
+ * Lógica de Formulario Adaptativo (Blindaje vs Retiro)
+ */
+function setFormGoal(goal) {
+    const hiddenInput = document.getElementById('form-goal');
+    const adaptiveArea = document.getElementById('adaptive-questions');
+    const btnBlindaje = document.getElementById('toggle-blindaje');
+    const btnRetiro = document.getElementById('toggle-retiro');
+    const submitBtn = document.querySelector('#lead-form-anchor button[type="submit"]');
+    const heroBg = document.getElementById('hero-dynamic-bg');
+    
+    hiddenInput.value = goal;
+    
+    if (goal === 'blindaje') {
+        heroBg.src = "<?= config('ui.assets.hero') ?>";
+        btnBlindaje.className = "flex-1 py-3 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all bg-primary text-white";
+        btnRetiro.className = "flex-1 py-3 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all text-on-surface-variant/40 hover:text-primary";
+        submitBtn.innerText = "<?= __('Calcular mi Plan de Blindaje') ?>";
+        
+        adaptiveArea.innerHTML = `
+            <div class="space-y-4 animate-in fade-in slide-in-from-left-4 duration-500">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">Dependientes a proteger</label>
+                    <select name="dependents" class="w-full bg-white border-none ring-1 ring-primary/5 focus:ring-2 focus:ring-primary rounded-xl py-4 px-5 text-sm font-bold shadow-sm transition-all">
+                        <option value="0">Solo yo</option>
+                        <option value="1-2">1 - 2 personas</option>
+                        <option value="3+">3 o más personas</option>
+                    </select>
+                </div>
+                <div class="p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-2xl flex items-center gap-3">
+                    <span class="material-symbols-outlined text-emerald-500 text-lg">verified</span>
+                    <p class="text-[9px] font-bold text-emerald-700 uppercase tracking-widest">Prioridad: Blindaje contra inflación</p>
+                </div>
+            </div>
+        `;
+    } else {
+        heroBg.src = "<?= config('ui.assets.legacy') ?>";
+        btnRetiro.className = "flex-1 py-3 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all bg-primary text-white";
+        btnBlindaje.className = "flex-1 py-3 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all text-on-surface-variant/40 hover:text-primary";
+        submitBtn.innerText = "<?= __('Construir mi Libertad de Retiro') ?>";
+
+        adaptiveArea.innerHTML = `
+            <div class="space-y-4 animate-in fade-in slide-in-from-right-4 duration-500">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-widest px-1">Edad Actual (aprox)</label>
+                    <select name="current_age" class="w-full bg-white border-none ring-1 ring-primary/5 focus:ring-2 focus:ring-primary rounded-xl py-4 px-5 text-sm font-bold shadow-sm transition-all">
+                        <option value="20-35">20 a 35 años</option>
+                        <option value="36-50">36 a 50 años</option>
+                        <option value="50+">Más de 50 años</option>
+                    </select>
+                </div>
+                <div class="p-4 bg-indigo-500/5 border border-indigo-500/10 rounded-2xl flex items-center gap-3">
+                    <span class="material-symbols-outlined text-indigo-500 text-lg">wb_sunny</span>
+                    <p class="text-[9px] font-bold text-indigo-700 uppercase tracking-widest">Enfoque: Rendimiento de Interés Compuesto</p>
+                </div>
+            </div>
+        `;
+    }
+}
+
+/**
+ * Lógica de Asistente Flotante
+ */
+function toggleChat(force) {
+    const windowEl = document.getElementById('chat-window');
+    const iconOpen = document.getElementById('chat-icon-open');
+    const iconClose = document.getElementById('chat-icon-close');
+    
+    const isOpen = (force !== undefined) ? force : windowEl.classList.contains('opacity-0');
+    
+    if (isOpen) {
+        windowEl.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
+        iconOpen.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+    } else {
+        windowEl.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+    }
+}
+
+/**
+ * Orquestación del Asistente Virtual (IntersectionObserver & Parallax)
+ */
 document.addEventListener('DOMContentLoaded', () => {
+    const heroBg = document.getElementById('hero-dynamic-bg');
+    const floatingChat = document.getElementById('floating-chat');
+    const heroSection = document.getElementById('hero-section');
+    const sectionNosotros = document.getElementById('nosotros');
+    const sectionTestimonios = document.getElementById('testimonios');
+    
+    let hasAutoOpened = false;
+
+    // 1. Optimised Parallax fallback (solo para el hero visual)
+    window.addEventListener('scroll', () => {
+        if (!heroBg) return;
+        const scrolled = window.pageYOffset;
+        if (scrolled < window.innerHeight) {
+            heroBg.style.transform = `translateY(${scrolled * 0.4}px) scale(1.1)`;
+        }
+    }, { passive: true });
+    
+    if (!floatingChat) return;
+
+    // 2. Observer para Ocultar en Hero y Mostrar icono después
+    if (heroSection) {
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+                    floatingChat.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    floatingChat.classList.remove('opacity-100', 'translate-y-0');
+                } else {
+                    floatingChat.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    floatingChat.classList.add('opacity-100', 'translate-y-0');
+                }
+            });
+        }, { threshold: [0.1, 0.4, 0.5] });
+        heroObserver.observe(heroSection);
+    }
+
+    // 3. Observer para el Auto-Apertura (Invitación permanente una vez vista)
+    if (sectionTestimonios) {
+        const testimoniosObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasAutoOpened) {
+                    toggleChat(true);
+                    hasAutoOpened = true; // Se mantiene, no se resetea al subir (petición del usuario)
+                    testimoniosObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.1 });
+        testimoniosObserver.observe(sectionTestimonios);
+    }
+
     const leadForm = document.querySelector('form[action$="/api/v1/leads"]');
     if (!leadForm) return;
 

@@ -12,12 +12,13 @@ class GroqClient
 {
     private string $apiKey;
     private string $model;
-    private string $apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
+    private string $apiUrl;
 
     public function __construct()
     {
-        $this->apiKey = config('ai.api_key', '');
+        $this->apiKey = config('ai.api_key') ?: env('AI_API_KEY');
         $this->model  = config('ai.model', 'llama-3.1-8b-instant');
+        $this->apiUrl = config('services.groq.url', 'https://api.groq.com/openai/v1/chat/completions');
     }
 
     /**

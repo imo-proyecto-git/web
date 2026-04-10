@@ -38,5 +38,8 @@ return [
     'assets' => [
         'logo' => '/assets/img/logo.png',
         'favicon' => '/assets/img/favicon.ico',
+        'hero' => env('HERO_BG_IMG', 'https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=2070'),
+        'legacy' => env('LEGACY_BG_IMG', 'https://images.unsplash.com/photo-1533227442434-609139ccf63d?q=80&w=2070'),
+        'asistente' => env('ASISTENTE_IMG', 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=200&h=200&auto=format&fit=crop'),
     ]
 ];

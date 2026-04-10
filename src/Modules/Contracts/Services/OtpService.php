@@ -113,7 +113,7 @@ class OtpService
 
     private static function sendOtpEmail(string $email, string $code): bool
     {
-        $companyName = config('app.company_name', 'empresaIMO');
+        $companyName = config('app.company.name');
         $appUrl      = config('app.url', '');
 
         $html = <<<HTML

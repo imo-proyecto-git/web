@@ -57,3 +57,17 @@ if (!function_exists('__')) {
         return $key;
     }
 }
+
+if (!function_exists('avatar_url')) {
+    /**
+     * Generador unificado de URLs de Avatares (Zero-Hardcode)
+     */
+    function avatar_url(string $name, string $bg = '00113a', string $color = 'fff', ?int $size = null): string {
+        $baseUrl = config('services.avatars.url', 'https://ui-avatars.com/api/');
+        $url = $baseUrl . "?name=" . urlencode($name) . "&background={$bg}&color={$color}";
+        if ($size) {
+            $url .= "&size={$size}";
+        }
+        return $url;
+    }
+}

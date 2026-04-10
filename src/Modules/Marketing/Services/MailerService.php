@@ -24,8 +24,8 @@ class MailerService
         $this->provider    = AppConfig::get('MAIL_PROVIDER', 'mailgun'); // 'mailgun' o 'sendgrid'
         $this->apiKey      = AppConfig::get('MAIL_API_KEY', '');
         $this->domain      = AppConfig::get('MAIL_DOMAIN', ''); 
-        $this->fromAddress = AppConfig::get('MAIL_FROM_ADDRESS', 'no-reply@empresaimo.com');
-        $this->fromName    = AppConfig::get('MAIL_FROM_NAME', 'empresaIMO');
+        $this->fromAddress = AppConfig::get('MAIL_FROM_ADDRESS', 'no-reply@' . strtolower(str_replace(' ', '', config('app.company.name'))));
+        $this->fromName    = AppConfig::get('MAIL_FROM_NAME', config('app.company.name'));
     }
 
     /**
@@ -69,7 +69,8 @@ class MailerService
 
     private function sendViaMailgun(string $to, string $subject, string $htmlBody): bool
     {
-        $url = "https://api.mailgun.net/v3/{$this->domain}/messages";
+        $baseUrl = config('services.mailgun.url', 'https://api.mailgun.net/v3/');
+        $url = rtrim($baseUrl, '/') . "/{$this->domain}/messages";
         
         $postData = [
             'from'    => "{$this->fromName} <{$this->fromAddress}>",
@@ -99,7 +100,7 @@ class MailerService
 
     private function sendViaSendGrid(string $to, string $subject, string $htmlBody): bool
     {
-        $url = "https://api.sendgrid.com/v3/mail/send";
+        $url = config('services.sendgrid.url', 'https://api.sendgrid.com/v3/mail/send');
         
         $payload = [
             "personalizations" => [[ "to" => [[ "email" => $to ]] ]],
