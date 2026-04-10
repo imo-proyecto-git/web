@@ -39,9 +39,6 @@
             <a class="flex items-center gap-3 px-3 py-3 text-primary font-bold text-xs bg-primary/5 rounded-lg border border-primary/10 transition-all" href="#">
                 <span class="material-symbols-outlined text-sm">rule</span> <?= __('Permission Matrix') ?>
             </a>
-            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
-                <span class="material-symbols-outlined text-sm">shield_locked</span> <?= __('IP Whitelisting') ?>
-            </a>
         </nav>
 
         <a href="<?= config('app.url') ?>/logout" class="mt-auto flex items-center gap-3 px-3 py-3 text-on-surface-variant/40 hover:text-error transition-all text-[11px] font-black uppercase tracking-widest border-t border-outline-variant/5">

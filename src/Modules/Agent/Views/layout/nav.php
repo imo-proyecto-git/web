@@ -2,10 +2,8 @@
     <div class="flex items-center gap-10">
         <span class="text-2xl font-black text-primary tracking-tighter font-headline"><?= $COMPANY_NAME ?></span>
         <nav class="hidden md:flex items-center gap-8">
-            <a class="text-on-surface-variant/70 hover:text-primary transition-colors text-sm font-bold" href="<?= $APP_URL ?>/agent/dashboard"><?= __('Dashboard') ?></a>
-            <a class="text-on-surface-variant/70 hover:text-primary transition-colors text-sm font-bold" href="#"><?= __('Policies') ?></a>
-            <a class="text-primary border-b-2 border-primary font-extrabold pb-1 text-sm tracking-tight transition-all duration-300" href="#"><?= __('Leads') ?></a>
-            <a class="text-on-surface-variant/70 hover:text-primary transition-colors text-sm font-bold" href="#"><?= __('Performance') ?></a>
+            <a class="text-on-surface-variant/70 hover:text-primary transition-colors text-sm font-bold <?= strpos($_SERVER['REQUEST_URI'], '/agent/dashboard') !== false ? 'text-primary border-b-2 border-primary pb-1' : '' ?>" href="<?= $APP_URL ?>/agent/dashboard"><?= __('Dashboard & Leads') ?></a>
+            <!-- Removed dead links (Policies, Performance) as per UX Audit Phase 1 -->
         </nav>
     </div>
     <div class="flex items-center gap-6">
@@ -18,9 +16,9 @@
                 <span class="material-symbols-outlined text-primary text-xl">notifications</span>
                 <span class="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-error rounded-full border-2 border-white shadow-sm"></span>
             </button>
-            <button class="p-2.5 hover:bg-primary/5 rounded-full transition-colors">
-                <span class="material-symbols-outlined text-primary text-xl font-bold">settings</span>
-            </button>
+            <a href="<?= config('app.url') ?>/settings/security" class="p-2.5 hover:bg-primary/5 rounded-full transition-colors inline-block" title="Security Settings">
+                <span class="material-symbols-outlined text-primary text-xl font-bold align-middle">settings</span>
+            </a>
             <div class="h-10 w-10 rounded-xl overflow-hidden shadow-lg shadow-primary/10 border-2 border-white mx-2 cursor-pointer hover:scale-105 transition-all">
                 <img src="<?= avatar_url($user['name'] ?? 'U') ?>" alt="<?= $user['name'] ?? 'User' ?>" class="w-full h-full object-cover"/>
             </div>

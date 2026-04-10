@@ -7,6 +7,7 @@
         <div class="hidden md:flex gap-10 items-center">
             <a class="text-on-surface-variant font-bold hover:text-primary transition-colors text-xs uppercase tracking-widest" href="<?= config('app.url') ?>/manager/dashboard"><?= __('Dashboard') ?></a>
             <a class="text-on-surface-variant font-bold hover:text-primary transition-colors text-xs uppercase tracking-widest" href="<?= config('app.url') ?>/manager/users"><?= __('User Management') ?></a>
+            <a class="text-on-surface-variant font-bold hover:text-primary transition-colors text-xs uppercase tracking-widest" href="<?= config('app.url') ?>/manager/roles"><?= __('Roles') ?></a>
             <a class="font-headline tracking-tighter font-black text-primary border-b-4 border-primary pb-1 text-sm uppercase" href="<?= config('app.url') ?>/manager/audit"><?= __('System Logs') ?></a>
         </div>
     </div>
@@ -32,17 +33,8 @@
         </a>
 
         <nav class="flex flex-col gap-2 pt-4">
-            <a class="flex items-center gap-3 px-4 py-3.5 bg-primary/10 text-primary font-black text-xs rounded-xl shadow-sm transition-all" href="#">
+            <a class="flex items-center gap-3 px-4 py-3.5 bg-primary/10 text-primary font-black text-xs rounded-xl shadow-sm transition-all" href="<?= config('app.url') ?>/manager/audit">
                 <span class="material-symbols-outlined text-lg">history_edu</span> <?= __('Bitácora de Auditoría') ?>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-3.5 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
-                <span class="material-symbols-outlined text-lg">security</span> <?= __('Manejo de Alertas') ?>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-3.5 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
-                <span class="material-symbols-outlined text-lg">api</span> <?= __('Logs de API') ?>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-3.5 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
-                <span class="material-symbols-outlined text-lg">policy</span> <?= __('Cumplimiento HIPAA') ?>
             </a>
         </nav>
 

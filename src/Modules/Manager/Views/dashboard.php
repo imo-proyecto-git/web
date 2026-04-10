@@ -40,7 +40,6 @@
             <a class="nav-link text-sm uppercase tracking-wider pb-[1.2rem]" href="<?= config('app.url') ?>/manager/users">User Management</a>
             <a class="nav-link text-sm uppercase tracking-wider pb-[1.2rem]" href="<?= config('app.url') ?>/manager/roles">Roles & Permissions</a>
             <a class="nav-link text-sm uppercase tracking-wider pb-[1.2rem]" href="<?= config('app.url') ?>/manager/audit">System Logs</a>
-            <a class="nav-link text-sm uppercase tracking-wider pb-[1.2rem]" href="#">Settings</a>
         </div>
     </div>
     <div class="flex items-center gap-6">
@@ -61,17 +60,16 @@
         </div>
         
         <nav class="flex flex-col gap-1 mb-auto">
-            <a class="sidebar-link" href="#"><span class="material-symbols-outlined">history_edu</span> Audit Trail</a>
-            <a class="sidebar-link" href="#"><span class="material-symbols-outlined">security</span> Security Center</a>
-            <a class="sidebar-link" href="#"><span class="material-symbols-outlined">cloud_download</span> Data Export</a>
-            <a class="sidebar-link" href="#"><span class="material-symbols-outlined">vpn_key</span> API Keys</a>
-            <a class="sidebar-link" href="#"><span class="material-symbols-outlined">help</span> Support</a>
+            <a class="sidebar-link" href="<?= config('app.url') ?>/manager/audit"><span class="material-symbols-outlined">history_edu</span> Audit Trail</a>
+            <a class="sidebar-link" href="<?= config('app.url') ?>/manager/audit/export"><span class="material-symbols-outlined">cloud_download</span> Export Data CSV</a>
+            <a class="sidebar-link" href="<?= config('app.url') ?>/manager/marketing/campaigns/analytics"><span class="material-symbols-outlined">monitoring</span> Growth & Analytics</a>
+            <a class="sidebar-link" href="<?= config('app.url') ?>/manager/marketing/campaigns/create"><span class="material-symbols-outlined">campaign</span> Launch Campaign</a>
         </nav>
 
         <div class="mt-auto flex flex-col gap-6">
-            <button class="w-full bg-[#00113a] hover:bg-[#1a2b5a] text-white py-3 rounded-lg font-semibold text-sm transition-colors shadow-md">
-                New System Alert
-            </button>
+            <a href="<?= config('app.url') ?>/manager/marketing/campaigns/create" class="w-full bg-[#00113a] hover:bg-[#1a2b5a] text-white py-3 rounded-lg font-semibold text-sm transition-colors shadow-md text-center flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-lg">add_circle</span> New Campaign
+            </a>
             <a href="<?= config('app.url') ?>/logout" class="flex items-center gap-3 text-gray-600 hover:text-red-500 transition-colors font-semibold text-sm">
                 <span class="material-symbols-outlined text-xl">logout</span> Sign Out
             </a>

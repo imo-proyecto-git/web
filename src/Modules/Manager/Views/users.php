@@ -7,7 +7,7 @@
         <div class="hidden md:flex gap-10 items-center">
             <a class="text-on-surface-variant font-bold hover:text-primary transition-colors text-xs uppercase tracking-widest" href="<?= config('app.url') ?>/manager/dashboard"><?= __('Dashboard') ?></a>
             <a class="font-headline tracking-tighter font-black text-primary border-b-4 border-primary pb-1 text-sm uppercase" href="<?= config('app.url') ?>/manager/users"><?= __('User Management') ?></a>
-            <a class="text-on-surface-variant font-bold hover:text-primary transition-colors text-xs uppercase tracking-widest" href="#"><?= __('Roles') ?></a>
+            <a class="text-on-surface-variant font-bold hover:text-primary transition-colors text-xs uppercase tracking-widest" href="<?= config('app.url') ?>/manager/roles"><?= __('Roles') ?></a>
             <a class="text-on-surface-variant font-bold hover:text-primary transition-colors text-xs uppercase tracking-widest" href="<?= config('app.url') ?>/manager/audit"><?= __('System Logs') ?></a>
         </div>
     </div>
@@ -28,25 +28,22 @@
             </div>
         </div>
         
-        <button class="w-full bg-primary text-white py-3.5 rounded-xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 shadow-xl shadow-primary/20">
-            <span class="material-symbols-outlined text-sm">add_circle</span> <?= __('New System Alert') ?>
-        </button>
+        <a href="<?= config('app.url') ?>/manager/marketing/campaigns/create" class="w-full bg-primary text-white py-3.5 rounded-xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+            <span class="material-symbols-outlined text-sm">add_circle</span> <?= __('New Campaign') ?>
+        </a>
 
         <nav class="flex flex-col gap-2 pt-4">
             <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="<?= config('app.url') ?>/manager/audit">
                 <span class="material-symbols-outlined text-sm">history_edu</span> <?= __('Audit Trail') ?>
             </a>
-            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
-                <span class="material-symbols-outlined text-sm">security</span> <?= __('Security Center') ?>
+            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="<?= config('app.url') ?>/manager/audit/export">
+                <span class="material-symbols-outlined text-sm">cloud_download</span> <?= __('Export Data CSV') ?>
             </a>
-            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
-                <span class="material-symbols-outlined text-sm">cloud_download</span> <?= __('Data Export') ?>
+            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="<?= config('app.url') ?>/manager/marketing/campaigns/analytics">
+                <span class="material-symbols-outlined text-sm">monitoring</span> <?= __('Growth & Analytics') ?>
             </a>
-            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
-                <span class="material-symbols-outlined text-sm">vpn_key</span> <?= __('API Keys') ?>
-            </a>
-            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="#">
-                <span class="material-symbols-outlined text-sm">contact_support</span> <?= __('Support') ?>
+            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="<?= config('app.url') ?>/manager/marketing/campaigns/create">
+                <span class="material-symbols-outlined text-sm">campaign</span> <?= __('Launch Campaign') ?>
             </a>
         </nav>
 
