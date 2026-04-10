@@ -31,56 +31,20 @@
     .global-status-box { background-color: rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1rem 1.5rem; text-align: center; }
 </style>
 
-<!-- Top Navigation -->
-<nav class="fixed top-0 w-full z-50 bg-white border-b border-gray-100 flex justify-between items-center px-10 h-[72px]">
-    <div class="flex items-center gap-16 h-full">
-        <span class="text-xl font-bold text-[#1a56db] tracking-tight font-headline">empresa<span class="text-[#00113a]">IMO</span></span>
-        <div class="hidden md:flex gap-8 items-end h-full pt-6">
-            <a class="nav-link-active text-sm uppercase tracking-wider" href="<?= config('app.url') ?>/manager/dashboard">Dashboard</a>
-            <a class="nav-link text-sm uppercase tracking-wider pb-[1.2rem]" href="<?= config('app.url') ?>/manager/users">User Management</a>
-            <a class="nav-link text-sm uppercase tracking-wider pb-[1.2rem]" href="<?= config('app.url') ?>/manager/roles">Roles & Permissions</a>
-            <a class="nav-link text-sm uppercase tracking-wider pb-[1.2rem]" href="<?= config('app.url') ?>/manager/audit">System Logs</a>
-        </div>
-    </div>
-    <div class="flex items-center gap-6">
-        <div class="relative cursor-pointer">
-            <span class="material-symbols-outlined text-gray-500 hover:text-gray-800 transition-colors">notifications</span>
-            <span class="absolute top-0 right-0.5 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
-        </div>
-        <span class="material-symbols-outlined text-gray-500 hover:text-gray-800 transition-colors text-[28px] cursor-pointer">account_circle</span>
-    </div>
-</nav>
+<!-- Top Navigation Unificada -->
+<?php include __DIR__ . '/layout/nav.php'; ?>
 
-<div class="flex min-h-screen pt-[72px]">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-[#f8f9fc] flex flex-col py-8 px-8 border-r border-gray-100 sticky top-[72px] h-[calc(100vh-72px)] shrink-0">
-        <div class="mb-8">
-            <h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">SYSTEM OVERSIGHT</h4>
-            <h2 class="text-[#00113a] font-black text-[22px] tracking-tight leading-none">Admin Panel</h2>
-        </div>
-        
-        <nav class="flex flex-col gap-1 mb-auto">
-            <a class="sidebar-link" href="<?= config('app.url') ?>/manager/audit"><span class="material-symbols-outlined">history_edu</span> Audit Trail</a>
-            <a class="sidebar-link" href="<?= config('app.url') ?>/manager/audit/export"><span class="material-symbols-outlined">cloud_download</span> Export Data CSV</a>
-            <a class="sidebar-link" href="<?= config('app.url') ?>/manager/marketing/campaigns/analytics"><span class="material-symbols-outlined">monitoring</span> Growth & Analytics</a>
-            <a class="sidebar-link" href="<?= config('app.url') ?>/manager/marketing/campaigns/create"><span class="material-symbols-outlined">campaign</span> Launch Campaign</a>
-        </nav>
-
-        <div class="mt-auto flex flex-col gap-6">
-            <a href="<?= config('app.url') ?>/manager/marketing/campaigns/create" class="w-full bg-[#00113a] hover:bg-[#1a2b5a] text-white py-3 rounded-lg font-semibold text-sm transition-colors shadow-md text-center flex items-center justify-center gap-2">
-                <span class="material-symbols-outlined text-lg">add_circle</span> New Campaign
-            </a>
-            <a href="<?= config('app.url') ?>/logout" class="flex items-center gap-3 text-gray-600 hover:text-red-500 transition-colors font-semibold text-sm">
-                <span class="material-symbols-outlined text-xl">logout</span> Sign Out
-            </a>
-        </div>
-    </aside>
+<div class="flex min-h-screen pt-20">
+    <!-- Sidebar Unificada -->
+    <?php include __DIR__ . '/layout/sidebar.php'; ?>
 
     <!-- Main Content -->
-    <main class="flex-1 p-10 max-w-7xl">
+    <main class="flex-1 p-16 max-w-7xl">
         <header class="mb-10">
-            <h1 class="text-4xl font-bold text-[#00113a] tracking-tight mb-2">Resumen del Sistema</h1>
-            <p class="text-gray-500 text-[15px] font-medium">Estado actual de la infraestructura y métricas de seguridad en tiempo real.</p>
+            <h1 class="text-6xl font-black text-primary tracking-tighter mb-6 font-headline leading-[0.9] uppercase"><?= __('System') ?><br/><?= __('Oversight') ?></h1>
+            <p class="text-on-surface-variant/50 font-medium text-lg leading-relaxed max-w-2xl">
+                Estado actual de la infraestructura y métricas de seguridad en tiempo real.
+            </p>
         </header>
 
         <!-- KPI Cards -->

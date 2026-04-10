@@ -21,6 +21,11 @@ class Engine
         
         // Inyectamos automáticamente los tokens del Design System
         $this->data = AppConfig::getViewTokens();
+
+        // Inyectamos el usuario actual si hay sesión
+        if (\IMO\Core\Security\Auth::check()) {
+            $this->data['user'] = \IMO\Core\Security\Auth::user();
+        }
     }
 
     /**

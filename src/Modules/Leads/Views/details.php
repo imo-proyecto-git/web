@@ -1,22 +1,7 @@
 <?php include __DIR__ . '/../../Landing/Views/layout/header.php'; ?>
 
-<!-- Top Navigation (Bastion Portal Style) -->
-<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm h-16 flex justify-between items-center px-12 border-b border-outline-variant/5">
-    <div class="flex items-center gap-12">
-        <span class="text-2xl font-black text-primary tracking-tighter font-headline"><?= $COMPANY_NAME ?> Portal</span>
-        <div class="hidden md:flex gap-8 items-center">
-            <a class="text-on-surface-variant/70 font-bold hover:text-primary transition-colors text-sm" href="<?= config('app.url') ?>/agent/dashboard"><?= __('Dashboard') ?></a>
-            <a class="text-primary border-b-2 border-primary font-black pb-1 text-sm tracking-tight" href="#"><?= __('Leads') ?></a>
-            <a class="text-on-surface-variant/70 font-bold hover:text-primary transition-colors text-sm" href="#"><?= __('Policies') ?></a>
-            <a class="text-on-surface-variant/70 font-bold hover:text-primary transition-colors text-sm" href="#"><?= __('Claims') ?></a>
-        </div>
-    </div>
-    <div class="flex items-center gap-6">
-        <span class="material-symbols-outlined text-primary cursor-pointer relative">notifications<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border border-white"></span></span>
-        <span class="material-symbols-outlined text-primary cursor-pointer">settings</span>
-        <div class="w-8 h-8 rounded-lg overflow-hidden border border-primary/10 shadow-sm"><img src="<?= avatar_url('Admin') ?>" class="w-full h-full object-cover"></div>
-    </div>
-</nav>
+<!-- Top Navigation Unificada (Cero Hardcode) -->
+<?php include __DIR__ . '/../../Agent/Views/layout/nav.php'; ?>
 
 <div class="flex min-h-screen pt-16 bg-surface/30">
     <!-- Sidebar -->
@@ -90,14 +75,14 @@
                     </div>
 
                     <div class="flex flex-wrap gap-4 mt-12 border-t border-outline-variant/10 pt-10">
-                        <button class="flex-1 flex items-center justify-center gap-3 bg-primary text-white py-4 px-8 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-primary/30 hover:scale-105 transition-all">
-                            <span class="material-symbols-outlined text-lg">call</span> <?= __('Llamar Ahora') ?>
+                        <a href="<?= config('app.url') ?>/contracts/builder?lead_id=<?= $lead['id'] ?>" class="flex-1 flex items-center justify-center gap-3 bg-primary text-white py-4 px-8 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-primary/30 hover:scale-105 transition-all">
+                            <span class="material-symbols-outlined text-lg">description</span> <?= __('Emitir Contrato') ?>
+                        </a>
+                        <button onclick="window.location.href='tel:<?= $phi['phone'] ?>'" class="flex items-center justify-center gap-3 bg-[#e9f7f0] text-[#1e4630] py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#d5eee0] transition-all">
+                            <span class="material-symbols-outlined text-lg">call</span>
                         </button>
-                        <button class="flex-1 flex items-center justify-center gap-3 bg-[#e9f7f0] text-[#1e4630] py-4 px-8 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#d5eee0] transition-all">
-                            <span class="material-symbols-outlined text-lg">chat</span> <?= __('Enviar WhatsApp') ?>
-                        </button>
-                        <button class="flex-1 flex items-center justify-center gap-3 bg-indigo-50 text-primary py-4 px-8 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-indigo-100 transition-all">
-                            <span class="material-symbols-outlined text-lg">mail</span> <?= __('Enviar Correo') ?>
+                        <button class="flex items-center justify-center gap-3 bg-indigo-50 text-primary py-4 px-10 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-indigo-100 transition-all">
+                            <span class="material-symbols-outlined text-lg">mail</span>
                         </button>
                     </div>
                 </div>

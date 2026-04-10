@@ -17,14 +17,16 @@ Plataforma CRM y de gestión de prospectos de alto rendimiento diseñada para un
 - **Base de Datos**: MySQL / MariaDB (Optimización para hosting compartido)
 - **Motor de IA**: Groq Integration (LLaMA 3.1) para Lead Scoring asíncrono.
 - **Frontend**: Vanilla JS + Tailwind CSS (Bento Layout System + Framer-like animations).
+- **Global Layout System**: Arquitectura de navegación unificada (Shared Components) para Agentes y Managers, optimizando la coherencia visual y carga cognitiva.
+- **Inyección de Contexto**: El Motor de Vistas (`Engine.php`) inyecta automáticamente el estado global (User, Config) eliminando el boiler-plate en controladores.
 - **UX Premium**: Sistema de Parallax dinámico y jerarquía visual optimizada.
 
 ## Módulos Principales
 1. **Marketing Suite**: Módulo de "Océano Azul" y Estilo de Vida (Gamificación Visual).
 2. **IA Asistente (Ana)**: Chat inteligente con orquestación por scroll (3 fases).
 3. **Pipeline Kanban**: Gestión táctica de leads mediante tableros dinámicos (Drag & Drop).
-4. **Contract Builder**: Constructor de acuerdos legales con firma digital y OTP.
-5. **Dashboard Manager**: KPIs reales (Insurtech Metrics) y Auditoría HIPAA Centralizada.
+4. **Contract Builder**: Constructor de acuerdos legales interconectado con la ficha del Lead para cierres rápidos.
+5. **Dashboard Manager**: KPIs reales (Insurtech Metrics) y Auditoría HIPAA Centralizada con navegación simplificada.
 6. **Incomes & Financials**: Visualización de comisiones y estructura residual para agentes.
 7. **IA Lead Scoring**: Motor predictivo LLaMa para priorización de prospectos.
 8. **Seguridad Zero Trust**: Encriptación AES-256 de PII y ledger inmutable de auditoría.

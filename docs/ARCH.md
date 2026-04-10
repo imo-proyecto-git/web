@@ -9,6 +9,7 @@
 - **Router**: Sistema de enrutamiento basado en controladores y acciones, desacoplado del servidor web nativo.
 - **Security**: Motor centralizado de Auth (RBAC), CSRF, y manejadores de encriptación AES-256-GCM.
 - **Database**: Implementación Singleton de PDO con inyección automática de contexto de usuario para disparadores (triggers) de base de datos.
+- **View Engine**: Motor de renderizado liviano con **Global Data Injection**. Inyecta automáticamente el estado del usuario (`Auth::user()`) y tokens de diseño en todas las vistas de forma transparente.
 - **Infrastructure**: Servicios transversales de logging, caché y comunicaciones (Mailer, AI Client).
 
 ### 2.2. Capa de Módulos (`src/Modules`)
@@ -19,6 +20,7 @@ Diseño de dominios independientes:
 - **GAI (GenAI)**: Orquestación de inferencia con LLMs (Groq/OpenAI) para scoring comercial.
 - **Audit**: Ledger inmutable de eventos sensibles.
 - **Financials (Incomes)**: Gestión de sistema residual y liquidación de comisiones.
+- **Layouts**: Sistema de componentes de navegación unificada (`Modules/*/Views/layout/`) para garantizar coherencia entre portales.
 
 ## 3. Flujo de Datos y Seguridad (HIPAA)
 1. **Captura**: Las entradas de datos sensibles (PHI/PII) pasan por un `EncryptionService` antes de persistir en `leads.encrypted_payload`.

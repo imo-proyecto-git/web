@@ -52,7 +52,8 @@ class ContractController extends Controller
 
             $this->view('Contracts/Views/builder', [
                 'user'  => $user,
-                'leads' => $leads
+                'leads' => $leads,
+                'preselected_lead_id' => (int)($_GET['lead_id'] ?? 0)
             ]);
 
         } catch (Exception $e) {

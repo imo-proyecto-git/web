@@ -1,56 +1,11 @@
 <?php include __DIR__ . '/../../Landing/Views/layout/header.php'; ?>
 
-<!-- Top Navigation (Editorial Glass) -->
-<nav class="fixed top-0 w-full z-50 glass-card flex justify-between items-center px-12 h-20">
-    <div class="flex items-center gap-12">
-        <span class="text-3xl font-black text-primary tracking-tighter font-headline"><?= $COMPANY_NAME ?></span>
-        <div class="hidden md:flex gap-10 items-center">
-            <a class="text-on-surface-variant font-bold hover:text-primary transition-colors text-xs uppercase tracking-widest" href="<?= config('app.url') ?>/manager/dashboard"><?= __('Dashboard') ?></a>
-            <a class="font-headline tracking-tighter font-black text-primary border-b-4 border-primary pb-1 text-sm uppercase" href="<?= config('app.url') ?>/manager/users"><?= __('User Management') ?></a>
-            <a class="text-on-surface-variant font-bold hover:text-primary transition-colors text-xs uppercase tracking-widest" href="<?= config('app.url') ?>/manager/roles"><?= __('Roles') ?></a>
-            <a class="text-on-surface-variant font-bold hover:text-primary transition-colors text-xs uppercase tracking-widest" href="<?= config('app.url') ?>/manager/audit"><?= __('System Logs') ?></a>
-        </div>
-    </div>
-    <div class="flex items-center gap-6">
-        <span class="material-symbols-outlined text-primary cursor-pointer relative">notifications<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border border-white"></span></span>
-        <span class="material-symbols-outlined text-primary cursor-pointer">account_circle</span>
-    </div>
-</nav>
+<!-- Top Navigation Unificada (Cero Hardcode) -->
+<?php include __DIR__ . '/layout/nav.php'; ?>
 
 <div class="flex min-h-screen pt-20 bg-surface">
-    <!-- Sidebar (Secondary Context - No Border) -->
-    <aside class="h-screen w-80 bg-surface-low flex flex-col py-12 px-10 gap-12 sticky top-20">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-primary/90 rounded-xl flex items-center justify-center text-white"><span class="material-symbols-outlined">group</span></div>
-            <div>
-                <p class="text-[11px] font-black tracking-tighter text-primary"><?= __('Admin Panel') ?></p>
-                <p class="text-[9px] text-on-surface-variant/40 font-bold uppercase tracking-widest"><?= __('System Oversight') ?></p>
-            </div>
-        </div>
-        
-        <a href="<?= config('app.url') ?>/manager/marketing/campaigns/create" class="w-full bg-primary text-white py-3.5 rounded-xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 shadow-xl shadow-primary/20 hover:scale-105 transition-all">
-            <span class="material-symbols-outlined text-sm">add_circle</span> <?= __('New Campaign') ?>
-        </a>
-
-        <nav class="flex flex-col gap-2 pt-4">
-            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="<?= config('app.url') ?>/manager/audit">
-                <span class="material-symbols-outlined text-sm">history_edu</span> <?= __('Audit Trail') ?>
-            </a>
-            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="<?= config('app.url') ?>/manager/audit/export">
-                <span class="material-symbols-outlined text-sm">cloud_download</span> <?= __('Export Data CSV') ?>
-            </a>
-            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="<?= config('app.url') ?>/manager/marketing/campaigns/analytics">
-                <span class="material-symbols-outlined text-sm">monitoring</span> <?= __('Growth & Analytics') ?>
-            </a>
-            <a class="flex items-center gap-3 px-3 py-3 text-on-surface-variant/60 font-bold text-xs hover:text-primary transition-all" href="<?= config('app.url') ?>/manager/marketing/campaigns/create">
-                <span class="material-symbols-outlined text-sm">campaign</span> <?= __('Launch Campaign') ?>
-            </a>
-        </nav>
-
-        <a href="<?= config('app.url') ?>/logout" class="mt-auto flex items-center gap-3 px-3 py-3 text-on-surface-variant/40 hover:text-error transition-all text-[11px] font-black uppercase tracking-widest border-t border-outline-variant/5">
-            <span class="material-symbols-outlined text-lg">logout</span> <?= __('Sign Out') ?>
-        </a>
-    </aside>
+    <!-- Sidebar Unificada -->
+    <?php include __DIR__ . '/layout/sidebar.php'; ?>
 
     <main class="flex-1 p-16">
         <header class="flex flex-col md:flex-row justify-between items-end gap-16 mb-20">

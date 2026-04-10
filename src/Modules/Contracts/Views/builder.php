@@ -23,7 +23,8 @@ if ($user['role'] === 'manager' || $user['role'] === 'superadmin') {
                     <p class="text-[9px] font-black uppercase text-on-surface-variant/40 mb-2 ml-1">Seleccionar Lead</p>
                     <select id="lead-selector" class="w-full md:w-64 bg-white border border-outline-variant/10 rounded-xl py-3 px-4 text-xs font-bold text-primary shadow-sm appearance-none cursor-pointer focus:ring-2 focus:ring-primary h-[46px]">
                         <?php foreach($leads as $l): ?>
-                            <option value="<?= $l['id'] ?>"><?= $l['name'] ?> (ID: #<?= substr($l['uuid'], 0, 8) ?>)</option>
+                            <?php $selected = ($preselected_lead_id == $l['id']) ? 'selected' : ''; ?>
+                            <option value="<?= $l['id'] ?>" <?= $selected ?>><?= $l['name'] ?> (ID: #<?= substr($l['uuid'], 0, 8) ?>)</option>
                         <?php endforeach; ?>
                         <?php if(empty($leads)): ?>
                             <option value="">No hay leads disponibles</option>
