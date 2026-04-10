@@ -127,6 +127,66 @@
     </div>
 </section>
 
+<!-- Split Screen B2B (Océano Rojo vs Azul) -->
+<section class="min-h-[80vh] grid grid-cols-1 md:grid-cols-2">
+    <!-- Océano Rojo -->
+    <div class="bg-[#1f0b0f] text-[#ff8585] p-12 md:p-24 flex flex-col justify-center relative overflow-hidden group border-r border-[#ff8585]/10">
+        <div class="relative z-10 max-w-xl mx-auto md:ml-auto md:mr-0 text-left md:text-right">
+            <p class="text-[10px] font-black tracking-[0.3em] uppercase mb-8 text-[#ff8585]/60">Lo que conoces</p>
+            <h2 class="text-5xl md:text-7xl font-black font-headline tracking-tighter uppercase mb-12 leading-[0.8] text-[#ff8585]">El Océano<br/>Rojo</h2>
+            <ul class="space-y-6 mb-16 text-sm font-bold opacity-80 md:ml-auto">
+                <li class="flex items-center md:flex-row-reverse gap-4 border-b border-[#ff8585]/10 pb-4"><span class="material-symbols-outlined line-through text-[#ff8585]/40 text-2xl">domain</span> Oficina de 9 a 5, cubículos sin vista</li>
+                <li class="flex items-center md:flex-row-reverse gap-4 border-b border-[#ff8585]/10 pb-4"><span class="material-symbols-outlined line-through text-[#ff8585]/40 text-2xl">call</span> Rechazo constante y límite salarial</li>
+                <li class="flex items-center md:flex-row-reverse gap-4"><span class="material-symbols-outlined line-through text-[#ff8585]/40 text-2xl">trending_down</span> Competir por precios, estrés y desgaste</li>
+            </ul>
+        </div>
+        <!-- abstract background element -->
+        <div class="absolute -left-20 bottom-10 md:bottom-20 w-80 h-80 bg-[#ff8585]/5 rounded-full blur-3xl"></div>
+    </div>
+    
+    <!-- Océano Azul -->
+    <div class="bg-[#051120] text-blue-100 p-12 md:p-24 flex flex-col justify-center relative overflow-hidden group">
+        <div class="relative z-10 max-w-xl mx-auto md:ml-0 text-left">
+            <p class="text-[10px] font-black tracking-[0.3em] uppercase text-sky-400 mb-8 animate-pulse shadow-sky-400">Lo que puedes crear</p>
+            <h2 class="text-5xl md:text-7xl font-black font-headline tracking-tighter uppercase text-white mb-12 leading-[0.8]">Tu Océano<br/><span class="text-sky-400">Azul</span></h2>
+            <ul class="space-y-6 mb-16 text-sm font-bold opacity-90">
+                <li class="flex items-center gap-4 border-b border-sky-400/10 pb-4"><span class="material-symbols-outlined text-sky-400 text-2xl">landscape</span> Trabaja de donde quieras, cuando quieras (Mentally Free)</li>
+                <li class="flex items-center gap-4 border-b border-sky-400/10 pb-4"><span class="material-symbols-outlined text-sky-400 text-2xl">groups</span> Lidera un equipo, construye sistema residual</li>
+                <li class="flex items-center gap-4"><span class="material-symbols-outlined text-sky-400 text-2xl">military_tech</span> Diferenciación real: clientes que te buscan</li>
+            </ul>
+            <a href="<?= config('app.url') ?>/login" class="inline-block bg-sky-500 hover:bg-sky-400 text-white shadow-[0_0_50px_rgba(14,165,233,0.3)] hover:shadow-[0_0_80px_rgba(14,165,233,0.5)] px-10 py-5 rounded-none font-black text-xs uppercase tracking-[0.3em] transition-all duration-300">Únete a mi Equipo Automático</a>
+        </div>
+        <!-- abstract background element -->
+        <div class="absolute -right-20 top-10 md:top-20 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl"></div>
+    </div>
+</section>
+
+<!-- Gamification / Lifestyle -->
+<section class="py-32 bg-surface text-center px-12 relative overflow-hidden border-b border-outline-variant/5">
+    <div class="relative z-10 max-w-5xl mx-auto">
+        <p class="text-primary/40 font-black tracking-[0.3em] uppercase text-[10px] mb-4">Bonos. Premios. Libertad.</p>
+        <h2 class="text-4xl md:text-6xl font-black font-headline text-primary uppercase tracking-tighter mb-20 leading-[0.9]">No es solo un negocio.<br>Es un <span class="text-tertiary">Estilo de Vida.</span></h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-12 hover:-translate-y-2 transition-transform shadow-xl shadow-primary/5">
+                <span class="material-symbols-outlined text-5xl text-amber-500 mb-6 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">workspace_premium</span>
+                <h3 class="font-black text-primary text-xl uppercase tracking-tighter mb-4">Reconocimiento Constante</h3>
+                <p class="text-sm text-on-surface-variant/60 font-medium">Desde artículos de lujo hasta eventos exclusivos. Cada meta alcanzada en tu agencia te acerca a algo grande.</p>
+            </div>
+            <div class="glass-card p-12 hover:-translate-y-2 transition-transform md:scale-105 border border-primary/10 bg-white shadow-2xl shadow-primary/10 relative z-10">
+                <span class="material-symbols-outlined text-5xl text-blue-500 mb-6 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">flight_takeoff</span>
+                <h3 class="font-black text-primary text-xl uppercase tracking-tighter mb-4">Viajes Élite Internacionales</h3>
+                <p class="text-sm text-on-surface-variant/60 font-medium">Descubre el mundo, disfruta experiencias increíbles y crea recuerdos inolvidables para ti y un acompañante anualmente.</p>
+            </div>
+            <div class="glass-card p-12 hover:-translate-y-2 transition-transform shadow-xl shadow-primary/5">
+                <span class="material-symbols-outlined text-5xl text-emerald-500 mb-6 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">payments</span>
+                <h3 class="font-black text-primary text-xl uppercase tracking-tighter mb-4">Libertad y Dinero en Efectivo</h3>
+                <p class="text-sm text-on-surface-variant/60 font-medium">Bonos predictibles que impulsan tu crecimiento, pagos rápidos y libertad financiera real basada en impacto.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Why Bastion Section -->
 <section id="nosotros" class="py-24 bg-white">
     <div class="max-w-[1440px] mx-auto px-12">
@@ -196,6 +256,22 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- Manifiesto Latino -->
+<section class="py-32 bg-primary text-white text-center px-6 md:px-12 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2000&auto=format&fit=crop')] bg-cover opacity-10 mix-blend-overlay"></div>
+    <div class="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-emerald-400 via-amber-400 to-sky-400"></div>
+    <div class="max-w-4xl mx-auto relative z-10">
+        <span class="material-symbols-outlined text-6xl text-emerald-400 mb-10 block">handshake</span>
+        <h2 class="text-4xl md:text-5xl font-black tracking-tighter uppercase leading-[1.1] mb-8 font-headline">Estamos acostumbrados a hacer todo solos...<br/><span class="text-amber-400">pero juntos llegamos más lejos.</span></h2>
+        <p class="text-lg md:text-xl text-white/80 font-medium leading-relaxed mb-12 max-w-3xl mx-auto">
+            Somos Latinos. Entendemos nuestro camino, los retos y el sacrificio. Por eso aquí nadie se queda atrás. Nos apoyamos, nos enseñamos y crecemos juntos. Porque cuando uno gana, todos ganamos. <strong>Un equipo que te da familia.</strong>
+        </p>
+        <button class="bg-white text-primary hover:bg-surface-container hover:scale-105 shadow-[0_0_60px_rgba(255,255,255,0.15)] px-12 py-5 font-black text-[11px] uppercase tracking-[0.3em] transition-all rounded-xl border-4 border-white/10 relative group">
+            SÉ EL EJEMPLO QUE OTROS NECESITAN VER
+        </button>
     </div>
 </section>
 

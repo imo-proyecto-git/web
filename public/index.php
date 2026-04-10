@@ -83,6 +83,7 @@ $router->get('/settings/security', 'Agent/Controllers/SettingsController@securit
 
 // Portal
 $router->get('/agent/dashboard', 'Agent/Controllers/DashboardController@index');
+$router->get('/agent/pipeline', 'Agent/Controllers/PipelineController@index');
 
 // Ejecución del Despachador
 $router->dispatch();

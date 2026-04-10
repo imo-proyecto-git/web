@@ -2,7 +2,8 @@
     <div class="flex items-center gap-10">
         <span class="text-2xl font-black text-primary tracking-tighter font-headline"><?= $COMPANY_NAME ?></span>
         <nav class="hidden md:flex items-center gap-8">
-            <a class="text-on-surface-variant/70 hover:text-primary transition-colors text-sm font-bold <?= strpos($_SERVER['REQUEST_URI'], '/agent/dashboard') !== false ? 'text-primary border-b-2 border-primary pb-1' : '' ?>" href="<?= $APP_URL ?>/agent/dashboard"><?= __('Dashboard & Leads') ?></a>
+            <a class="text-on-surface-variant/70 hover:text-primary transition-colors text-sm font-bold <?= strpos($_SERVER['REQUEST_URI'], '/agent/dashboard') !== false ? 'text-primary border-b-2 border-primary pb-1' : '' ?>" href="<?= $APP_URL ?>/agent/dashboard"><?= __('Dashboard') ?></a>
+            <a class="text-on-surface-variant/70 hover:text-primary transition-colors text-sm font-bold <?= strpos($_SERVER['REQUEST_URI'], '/agent/pipeline') !== false ? 'text-primary border-b-2 border-primary pb-1' : '' ?>" href="<?= $APP_URL ?>/agent/pipeline"><?= __('Pipeline Kanban') ?></a>
             <!-- Removed dead links (Policies, Performance) as per UX Audit Phase 1 -->
         </nav>
     </div>
